@@ -53,15 +53,28 @@ class Messenger extends Component {
         textField.addEventListener("keyup", function(event) {
             event.preventDefault();
             if (event.keyCode === 13) {
-
-                this.findResponses(textField);
-
-                textField.value = "";
-
-                userInput.classList.add('hidden');
-                textField.blur();
+                this.sendName(textField);
             }
         }.bind(this));
+
+        // Setting up a workaround for the iOS "done" keyboard button
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if(iOS) {
+            textField.addEventListener('focusout', function(e) {
+                if(textField.value !== "") {
+                    this.sendName(textField);
+                }
+            }.bind(this));
+        }
+    }
+
+    sendName(elem) {
+        this.findResponses(elem);
+
+        elem.value = "";
+
+        userInput.classList.add('hidden');
+        elem.blur();
     }
 
     componentDidUpdate() {

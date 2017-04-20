@@ -14,7 +14,10 @@
     input {
         width: 100%;
         padding: 12px;
-        font-size: 14px;
+        font-size: 16px;
+        @media (min-width: $desktop + px) {
+            font-size: 14px;
+        }
     }
     .buttonWrapper {
         background: #fff;
