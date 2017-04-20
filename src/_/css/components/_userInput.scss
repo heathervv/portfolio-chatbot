@@ -1,0 +1,32 @@
+.userInput {
+    width: calc(100% - 13px);
+    margin-left: 3px;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    box-shadow: 3px 3px 0 rgba(#fff,.6), inset 3px 3px rgba(#000,.50);
+    padding: 3px 0 0 3px;
+    &.hidden {
+        * {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+    input {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+    .buttonWrapper {
+        background: #fff;
+        max-width: 100%;
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+        > div {
+            white-space:nowrap;
+        }
+    }
+    button {
+        margin: 5px;
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,62 @@
+.button {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px 10px 13px;
+    box-shadow: inset 3px 3px 0 rgba(#fff,.8), inset -3px -3px 0 rgba(#000,.25), 2px 2px 0 #000;
+    color: #000;
+    vertical-align: middle;
+    &:active,
+    &.active {
+        padding-top: 12px;
+        padding-bottom: 8px;
+        background: #e6e6e6;
+        box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #fff, inset -2px -2px 0 #ddd, inset 4px 4px 0 #888;
+    }
+}
+
+.button-medium {
+    font-family: 'Anonymous Pro', monospace;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 7px 13px 6px;
+    box-shadow: 2px 2px #000, inset -2px -2px rgba(#000, .25), inset 2px 2px rgba(#fff,.8);
+    background: #BDBDBD;
+    color: #000;
+    line-height: 1;
+    &:active,
+    &.active {
+        position: relative;
+        top: 2px;
+        padding-top: 7px;
+        padding-bottom: 5px;
+        background: #e6e6e6;
+        box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #fff, inset -2px -2px 0 #ddd, inset 4px 4px 0 #888;
+    }
+}
+
+.button-small {
+    display: inline-block;
+    font-weight: bold;
+    color: #000;
+    font-size: 13px;
+    font-family: sans-serif;
+    padding: 5px 8px;
+    background: #bdbdbd;
+    text-align: center;
+    box-shadow: inset -2px -2px 0 rgba(#000,.25), inset 2px 2px 0 rgba(#fff,.8);
+    @media (min-width: $desktop + px) {
+        min-width: 25px;
+        min-height: 25px;
+    }
+    &:active {
+        background: #e6e6e6;
+        box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #ddd, inset -2px -2px 0 #ddd;
+    }
+    &.minimize {
+        @media (max-width: $desktop - 1 + px) {
+            padding: 8px 10px 5px;
+        }
+    }
+}

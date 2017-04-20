@@ -1,0 +1,11 @@
+.activeTyping {
+    position: absolute;
+    left: 20px;
+    bottom: 78px;
+    font-size: 12px;
+    color: #FF0000;
+    display: none;
+    &.visible {
+        display: block;
+    }
+}

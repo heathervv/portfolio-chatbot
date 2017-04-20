@@ -1,0 +1,141 @@
+html,
+body {
+    font-family: 'Anonymous Pro', monospace;
+}
+
+html {
+    background: #000;
+}
+
+.shutDownPage {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+    pointer-events: none;
+    div {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+    img {
+        width: 35px;
+    }
+    &.visible {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 5;
+    }
+}
+
+.desktop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background: url('../images/wallpaper.jpg') no-repeat center;
+    background-size: cover;
+    @media (min-width: $desktop + px) {
+        position: static;
+        height: 100vh;
+    }
+    .icons {
+        position: absolute;
+        top: 38px;
+        left: 45px;
+        a {
+            text-align: center;
+            display: block;
+            margin-bottom: 50px;
+            color: #fff;
+            text-shadow: 1px 2px 0 rgba(#000, .5);
+        }
+        img {
+            width: 60px;
+            display: block;
+            margin-bottom: 15px;
+        }
+    }
+}
+
+.program {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+    padding-bottom: 9px;
+    background: #bdbdbd;
+    display: inline-block;
+    box-shadow: -3px -3px 0 #f2f2f2, inset -3px -3px 0 rgba(#000,.25);
+    @media (max-width: $desktop - 1 + px) {
+        transform: none !important;
+    }
+    @media (min-width: $desktop + px) {
+        max-width: 100%;
+        width: auto;
+        height: auto;
+    }
+    .content {
+        background: #fff;
+        box-shadow: 3px 3px 0 rgba(#fff,.6), inset 3px 3px rgba(#000,.5);
+        margin-top: 6px;
+        width: calc(100% - 13px);
+        padding: 10px;
+        margin-left: 3px;
+        height: calc(100% - 44px);
+        @media (min-width: $tablet + px) {
+            height: calc(100% - 96px);
+        }
+        @media (min-width: $desktop + px) {
+            height: auto;
+        }
+        &[contentEditable=true] {
+            overflow: scroll;
+            @media (min-width: $desktop + px) {
+                max-height: 250px;
+            }
+        }
+        h3 {
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+    }
+    &.previous-active {
+        z-index: 1;
+    }
+    &.active {
+        z-index: 2;
+    }
+}
+
+[data-view="closed"],
+[data-view="minimized"] {
+    display: none;
+}
+
+.txt-file {
+    @media (min-width: $desktop + px) {
+        width: 400px;
+        .content {
+            max-height: 450px;
+        }
+    }
+    .content {
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+        line-height: 1.3;
+    }
+}
+
+.work.program .content div:not(:last-child) {
+    margin-bottom: 30px;
+}

@@ -1,0 +1,117 @@
+{
+    "introduction": {
+        "greeting": "Hi there! I'm Heather. What's your name?",
+        "username": "",
+        "response": "NAME, that's a fantastic name!",
+        "elevatorPitch": "To tell you a bit about myself, I'm a front end developer located in Toronto, I love space, and I'm currently teaching myself French."
+    },
+    "home": {
+        "questionFirstTime": "Want to hear about my work?",
+        "questionGeneral": "Okay, what else would you like to talk about?",
+        "questionEmailSent": "Thanks for the email! I'll message you back the moment I can. Want to talk about something else?",
+        "choiceFirstTime": [
+            ["work", "project1", "Absolutely! 🔥", 8],
+            ["about", "bio", "I want to learn more about you", 8],
+            ["contact", "info", "I want to get together"]
+        ],
+        "choiceGeneral": [
+            ["work", "project1", "Your work", 8],
+            ["about", "bio", "About you 💝", 8],
+            ["contact", "info", "Let's get together"]
+        ]
+    },
+    "work": {
+        "project1": {
+            "response": "Cool! So first, I want to talk about <a href=\"http://letsfindmomo.com/\" target=\"_blank\">Let's Find Momo.</a>",
+            "response2": "<a href=\"https://www.filamentlab.com/\" target=\"_blank\">Filament</a> teamed up with Andrew Knapp and Momo to create this exciting game",
+            "response3": "where you get to try and find Momo (the dog) in all the places they visit.",
+            "response4": "I was the lead dev on this project,",
+            "response5": "so I helped make sure the project stayed on time, solved any problems the team had,",
+            "response6": "and focused on building out the gameplay functionality.",
+            "response7": "This project was a blast! Obviously because Momo is adorable",
+            "response8": "but also because we got to experiment with bringing React and WordPress together, which was a great challenge.",
+            "question": "You can view the site <a href=\"http://letsfindmomo.com/\" target=\"_blank\">here</a>. Want to learn about The Gordon Foundation next?"
+        },
+        "project2": {
+            "response": "Great.💖 Another great client of <a href=\"https://www.filamentlab.com/\" target=\"_blank\">Filament's</a>. <a href=\"http://gordonfoundation.ca/\" target=\"_blank\">The Gordon Foundation</a> is a wonderful organization that helps empower Northern Canada and protect their waters.",
+            "response2": "This project posed the challenge of internet speeds...",
+            "response3": "surprisingly Northern Canada's internet isn't great!",
+            "response4": "So, we focused on optimization and speed, and made sure we found ways to test the site up north.",
+            "response5": "As lead dev on this project,",
+            "response6": "I lead user testing and implemented/refactored features that optimized the speed of the site.",
+            "response7": "I also helped the other developers with code reviews and side-by-sides,",
+            "response8": "and taught the team at The Gordon Foundation how to navigate the CMS.",
+            "question": "If you'd like, you can <a href=\"http://gordonfoundation.ca/\" target=\"_blank\">check it out</a>! Otherwise, I'd love to share the PSE Playbook with you. Would you like to hear about that project?"
+        },
+        "project3": {
+            "response": "Okay, so - the <a href=\"http://uxplaybooks.com/higher-education/\" target=\"_blank\">PSE Playbook</a> was an internal project at <a href=\"https://res.im/\" target=\"_blank\">ResIM</a>",
+            "response2": "and one that I really enjoyed working on! To me it's kind of like an \"interactive book\" of sorts, and I really enjoyed trying to bring that idea to life.",
+            "response3": "Through subtle animations, different ways to navigate, and clean typography",
+            "response4": "this was a great project to focus on how we could make interactions useful.",
+            "response5": "But at the same time it was important that this was really easy to read",
+            "response6": "because of course the main point is to share ResIM's research!",
+            "response7": "So yeah, I really liked how this project dealt with balancing usability and playfulness.",
+            "question": "You can view this project <a href=\"http://uxplaybooks.com/higher-education/\" target=\"_blank\">here</a> - and those are my projects! If you liked any of these projects, and would like to see more of my work, I'd love to get together over coffee and chat."
+        },
+        "choice": [
+            ["yes", null, "Sure 🙌"],
+            ["no", null, "Nah, I'm good ✌️"]
+        ],
+        "choiceLast": [
+            ["contact", "info", "Yeah! I'd love to get together"],
+            ["home", null, "I want to learn more about you 🤓"]
+        ]
+    },
+    "about": {
+        "bio": "Okay! I've been a front end developer for about 4 years now",
+        "bio2": "I've always been passionate about UX and creating things that solve problems",
+        "bio3": "and lately I've been really digging working with React and ES6.",
+        "bio4": "In terms of my personality, I'm a chronic optimist",
+        "bio5": "and I'm always down to have a discussion on any topic!",
+        "bio6": "Oh and I adore space. It's absolutely mind blowing and I sometimes find myself down a rabbit hole thinking about all the incredible things that is space!",
+        "bio7": "Other than teaching myself French, I've also been getting into the tech community more,",
+        "bio8": "both locally and on the internet, I've been having a great time connecting with like-minded people and sharing experiences!",
+        "question": "Anything else you're curious about?",
+        "choice": [
+            ["about", "experience", "Your experience", 4],
+            ["about", "tools", "What tools you work with 🛠", 4],
+            ["work", "project1", "What projects you've done", 8],
+            ["contact", "info", "I want to get in touch 📬"]
+        ],
+        "experience": "Sure! Like I said earlier, I'm a front end developer",
+        "experience2": "though I've consistently worn other hats when the job requires it!",
+        "experience3": "For example, in my last position I ended up tag-teaming DevOp tasks with the other full stack developer.",
+        "experience4": "The way I like to look at it is that front end is my home, but sometimes it's nice to go visit others 😊",
+        "experienceQuestion": "What else would you like to know?",
+        "tools": "Well my go-to's are atom, github, gulp, sass, and plain javascript",
+        "tools2": "but like most developers, I have plenty of experience with alternatives for all of those.",
+        "tools3": "Additionally, I really enjoy working with React (this website is built on it!)",
+        "tools4": "and I've worked with several types of CMS' or site generators (WP, Jekyll, PyroCMS, Prose, etc)",
+        "toolsQuestion": "Anything else you want to talk about?"
+    },
+    "contact": {
+        "info": "Fantastic! I'd love to get together with you. I'm always looking to make new friends and chat about code. If you happen to like coffee, let's go grab one!",
+        "choice": [
+            ["email", "heathervandervecht@gmail.com", "Email ☕️"],
+            ["home", true, "I need to know more about you"]
+        ],
+        "infoFile": "Let's chat! I'm always looking to make new friends and chat about code. If you happen to like coffee, let's go grab one!"
+    },
+    "workFile": [
+        {
+            "title": "Let's Find Momo",
+            "url": "http://letsfindmomo.com",
+            "description": "Filament teamed up with Andrew Knapp and Momo (his dog) to create this playful website. As lead dev on this project I helped make sure the project stayed on time, solved any problems the team had, and focused on building out the gameplay functionality. Built with React and WordPress."
+        },
+        {
+            "title": "The Gordon Foundation",
+            "url": "http://gordonfoundation.ca/",
+            "description": "Another client of Filament's. The Gordon Foundation helps empower Northern Canada and protect their waters. For this project we focused on optimization and speed, as Northern Canada's internet speeds are kind of awful. As lead dev on this project, I lead user testing and implemented/refactored features that optimized the speed of the site. I also helped the other developers with code reviews and side-by-sides, and taught the team at The Gordon Foundation how to navigate the CMS."
+        },
+        {
+            "title": "PSE Playbook",
+            "url": "http://uxplaybooks.com/higher-education/",
+            "description": "The PSE Playbook was an internal project at ResIM. I really enjoyed working on this project! To me it feels like a sort of \"interactive book\", and I inherently want to interact with it. As much as the interactions were a lot of fun to build though, it was important that this site was easy to read because of course the main point is to share ResIM's research!"
+        }
+    ]
+}
