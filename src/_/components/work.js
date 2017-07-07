@@ -17,10 +17,10 @@ const Work = (props) => {
         <div
 					className={`work program txt-file  ${props.currentlyActiveApp === 'work' ? 'active' : ''} ${props.previouslyActiveApp === 'work' ? 'previous-active' : ''}`}
 					data-view={props.openApps.indexOf('work') === -1 ? 'closed' : props.minimizedApps.indexOf('work') !== -1 ? 'closed' : ''}
-					onClick={() => props.activeApp('work', null)}>
+					onClick={() => props.updateActiveApp('work', null)}>
             <Toolbar
 							closeApp={props.closeApp}
-							minimizeApp={props.minimizeApp}
+							updateStartbar={props.updateStartbar}
 							component="work" image={briefcase}
 							title="Work [Read Only]" />
             <div className="content">
@@ -44,8 +44,8 @@ const Work = (props) => {
 };
 
 Work.propTypes = {
-  activeApp: PropTypes.func,
-  minimizeApp: PropTypes.func,
+  updateActiveApp: PropTypes.func,
+  updateStartbar: PropTypes.func,
   closeApp: PropTypes.func,
   openInNewTab: PropTypes.func,
   openApps: PropTypes.array,

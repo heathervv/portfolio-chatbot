@@ -269,11 +269,11 @@ class Messenger extends Component {
 					handle=".toolbar">
             <div
 							className={`messenger program  ${this.props.currentlyActiveApp === 'messenger' ? 'active' : ''} ${this.props.previouslyActiveApp === 'messenger' ? 'previous-active' : ''}`}
-							onClick={this.props.activeApp.bind(null, 'messenger')}
+							onClick={this.props.updateActiveApp.bind(null, 'messenger')}
               data-view={this.props.openApps.indexOf('messenger') === -1 ? 'closed' : this.props.minimizedApps.indexOf('messenger') !== -1 ? 'closed' : ''}>
               <Toolbar
 								closeApp={this.props.closeApp}
-								minimizeApp={this.props.minimizeApp}
+								updateStartbar={this.props.updateStartbar}
 								component="messenger"
 								image={bot}
 								title="Chat" />
@@ -307,9 +307,9 @@ class Messenger extends Component {
 }
 
 Messenger.propTypes = {
-  activeApp: PropTypes.func,
+  updateActiveApp: PropTypes.func,
   closeApp: PropTypes.func,
-  minimizeApp: PropTypes.func,
+  updateStartbar: PropTypes.func,
   openInNewTab: PropTypes.func,
   openApps: PropTypes.array,
   minimizedApps: PropTypes.array,

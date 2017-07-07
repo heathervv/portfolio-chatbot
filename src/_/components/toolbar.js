@@ -8,7 +8,7 @@ const Toolbar = (props) => {
               <img src={props.image} alt={"image of a " + props.image}/> <span>{props.title}</span>
           </div>
           <a href="#" className="button-small" onClick={props.closeApp.bind(null, props.component)}>&#10005;</a>
-          <a href="#" className="button-small minimize" onClick={props.minimizeApp.bind(null, props.component)}>_</a>
+          <a href="#" className="button-small minimize" onClick={() => props.updateStartbar(props.component, 'minimize')}>_</a>
       </div>
   );
 };
@@ -18,7 +18,7 @@ Toolbar.propTypes = {
   title: PropTypes.string,
   closeApp: PropTypes.func,
   component: PropTypes.string,
-  minimizeApp: PropTypes.func
+  updateStartbar: PropTypes.func
 };
 
 export default Toolbar;

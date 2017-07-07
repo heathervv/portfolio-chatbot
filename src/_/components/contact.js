@@ -23,10 +23,10 @@ const Contact = (props) => {
       <div
         className={`contact program txt-file ${props.currentlyActiveApp === 'contact' ? 'active' : ''} ${props.previouslyActiveApp === 'contact' ? 'previous-active' : ''}`}
         data-view={props.openApps.indexOf('contact') === -1 ? 'closed' : props.minimizedApps.indexOf('contact') !== -1 ? 'closed' : ''}
-        onClick={props.activeApp.bind(null, 'contact')}>
+        onClick={props.updateActiveApp.bind(null, 'contact')}>
         <Toolbar
           closeApp={props.closeApp}
-          minimizeApp={props.minimizeApp}
+          updateStartbar={props.updateStartbar}
           component="contact"
           image={email}
           title="Contact" />
@@ -53,9 +53,9 @@ const Contact = (props) => {
 };
 
 Contact.propTypes = {
-  activeApp: PropTypes.func,
+  updateActiveApp: PropTypes.func,
   closeApp: PropTypes.func,
-  minimizeApp: PropTypes.func,
+  updateStartbar: PropTypes.func,
   openInNewTab: PropTypes.func,
   openApps : PropTypes.array,
   minimizedApps: PropTypes.array,
