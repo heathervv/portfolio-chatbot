@@ -17,41 +17,50 @@ class App extends Component {
     constructor() {
         super();
 
+        this.state = {
+          shutDown: false,
+          openApps: ['messenger'],
+          minimizedApps: [],
+          openStart: false,
+          currentlyActiveApp: 'messenger',
+          previouslyActiveApp: ''
+        };
+
+        this.openApp = this.openApp.bind(this);
+        this.closeApp = this.closeApp.bind(this);
         this.minimizeApp = this.minimizeApp.bind(this);
+        this.activeApp = this.activeApp.bind(this);
+        this.closeStart = this.closeStart.bind(this);
+        this.shutDown = this.shutDown.bind(this);
     }
 
     openApp(event, component) {
         event.preventDefault();
 
-        document.getElementsByClassName(component)[0].removeAttribute('data-view');
-        document.getElementsByClassName('startbar-' + component)[0].classList.remove('closed-program');
+        const openApps = this.state.openApps;
+        openApps.push(component);
+
+        this.setState({ openApps: openApps });
 
         this.activeApp(component);
-
-        if(component === 'messenger') {
-            let messenger = document.getElementsByClassName('messages')[0];
-            messenger.scrollTop = messenger.scrollHeight;
-
-            let message = document.getElementById("messageField");
-            if(message) {
-                message.focus();
-            }
-        }
     }
 
     closeApp(component, event) {
         event.preventDefault();
 
-        document.getElementsByClassName(component)[0].setAttribute('data-view', 'closed');
-        document.getElementsByClassName('startbar-' + component)[0].classList.add('closed-program');
+        let openApps = this.state.openApps;
+        openApps = openApps.filter(e => e !== component);
+
+        this.setState({ openApps: openApps });
     }
 
     minimizeApp(component, event) {
         event.preventDefault();
 
-        document.getElementsByClassName(component)[0].setAttribute('data-view', 'minimized');
-        document.getElementsByClassName('startbar-' + component)[0].classList.add('minimized-program');
-        document.getElementsByClassName('startbar-' + component)[0].classList.remove('active');
+        const minimizedApps = this.state.minimizedApps;
+        minimizedApps.push(component);
+
+        this.setState({ minimizedApps: minimizedApps });
 
         this.closeStart();
 
@@ -63,62 +72,77 @@ class App extends Component {
             event.preventDefault();
         }
 
-        const programs = document.getElementsByClassName('program');
-        const startPrograms = document.getElementsByClassName('startbar-button');
-
-        if(document.getElementsByClassName(component)[0].classList.contains('active')) {
-            return
+        if(component === this.state.activeApp) {
+            return;
         }
 
-        for(let i = 0; i < programs.length; i++) {
-            if(programs[i].classList.contains('active')) {
-                programs[i].classList.remove('active');
-                programs[i].classList.add('previous-active');
-            } else {
-                programs[i].classList.remove('previous-active');
-            }
-        }
-
-        for(let i = 0; i < startPrograms.length; i++) {
-            startPrograms[i].classList.remove('active');
-        }
-
-        document.getElementsByClassName(component)[0].classList.add('active');
-        document.getElementsByClassName('startbar-' + component)[0].classList.add('active');
+        this.setState({ previouslyActiveApp: this.state.currentlyActiveApp });
+        this.setState({ currentlyActiveApp: component });
     }
 
     closeStart() {
-        let startCupboard = document.getElementsByClassName('start-cupboard')[0];
-
-        if(startCupboard.classList.contains('visible')) {
-            document.getElementsByClassName('start')[0].classList.remove('active');
-            startCupboard.classList.remove('visible');
-        }
+      if (this.state.openStart) this.setState({ openStart: false });
     }
 
     openInNewTab(elem) {
-        var win = window.open(elem, '_blank');
+        const win = window.open(elem, '_blank');
 
         if(win) {
             win.focus();
         }
     }
 
+    shutDown(e) {
+      e.preventDefault();
+
+      this.setState({ shutDown: true });
+    }
+
     render() {
         return (
-            <section className="desktop" onClick={(e) => this.closeStart()}>
+            <section className="desktop" onClick={() => this.closeStart()}>
                 <div className="icons">
-                    <a href="#" onClick={(e) => this.openApp(e, 'messenger')}><img src={bot} alt="Icon of bot"/> Chat</a>
-                    <a href="#" onClick={(e) => this.openApp(e, 'contact')}><img src={email} alt="Icon of email"/> Contact</a>
-                    <a href="#" onClick={(e) => this.openApp(e, 'work')}><img src={briefcase} alt="Icon of briefcase"/> Work</a>
+                    <a href="#" onClick={() => this.openApp(event, 'messenger')}><img src={bot} alt="Icon of bot"/> Chat</a>
+                    <a href="#" onClick={() => this.openApp(event, 'contact')}><img src={email} alt="Icon of email"/> Contact</a>
+                    <a href="#" onClick={() => this.openApp(event, 'work')}><img src={briefcase} alt="Icon of briefcase"/> Work</a>
                     <a href={resume} target="_blank"><img src={resumeGraphic} alt="Icon of resume"/> Resume</a>
                 </div>
-                <Messenger activeApp={this.activeApp} closeApp={this.closeApp} minimizeApp={this.minimizeApp} openInNewTab={this.openInNewTab} />
-                <Work activeApp={this.activeApp} closeApp={this.closeApp} minimizeApp={this.minimizeApp} openInNewTab={this.openInNewTab} />
-                <Contact activeApp={this.activeApp} closeApp={this.closeApp} minimizeApp={this.minimizeApp} openInNewTab={this.openInNewTab} />
-                <StartBar activeApp={this.activeApp} />
+                <Messenger
+                  activeApp={this.activeApp}
+                  closeApp={this.closeApp}
+                  minimizeApp={this.minimizeApp}
+                  openInNewTab={this.openInNewTab}
+                  openApps={this.state.openApps}
+                  minimizedApps={this.state.minimizedApps}
+                  currentlyActiveApp={this.state.currentlyActiveApp}
+                  previouslyActiveApp={this.state.previouslyActiveApp} />
+                <Work
+                  activeApp={this.activeApp}
+                  closeApp={this.closeApp}
+                  minimizeApp={this.minimizeApp}
+                  openInNewTab={this.openInNewTab}
+                  openApps={this.state.openApps}
+                  minimizedApps={this.state.minimizedApps}
+                  currentlyActiveApp={this.state.currentlyActiveApp}
+                  previouslyActiveApp={this.state.previouslyActiveApp} />
+                <Contact
+                  activeApp={this.activeApp}
+                  closeApp={this.closeApp}
+                  minimizeApp={this.minimizeApp}
+                  openInNewTab={this.openInNewTab}
+                  openApps={this.state.openApps}
+                  minimizedApps={this.state.minimizedApps}
+                  currentlyActiveApp={this.state.currentlyActiveApp}
+                  previouslyActiveApp={this.state.previouslyActiveApp} />
+                <StartBar
+                  activeApp={this.activeApp}
+                  currentlyActiveApp={this.state.currentlyActiveApp}
+                  openApps={this.state.openApps}
+                  minimizedApps={this.state.minimizedApps}
+                  shutDown={this.shutDown}
+                  openStart={this.state.openStart} />
 
-                <div className="shutDownPage">
+                <div className={`shutDownPage ${this.state.shutDown === true ? 'visible' : ''}`}>
                     <div>
                         <img src={wave} alt="wave"/>
                     </div>

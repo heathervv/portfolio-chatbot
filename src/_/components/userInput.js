@@ -1,58 +1,67 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class UserInput extends Component {
-    render() {
-        var userField = this.props.entryField.map(function(index) {
-            if(this.props.entryField[0].type === 'textField') {
-                let response, settings, addtlResponses, marker;
+const UserInput = (props) => {
+  const userField = props.entryField.map((index) => {
+    if(props.entryField[0].type === 'textField') {
+      const response = props.entryField[0].response ? props.entryField[0].response : '';
+      const settings = props.entryField[0].settings ? props.entryField[0].settings : '';
+      const addtlResponses = props.entryField[0].addtlResponses ? props.entryField[0].addtlResponses : '';
+      const marker = props.entryField[0].marker ? props.entryField[0].marker : '';
 
-                if(this.props.entryField[0].response) {
-                    response = this.props.entryField[0].response;
-                }
+      return (
+          <input
+            key={index}
+            type="text"
+            id="messageField"
+            data-response={response}
+            data-settings={settings}
+            data-addtl-responses={addtlResponses}
+            data-marker={marker}
+            autoFocus />
+      );
+    } else {
+      const buttons = props.entryField[0].response.map((index) => {
+        if(index.constructor === Array) {
+          return (
+            <button
+              className="button-medium"
+              key={index}
+              onClick={props.loadData.bind(null, index[0], index[1], index[3], index[2])}>
+                {index[2]}
+            </button>
+          );
+        } else {
+          return (
+            <button
+              className="button-medium"
+              key={index}
+              onClick={props.loadData.bind(null, index)}>
+                {index}
+            </button>
+          );
+        }
+      });
 
-                if(this.props.entryField[0].settings) {
-                    settings = this.props.entryField[0].settings;
-                }
-
-                if(this.props.entryField[0].addtlResponses) {
-                    addtlResponses = this.props.entryField[0].addtlResponses;
-                }
-
-                if(this.props.entryField[0].marker) {
-                    marker = this.props.entryField[0].marker;
-                }
-
-                return (
-                    <input key={index} type="text" id="messageField" data-response={response} data-settings={settings} data-addtl-responses={addtlResponses} data-marker={marker} />
-                )
-            } else {
-                var buttons = this.props.entryField[0].response.map(function(index) {
-                    if(index.constructor === Array) {
-                        return (
-                            <button className="button-medium" key={index} onClick={this.props.loadData.bind(null, index[0], index[1], index[3], index[2])}>{index[2]}</button>
-                        )
-                    } else {
-                        return (
-                            <button className="button-medium" key={index} onClick={this.props.loadData.bind(null, index)}>{index}</button>
-                        )
-                    }
-                }.bind(this));
-                return (
-                    <div key={index} className="buttonWrapper">
-                        <div>
-                            {buttons}
-                        </div>
-                    </div>
-                )
-            }
-        }.bind(this));
-
-        return (
-            <div className="userInput">
-                {userField}
-            </div>
-        );
+      return (
+        <div key={index} className="buttonWrapper">
+          <div>
+            {buttons}
+          </div>
+        </div>
+      );
     }
-}
+  });
+
+  return (
+    <div className="userInput">
+      {userField}
+    </div>
+  );
+};
+
+UserInput.propTypes = {
+  entryField: PropTypes.array
+};
 
 export default UserInput;

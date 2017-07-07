@@ -1,17 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class Toolbar extends Component {
-    render() {
-        return (
-            <div className="toolbar">
-                <div className="title">
-                    <img src={this.props.image} alt={"image of a " + this.props.image}/> <span>{this.props.title}</span>
-                </div>
-                <a href="#" className="button-small" onClick={this.props.closeApp.bind(null, this.props.component)}>&#10005;</a>
-                <a href="#" className="button-small minimize" onClick={this.props.minimizeApp.bind(null, this.props.component)}>_</a>
-            </div>
-        );
-    }
-}
+const Toolbar = (props) => {
+  return (
+      <div className="toolbar">
+          <div className="title">
+              <img src={props.image} alt={"image of a " + props.image}/> <span>{props.title}</span>
+          </div>
+          <a href="#" className="button-small" onClick={props.closeApp.bind(null, props.component)}>&#10005;</a>
+          <a href="#" className="button-small minimize" onClick={props.minimizeApp.bind(null, props.component)}>_</a>
+      </div>
+  );
+};
+
+Toolbar.propTypes = {
+  image: PropTypes.string,
+  title: PropTypes.string,
+  closeApp: PropTypes.func,
+  component: PropTypes.string,
+  minimizeApp: PropTypes.func
+};
 
 export default Toolbar;
