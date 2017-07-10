@@ -10,7 +10,8 @@
         padding: 8px 0 0 8px;
         box-shadow: inset 0 4px 0 rgba(#fff,.8);
         z-index: 3;
-        a {
+        a,
+        button {
             img {
                 max-height: 20px;
                 max-width: 25px;
@@ -41,10 +42,12 @@
                 border-left: 2px solid rgba(#fff,.8);
                 border-right: 2px solid rgba(#000,.25);
             }
-            a:not(.active) {
+            a:not(.active),
+            button:not(.active) {
                 font-weight: 400;
             }
-            a {
+            a,
+            button {
                 margin-right: 12px;
                 min-width: 105px;
                 text-align: center;
@@ -53,6 +56,13 @@
         .closed-program {
             display: none;
         }
+    }
+
+    a,
+    button {
+      img {
+        margin-right: 5px;
+      }
     }
 }
 
@@ -87,6 +97,7 @@
         }
         img {
             max-width: 30px;
+            margin-right: 5px;
         }
     }
 }

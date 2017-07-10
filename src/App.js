@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Messenger from './_/components/messenger';
 import Work from './_/components/work';
 import Contact from './_/components/contact';
+import Paint from './_/components/paint';
 import StartBar from './_/components/startbar';
 import './_/css/App.css';
 
@@ -13,7 +14,7 @@ import resumeGraphic from './_/images/resume.svg';
 
 import resume from './_/Resume-HeatherVandervecht.pdf';
 
-const programs = [Messenger, Work, Contact];
+const programs = [Messenger, Work, Contact, Paint];
 
 class App extends Component {
   constructor() {
@@ -45,6 +46,8 @@ class App extends Component {
     this.setState({ openApps });
 
     this.updateActiveApp(component);
+
+    this.start('close');
   }
 
   closeApp(component, event) {
@@ -131,6 +134,7 @@ class App extends Component {
         }
 
         <StartBar
+          openApp={this.openApp}
           updateActiveApp={this.updateActiveApp}
           currentlyActiveApp={this.state.currentlyActiveApp}
           openApps={this.state.openApps}

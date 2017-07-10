@@ -264,13 +264,16 @@ html {
   margin-bottom: 30px; }
 
 .button {
+  font-family: 'Anonymous Pro', monospace;
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
   padding: 10px 15px 10px 13px;
   box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.8), inset -3px -3px 0 rgba(0, 0, 0, 0.25), 2px 2px 0 #000;
   color: #000;
-  vertical-align: middle; }
+  vertical-align: middle;
+  -webkit-appearance: initial;
+  border: none; }
 
 .button:active, .button.active {
   padding-top: 12px;
@@ -319,6 +322,25 @@ html {
 
 @media (max-width: 1024px) {
   .button-small.minimize {
+    padding: 8px 10px 5px; } }
+
+.button-inset {
+  display: inline-block;
+  font-weight: bold;
+  color: #000;
+  font-size: 13px;
+  font-family: sans-serif;
+  padding: 5px 8px;
+  background: #bdbdbd;
+  text-align: center;
+  box-shadow: 2px 2px 0 rgba(255, 255, 255, 0.6), inset 2px 2px rgba(0, 0, 0, 0.5); }
+
+.button-inset:active {
+  background: #e6e6e6;
+  box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #ddd, inset -2px -2px 0 #ddd; }
+
+@media (max-width: 1024px) {
+  .button-inset.minimize {
     padding: 8px 10px 5px; } }
 
 @media (min-width: 1025px) {
@@ -469,6 +491,9 @@ html {
 .work .toolbar {
   background: linear-gradient(to right, #2536F8 0%, #DF3285 100%); }
 
+.paint .toolbar {
+  background: linear-gradient(to right, #34ce18 0%, #f9f227 100%); }
+
 .startbar {
   display: none; }
 
@@ -483,11 +508,14 @@ html {
     padding: 8px 0 0 8px;
     box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.8);
     z-index: 3; }
-  .startbar a img {
+  .startbar a img,
+  .startbar button img {
     max-height: 20px;
     max-width: 25px;
     width: auto; }
-  .startbar a img, .startbar a span {
+  .startbar a img, .startbar a span,
+  .startbar button img,
+  .startbar button span {
     display: inline-block;
     vertical-align: middle; }
   .startbar .start {
@@ -508,14 +536,20 @@ html {
     width: 1px;
     border-left: 2px solid rgba(255, 255, 255, 0.8);
     border-right: 2px solid rgba(0, 0, 0, 0.25); }
-  .startbar .programs a:not(.active) {
+  .startbar .programs a:not(.active),
+  .startbar .programs button:not(.active) {
     font-weight: 400; }
-  .startbar .programs a {
+  .startbar .programs a,
+  .startbar .programs button {
     margin-right: 12px;
     min-width: 105px;
     text-align: center; }
   .startbar .closed-program {
     display: none; } }
+
+.startbar a img,
+.startbar button img {
+  margin-right: 5px; }
 
 .start-cupboard {
   position: fixed;
@@ -549,7 +583,8 @@ html {
   padding-top: 9px; }
 
 .start-cupboard a img {
-  max-width: 30px; }
+  max-width: 30px;
+  margin-right: 5px; }
 
 .clock {
   font-size: 18px;
@@ -560,3 +595,55 @@ html {
   margin-top: -3px;
   margin-right: 5px;
   padding: 15px 20px 11px; }
+
+.paint .content {
+  padding: 0; }
+
+.paint canvas {
+  width: 100%;
+  height: 100%;
+  cursor: url(http://cur.cursors-4u.net/user/use-1/use151.cur), progress !important; }
+
+.paint__colors {
+  background: #bdbdbd; }
+
+.paint__colors:after {
+  content: '';
+  display: block;
+  clear: both; }
+
+.paint__active-color {
+  position: relative;
+  display: block;
+  float: left;
+  padding: 10px 10px 0;
+  margin-right: 5px; }
+
+.paint__active-color:after {
+  content: '';
+  width: 1px;
+  height: 44px;
+  position: absolute;
+  top: 11px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5); }
+
+.paint__active-color div {
+  width: 44px;
+  height: 44px; }
+
+.paint__color-swatches {
+  padding: 10px 0 6px; }
+
+.paint__color-swatches:after {
+  content: '';
+  display: block;
+  clear: both; }
+
+.paint__color-swatches button {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+  float: left;
+  cursor: pointer; }
