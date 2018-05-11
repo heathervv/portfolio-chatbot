@@ -1,3 +1,6 @@
+$tablet: 750;
+$desktop: 1025;
+
 .messenger {
     @media (min-width: $desktop + px) {
         width: 675px;
@@ -59,4 +62,16 @@
   opacity: 0.01;
   transform: translateY(10px);
   transition: opacity .1s ease-in, transform .1s ease-in;
+}
+
+.activeTyping {
+    position: absolute;
+    left: 20px;
+    bottom: 78px;
+    font-size: 12px;
+    color: #FF0000;
+    display: none;
+    &.visible {
+        display: block;
+    }
 }

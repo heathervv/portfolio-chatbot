@@ -1,0 +1,195 @@
+html,
+body {
+  font-family: 'Anonymous Pro', monospace; }
+
+html {
+  background: #000; }
+
+.button {
+  font-family: 'Anonymous Pro', monospace;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 15px 10px 13px;
+  box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.8), inset -3px -3px 0 rgba(0, 0, 0, 0.25), 2px 2px 0 #000;
+  color: #000;
+  vertical-align: middle;
+  -webkit-appearance: initial;
+  border: none; }
+  .button:active, .button.active {
+    padding-top: 12px;
+    padding-bottom: 8px;
+    background: #e6e6e6;
+    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #fff, inset -2px -2px 0 #ddd, inset 4px 4px 0 #888; }
+
+.button-medium {
+  font-family: 'Anonymous Pro', monospace;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 7px 13px 6px;
+  box-shadow: 2px 2px #000, inset -2px -2px rgba(0, 0, 0, 0.25), inset 2px 2px rgba(255, 255, 255, 0.8);
+  background: #BDBDBD;
+  color: #000;
+  line-height: 1; }
+  .button-medium:active, .button-medium.active {
+    position: relative;
+    top: 2px;
+    padding-top: 7px;
+    padding-bottom: 5px;
+    background: #e6e6e6;
+    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #fff, inset -2px -2px 0 #ddd, inset 4px 4px 0 #888; }
+
+.button-small {
+  display: inline-block;
+  font-weight: bold;
+  color: #000;
+  font-size: 13px;
+  font-family: sans-serif;
+  padding: 5px 8px;
+  background: #bdbdbd;
+  text-align: center;
+  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.25), inset 2px 2px 0 rgba(255, 255, 255, 0.8); }
+  @media (min-width: 1025px) {
+    .button-small {
+      min-width: 25px;
+      min-height: 25px; } }
+  .button-small:active {
+    background: #e6e6e6;
+    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #ddd, inset -2px -2px 0 #ddd; }
+  @media (max-width: 1024px) {
+    .button-small.minimize {
+      padding: 8px 10px 5px; } }
+
+.button-inset {
+  display: inline-block;
+  font-weight: bold;
+  color: #000;
+  font-size: 13px;
+  font-family: sans-serif;
+  padding: 5px 8px;
+  background: #bdbdbd;
+  text-align: center;
+  box-shadow: 2px 2px 0 rgba(255, 255, 255, 0.6), inset 2px 2px rgba(0, 0, 0, 0.5); }
+  .button-inset:active {
+    background: #e6e6e6;
+    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #ddd, inset -2px -2px 0 #ddd; }
+  @media (max-width: 1024px) {
+    .button-inset.minimize {
+      padding: 8px 10px 5px; } }
+
+.shutDownPage {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+  pointer-events: none; }
+  .shutDownPage div {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%); }
+  .shutDownPage img {
+    width: 35px; }
+  .shutDownPage.visible {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 5; }
+
+.desktop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background: url("images/wallpaper.jpg") no-repeat center;
+  background-size: cover; }
+  @media (min-width: 1025px) {
+    .desktop {
+      position: static;
+      height: 100vh; } }
+  .desktop .icons {
+    position: absolute;
+    top: 38px;
+    left: 45px; }
+    .desktop .icons a,
+    .desktop .icons button {
+      text-decoration: none;
+      text-align: center;
+      display: block;
+      margin-bottom: 50px;
+      color: #fff;
+      text-shadow: 1px 2px 0 rgba(0, 0, 0, 0.5); }
+    .desktop .icons img {
+      width: 60px;
+      display: block;
+      margin-bottom: 15px; }
+
+.program {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+  padding-bottom: 9px;
+  background: #bdbdbd;
+  display: inline-block;
+  box-shadow: -3px -3px 0 #f2f2f2, inset -3px -3px 0 rgba(0, 0, 0, 0.25); }
+  @media (max-width: 1024px) {
+    .program {
+      transform: none !important; } }
+  @media (min-width: 1025px) {
+    .program {
+      max-width: 100%;
+      width: auto;
+      height: auto; } }
+  .program .content {
+    background: #fff;
+    box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.6), inset 3px 3px rgba(0, 0, 0, 0.5);
+    margin-top: 6px;
+    width: calc(100% - 13px);
+    padding: 10px;
+    margin-left: 3px;
+    height: calc(100% - 44px); }
+    @media (min-width: 750px) {
+      .program .content {
+        height: calc(100% - 96px); } }
+    @media (min-width: 1025px) {
+      .program .content {
+        height: auto; } }
+    .program .content[contentEditable=true] {
+      overflow: scroll; }
+      @media (min-width: 1025px) {
+        .program .content[contentEditable=true] {
+          max-height: 250px; } }
+    .program .content h3 {
+      margin-bottom: 10px;
+      line-height: 1.2; }
+  .program.previous-active {
+    z-index: 1; }
+  .program.active {
+    z-index: 2; }
+
+[data-view="closed"],
+[data-view="minimized"] {
+  display: none; }
+
+@media (min-width: 1025px) {
+  .txt-file {
+    width: 400px; }
+    .txt-file .content {
+      max-height: 450px; } }
+
+.txt-file .content {
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  line-height: 1.3; }
+
+.work.program .content div:not(:last-child) {
+  margin-bottom: 30px; }
