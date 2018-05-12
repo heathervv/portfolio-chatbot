@@ -1,5 +1,8 @@
 $tablet: 750;
 $desktop: 1025;
+// TODO: don't duplicate these
+// TODO: comb through css
+// TODO: update wallpaper photo
 
 html,
 body {
@@ -132,7 +135,7 @@ html {
   right: 0;
   bottom: 0;
   overflow: hidden;
-  background: url('images/wallpaper.jpg') no-repeat center;
+  background: url('images/wallpaper8.jpg') no-repeat bottom center;
   background-size: cover;
   @media (min-width: $desktop + px) {
     position: static;

@@ -42,23 +42,23 @@ $desktop: 1025;
     }
 }
 
-.messages--transition-enter {
+.message-enter {
   opacity: 0.01;
   transform: translateY(10px);
 }
 
-.messages--transition-enter.messages--transition-enter-active {
+.message-enter-active {
   opacity: 1;
   transform: translateY(0);
   transition: opacity .1s ease-in, transform .1s ease-in;
 }
 
-.messages--transition-leave {
+.message-exit {
   opacity: 1;
   transform: translateY(0);
 }
 
-.messages--transition-leave.messages--transition-leave-active {
+.message-exit-active {
   opacity: 0.01;
   transform: translateY(10px);
   transition: opacity .1s ease-in, transform .1s ease-in;
@@ -74,4 +74,40 @@ $desktop: 1025;
     &.visible {
         display: block;
     }
+}
+
+.userInput {
+  width: calc(100% - 13px);
+  margin-left: 3px;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  box-shadow: 3px 3px 0 rgba(#fff,.6), inset 3px 3px rgba(#000,.50);
+  padding: 3px 0 0 3px;
+  &.hidden {
+    * {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    @media (min-width: $desktop + px) {
+      font-size: 14px;
+    }
+  }
+  .buttonWrapper {
+    background: #fff;
+    max-width: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    > div {
+      white-space:nowrap;
+    }
+  }
+  button {
+    margin: 5px;
+    cursor: pointer;
+  }
 }

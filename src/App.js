@@ -10,9 +10,9 @@ import bot from './images/bot.svg'
 import email from './images/email.svg'
 import briefcase from './images/briefcase.svg'
 import wave from './images/wave.svg'
-import resumeGraphic from './images/resume.svg'
+import resume from './images/resume.svg'
 
-import resume from './Resume-HeatherVandervecht.pdf'
+import resumeFile from './Resume-HeatherVandervecht.pdf'
 
 const programs = [Messenger, Work, Contact]
 
@@ -26,8 +26,8 @@ class App extends Component {
     previouslyActiveApp: ''
   }
 
-  openApp = (event, component) => {
-    event.preventDefault()
+  openApp = (e, component) => {
+    e.preventDefault()
 
     const openApps = this.state.openApps
     openApps.push(component)
@@ -39,35 +39,33 @@ class App extends Component {
     this.start('close')
   }
 
-  closeApp = (component, event) => {
-    event.preventDefault()
+  closeApp = (component, e) => {
+    e.preventDefault()
 
     let openApps = this.state.openApps
     openApps = openApps.filter(e => e !== component)
 
-    this.setState({ openApps: openApps })
+    this.setState({ openApps })
   }
 
   updateStartbar = (component, appStatus) => {
     const minimizedApps = this.state.minimizedApps
 
-    if (appStatus === 'minimize') {
+    if (appStatus === 'minimize' || this.state.minimizedApps.indexOf(component) === -1) {
       minimizedApps.push(component)
     } else if (this.state.minimizedApps.indexOf(component) > -1) {
       const index = minimizedApps.indexOf(component)
       minimizedApps.splice(index, 1)
 
       this.updateActiveApp(component, null)
-    } else if (this.state.minimizedApps.indexOf(component) === -1) {
-      minimizedApps.push(component)
     }
 
     this.setState({ minimizedApps })
     this.start('close')
   }
 
-  updateActiveApp = (component, event) => {
-    if (event) event.preventDefault()
+  updateActiveApp = (component, e) => {
+    if (e) e.preventDefault()
 
     if (component === this.state.updateActiveApp) return
 
@@ -102,16 +100,16 @@ class App extends Component {
       <section className="desktop">
         <div className="icons">
           <button onClick={e => this.openApp(e, 'messenger')}>
-            <img src={bot} alt="Icon of bot"/> Chat
+            <img src={bot} alt="Icon of bot" /> Chat
           </button>
           <button onClick={e => this.openApp(e, 'contact')}>
-            <img src={email} alt="Icon of email"/> Contact
+            <img src={email} alt="Icon of email" /> Contact
           </button>
           <button onClick={e => this.openApp(e, 'work')}>
-            <img src={briefcase} alt="Icon of briefcase"/> Work
+            <img src={briefcase} alt="Icon of briefcase" /> Work
           </button>
-          <a href={resume} target="_blank">
-            <img src={resumeGraphic} alt="Icon of resume"/> Resume
+          <a href={resumeFile} target="_blank">
+            <img src={resume} alt="Icon of resume" /> Resume
           </a>
         </div>
 
@@ -148,7 +146,7 @@ class App extends Component {
 
         <div className={`shutDownPage ${shutDown ? 'visible' : ''}`}>
           <div>
-            <img src={wave} alt="wave"/>
+            <img src={wave} alt="wave" />
           </div>
         </div>
       </section>
