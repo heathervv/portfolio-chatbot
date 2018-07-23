@@ -1,28 +1,25 @@
 import React, { Component } from 'react'
 import './App.css'
 
+import { apps, icons } from './constants'
 import StartBar from './components/startbar'
 import Messenger from './components/messenger'
 import Work from './components/work'
 import Contact from './components/contact'
 
-import bot from './images/bot.svg'
-import email from './images/email.svg'
-import briefcase from './images/briefcase.svg'
 import wave from './images/wave.svg'
 import resume from './images/resume.svg'
-
 import resumeFile from './Resume-HeatherVandervecht.pdf'
 
-const programs = [Messenger, Work, Contact]
+const programComponents = [Messenger, Work, Contact]
 
 class App extends Component {
   state = {
     shutDown: false,
-    openApps: ['messenger'],
+    openApps: [apps.messenger.toLowerCase()],
     minimizedApps: [],
     openStart: false,
-    currentlyActiveApp: 'messenger',
+    currentlyActiveApp: apps.messenger.toLowerCase(),
     previouslyActiveApp: ''
   }
 
@@ -48,15 +45,20 @@ class App extends Component {
     this.setState({ openApps })
   }
 
-  updateStartbar = (component, appStatus) => {
+  updateStartbar = (component, minimizeWindow) => {
     const minimizedApps = this.state.minimizedApps
 
-    if (appStatus === 'minimize' || this.state.minimizedApps.indexOf(component) === -1) {
+    if (minimizeWindow) {
+      // if we manually ask to minimize
       minimizedApps.push(component)
     } else if (this.state.minimizedApps.indexOf(component) > -1) {
+      // if app is currently minimized and needs to be brought back
       const index = minimizedApps.indexOf(component)
       minimizedApps.splice(index, 1)
 
+      this.updateActiveApp(component, null)
+    } else {
+      // Otherwise, let's just set to currently active app
       this.updateActiveApp(component, null)
     }
 
@@ -99,14 +101,14 @@ class App extends Component {
     return (
       <section className="desktop">
         <div className="icons">
-          <button onClick={e => this.openApp(e, 'messenger')}>
-            <img src={bot} alt="Icon of bot" /> Chat
+          <button onClick={e => this.openApp(e, apps.messenger.toLowerCase())}>
+            <img src={icons[apps.messenger.toLowerCase()].url} alt={icons[apps.messenger.toLowerCase()].alt} /> {apps.messenger}
           </button>
-          <button onClick={e => this.openApp(e, 'contact')}>
-            <img src={email} alt="Icon of email" /> Contact
+          <button onClick={e => this.openApp(e, apps.contact.toLowerCase())}>
+            <img src={icons[apps.contact.toLowerCase()].url} alt={icons[apps.contact.toLowerCase()].alt} /> {apps.contact}
           </button>
-          <button onClick={e => this.openApp(e, 'work')}>
-            <img src={briefcase} alt="Icon of briefcase" /> Work
+          <button onClick={e => this.openApp(e, apps.work.toLowerCase())}>
+            <img src={icons[apps.work.toLowerCase()].url} alt={icons[apps.work.toLowerCase()].alt} /> {apps.work}
           </button>
           <a href={resumeFile} target="_blank">
             <img src={resume} alt="Icon of resume" /> Resume
@@ -114,7 +116,7 @@ class App extends Component {
         </div>
 
         {
-          programs.map((program, i) => {
+          programComponents.map((program, i) => {
             const ProgramBlock = program
 
             return (

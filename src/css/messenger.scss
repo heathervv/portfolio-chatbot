@@ -9,7 +9,7 @@ $desktop: 1025;
 
 .messages {
     padding-top: 15px !important;
-    padding-bottom: 20px !important;
+    padding-bottom: 25px !important;
     width: 100%;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
@@ -19,6 +19,10 @@ $desktop: 1025;
     }
     @media (min-width: $desktop + px) {
         height: 350px !important;
+    }
+
+    & > div {
+      padding-bottom: 10px;
     }
 }
 
@@ -67,10 +71,16 @@ $desktop: 1025;
 .activeTyping {
     position: absolute;
     left: 20px;
-    bottom: 78px;
+    bottom: 70px;
     font-size: 12px;
     color: #FF0000;
     display: none;
+    @media (min-width: $tablet + px) {
+      bottom: 117px;
+    }
+    @media (min-width: $desktop + px) {
+      bottom: 78px;
+    }
     &.visible {
         display: block;
     }
@@ -91,9 +101,10 @@ $desktop: 1025;
   }
   input {
     width: 100%;
-    padding: 12px;
+    padding: 5px;
     font-size: 16px;
     @media (min-width: $desktop + px) {
+      padding: 12px;
       font-size: 14px;
     }
   }

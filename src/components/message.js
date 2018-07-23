@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Message = ({ type, content, user }) => (
-  <div className={"message " + type}>
+  <div className={`message ${type}`}>
     <span>{`<${user}>`}</span>
     {content}
   </div>

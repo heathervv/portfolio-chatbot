@@ -4,7 +4,7 @@
 
 .messages {
   padding-top: 15px !important;
-  padding-bottom: 20px !important;
+  padding-bottom: 25px !important;
   width: 100%;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
@@ -15,6 +15,8 @@
   @media (min-width: 1025px) {
     .messages {
       height: 350px !important; } }
+  .messages > div {
+    padding-bottom: 10px; }
 
 .message {
   font-size: 16px;
@@ -52,10 +54,16 @@
 .activeTyping {
   position: absolute;
   left: 20px;
-  bottom: 78px;
+  bottom: 70px;
   font-size: 12px;
   color: #FF0000;
   display: none; }
+  @media (min-width: 750px) {
+    .activeTyping {
+      bottom: 117px; } }
+  @media (min-width: 1025px) {
+    .activeTyping {
+      bottom: 78px; } }
   .activeTyping.visible {
     display: block; }
 
@@ -71,10 +79,11 @@
     pointer-events: none; }
   .userInput input {
     width: 100%;
-    padding: 12px;
+    padding: 5px;
     font-size: 16px; }
     @media (min-width: 1025px) {
       .userInput input {
+        padding: 12px;
         font-size: 14px; } }
   .userInput .buttonWrapper {
     background: #fff;

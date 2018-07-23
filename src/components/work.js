@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { apps, icons } from '../constants'
 
 // Components
 import Program from './program'
 
 // Assets
-// const data = require('../../data.json')
-import briefcase from '../images/briefcase.svg'
 
 const Work = ({
     updateActiveApp,
@@ -19,9 +18,9 @@ const Work = ({
     previouslyActiveApp
   }) => (
   <Program
-    programName="Work"
+    programName={apps.work}
     programRights="[Read Only]"
-    programIcon={briefcase}
+    programIcon={icons[apps.work.toLowerCase()].url}
     updateActiveApp={updateActiveApp}
     updateStartbar={updateStartbar}
     closeApp={closeApp}

@@ -7,6 +7,11 @@ $desktop: 1025;
 html,
 body {
   font-family: 'Anonymous Pro', monospace;
+  @media (min-width: $desktop + px) {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
 }
 
 html {
@@ -72,11 +77,6 @@ html {
     background: #e6e6e6;
     box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #ddd, inset -2px -2px 0 #ddd;
   }
-  &.minimize {
-    @media (max-width: $desktop - 1 + px) {
-      padding: 8px 10px 5px;
-    }
-  }
 }
 
 .button-inset {
@@ -135,7 +135,7 @@ html {
   right: 0;
   bottom: 0;
   overflow: hidden;
-  background: url('images/wallpaper8.jpg') no-repeat bottom center;
+  background: url('images/wallpaper.jpg') no-repeat bottom center;
   background-size: cover;
   @media (min-width: $desktop + px) {
     position: static;

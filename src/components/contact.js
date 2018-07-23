@@ -1,12 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { apps, icons } from '../constants'
 
 // Components
 import Program from './program'
-
-// Assets
-// const data = require('../../data.json')
-import email from '../images/email.svg'
 
 const Contact = ({
     updateActiveApp,
@@ -27,8 +24,8 @@ const Contact = ({
 
   return (
     <Program
-      programName="Contact"
-      programIcon={email}
+      programName={apps.contact}
+      programIcon={icons[apps.contact.toLowerCase()].url}
       contentEditable
       updateActiveApp={updateActiveApp}
       updateStartbar={updateStartbar}
@@ -38,7 +35,7 @@ const Contact = ({
       minimizedApps={minimizedApps}
       currentlyActiveApp={currentlyActiveApp}
       previouslyActiveApp={previouslyActiveApp} >
-      data goes here
+      Let's chat! I'm always looking to make new friends and chat about code. If you happen to like coffee, let's go grab one!
       <br/>
       <br/>
       ==========================================
