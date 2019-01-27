@@ -10,7 +10,12 @@ import Contact from './components/contact'
 import wave from './images/wave.svg'
 import resume from './images/resume.svg'
 
-const programComponents = [Messenger, Work, Contact]
+// const programComponents = [Messenger, Work, Contact]
+const programComponents = {
+  'chat': Messenger,
+  'work': Work,
+  'contact': Contact
+}
 
 class App extends Component {
   state = {
@@ -123,8 +128,13 @@ class App extends Component {
         </div>
 
         {
-          programComponents.map((program, i) => {
-            const ProgramBlock = program
+          Object.keys(programComponents).map((program, i) => {
+            if (
+              openApps.indexOf(program) === -1 &&
+              minimizedApps.indexOf(program) === -1
+            ) return null
+
+            const ProgramBlock = programComponents[program]
 
             return (
               <ProgramBlock
