@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { apps, icons } from '../constants'
+import { apps, icons, work } from '../constants'
 
 // Components
 import Program from './program'
@@ -28,21 +28,16 @@ const Work = ({
     openApps={openApps}
     minimizedApps={minimizedApps}
     currentlyActiveApp={currentlyActiveApp}
-    previouslyActiveApp={previouslyActiveApp} >
-    {/*
-      data.workFile.map((item, i) => {
-        const url = item.url
-        const title = item.title
-        const description = item.description
-        return (
-          <div key={i}>
-            <h3><a href="#" onClick={() => props.openInNewTab(url)}>{title}</a></h3>
-            <p>{description}</p>
-          </div>
-        )
-      })
-    */}
-    work yo
+    previouslyActiveApp={previouslyActiveApp}
+  >
+    {
+      work.map((item, i) => (
+        <div key={i}>
+          <h3><a href={item.url} onClick={() => openInNewTab(item.url)}>{item.title}</a></h3>
+          <p>{item.copy}</p>
+        </div>
+      ))
+    }
   </Program>
 
 )

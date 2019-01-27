@@ -38,6 +38,7 @@ const StartBar = ({
               const className = apps[app].toLowerCase()
               return (
                 <button
+                  key={i}
                   className={`
                     startbar-button startbar-{className} button
                     ${currentlyActiveApp.indexOf(className) > -1 ? 'active' : ''}
@@ -50,7 +51,7 @@ const StartBar = ({
                         'minimized-program' :
                         ''
                     }`}
-                  onClick={e => updateStartbar(className, currentlyActiveApp === className)}>
+                  onClick={e => updateStartbar(className)}>
                   <img src={icons[className].url} alt={icons[className].alt}/>
                   <span>{apps[app]}</span>
                 </button>

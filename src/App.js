@@ -9,7 +9,6 @@ import Contact from './components/contact'
 
 import wave from './images/wave.svg'
 import resume from './images/resume.svg'
-import resumeFile from './Resume-HeatherVandervecht.pdf'
 
 const programComponents = [Messenger, Work, Contact]
 
@@ -26,10 +25,18 @@ class App extends Component {
   openApp = (e, component) => {
     e.preventDefault()
 
-    const openApps = this.state.openApps
+    const { openApps, minimizedApps } = this.state
     openApps.push(component)
 
-    this.setState({ openApps })
+    if (minimizedApps.indexOf(component) > -1) {
+      for (let i = minimizedApps.length - 1; i >= 0; i--) {
+        if (minimizedApps[i] === component) {
+            minimizedApps.splice(i, 1);
+        }
+      }
+    }
+
+    this.setState({ openApps, minimizedApps })
 
     this.updateActiveApp(component)
 
@@ -110,7 +117,7 @@ class App extends Component {
           <button onClick={e => this.openApp(e, apps.work.toLowerCase())}>
             <img src={icons[apps.work.toLowerCase()].url} alt={icons[apps.work.toLowerCase()].alt} /> {apps.work}
           </button>
-          <a href={resumeFile} target="_blank">
+          <a href="https://standardresume.co/heathervandervecht" target="_blank" rel="noopener noreferrer">
             <img src={resume} alt="Icon of resume" /> Resume
           </a>
         </div>

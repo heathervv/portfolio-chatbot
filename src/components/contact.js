@@ -16,11 +16,10 @@ const Contact = ({
     previouslyActiveApp
   }) => {
   let emailLink = "heathervandervecht@gmail.com"
-  let linkedin = "https://ca.linkedin.com/in/heathervandervecht"
+  let linkedin = "https://linkedin.com/in/heathervandervecht"
   let github = "http://github.com/heathervv"
-  let codepen = "http://codepen.io/_heathervv"
   let twitter = "http://twitter.com/_heathervv"
-  let instagram = "http://instagram.com/_heathervv"
+  let instagram = "http://instagram.com/heathervv"
 
   return (
     <Program
@@ -35,7 +34,7 @@ const Contact = ({
       minimizedApps={minimizedApps}
       currentlyActiveApp={currentlyActiveApp}
       previouslyActiveApp={previouslyActiveApp} >
-      Let's chat! I'm always looking to make new friends and chat about code. If you happen to like coffee, let's go grab one!
+      Let's chat! It's a pretty safe bet that you're awesome, and I'm always looking to meet awesome people. I'd love to grab a coffee, or even a beer if that's what you're into - just shoot me a message!
       <br/>
       <br/>
       ==========================================
@@ -44,7 +43,6 @@ const Contact = ({
       <a onClick={openInNewTab.bind(null, "mailto:" + emailLink)} href={"mailto:" + emailLink}>{emailLink}</a> <br/>
       <a onClick={openInNewTab.bind(null, linkedin)} href={linkedin}>LinkedIn</a> <br/>
       <a onClick={openInNewTab.bind(null, github)} href={github}>GitHub</a> <br/>
-      <a onClick={openInNewTab.bind(null, codepen)} href={codepen}>CodePen</a> <br/>
       <a onClick={openInNewTab.bind(null, twitter)} href={twitter}>Twitter</a> <br/>
       <a onClick={openInNewTab.bind(null, instagram)} href={instagram}>Instagram</a>
     </Program>
