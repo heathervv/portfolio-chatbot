@@ -37,7 +37,7 @@ class Messenger extends Component {
           'Who are you?',
           'Can I see your work?',
           'What do you like to code in?',
-          'How can I get in touch with you?'
+          'I\'d like to get in touch with you'
         ]
       }
     }
@@ -85,7 +85,7 @@ class Messenger extends Component {
     if (type.includes('multiple')) {
       const base = result.fulfillment.messages.find((item) => item.payload).payload
       const responses = base.response
-      let delay = 750;
+      let delay = 1000;
 
       for (let i = 0; i < responses.length; i += 1) {
         delay += i > 0 ? Math.floor(Math.random() * 2000) + 1000 : 0

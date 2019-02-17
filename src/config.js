@@ -43,7 +43,7 @@ const work = [
   {
     title: 'Bokeh',
     url: '//bokeh.agency',
-    copy: 'This project was an incredible experience for quite a few reasons! Not only because David and Doug are some of the nicest, funniest people I\'ve ever met, but also because they really wanted to try and push the envelope with their website. I had the opportunity to implement physics on this project - not many things are cooler than that. I\'m also incredibly proud of the post template as I think it blends functionality and form together in a really delightful way. While the whole site is built to be editable via a CMS, I focused on really supporting flexibility from the CMS for the post template - it can be ordered however they need, optimized to load tons of videos, with some great animations automatically scattered throughout each page.'
+    copy: 'This project was an incredible experience for quite a few reasons! Not only because David and Doug are some of the nicest, funniest people I\'ve ever met, but also because they really wanted to try and push the envelope with their website. I had the opportunity to implement physics on this project - not many things are cooler than that. I\'m also incredibly proud of the case study template as I think it blends functionality and form together in a really delightful way. While the whole site is built to be editable via a CMS, I focused on really supporting flexibility from the CMS for the case studies - it can be ordered however they need, optimized to load tons of videos, with some great animations automatically scattered throughout each page.'
   },
   {
     title: 'Blunt',
