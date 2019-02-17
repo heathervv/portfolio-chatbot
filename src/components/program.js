@@ -40,7 +40,6 @@ Program.propTypes = {
   updateActiveApp: PropTypes.func,
   closeApp: PropTypes.func,
   updateStartbar: PropTypes.func,
-  openInNewTab: PropTypes.func,
   openApps: PropTypes.array,
   minimizedApps: PropTypes.array,
   currentlyActiveApp: PropTypes.string,

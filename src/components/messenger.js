@@ -2,7 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { ApiAiClient } from 'api-ai-javascript'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { apps, icons, dialogFlow, initialResponse } from '../constants'
+import {
+  apps,
+  icons,
+  dialogFlow,
+  initialResponse,
+  changeInputResponse
+} from '../config'
 
 // Components
 import Draggable from 'react-draggable'
@@ -15,85 +21,143 @@ class Messenger extends Component {
   constructor() {
     super()
 
-    this.client = new ApiAiClient({accessToken: dialogFlow.token})
+    // Create new bot client
+    this.client = new ApiAiClient({ accessToken: dialogFlow.token })
 
+    // Set all our base app details
     this.state = {
       chatHistory: [],
       username: `Anon${Math.floor(Math.random() * (9999 - 1000) + 1000)}`,
-      botName: 'Heather',
+      botName: 'HeatherBot',
       isTyping: true,
-      inputValue: ''
+      inputValue: '',
+      curatedOptions: {
+        visible: false,
+        links: [
+          'Who are you?',
+          'Can I see your work?',
+          'What do you like to code in?',
+          'How can I get in touch with you?'
+        ]
+      }
     }
   }
 
   componentDidMount() {
+    // First message is doesn't come from bot so we can introduce the app to the user
     setTimeout(() => {
       this.triggerFirstMessage()
     }, 2000)
   }
 
   componentDidUpdate({ openApps }) {
+    // Always keep messenger window scrolled to last message
     if (openApps.indexOf(apps.messenger.toLowerCase()) !== -1) this.messages.scrollTop = this.messages.scrollHeight
 
     this.messages.scrollTop = this.messages.scrollHeight
   }
 
+  // Called once on componentDidMount to say hi to the user
   triggerFirstMessage = () => {
     this.updateHistory(initialResponse, this.state.botName, true)
-    this.setState({ isTyping: false, inputValue: 'My name is ' })
-  }
-
-  usernameChange = (response) => {
-    const { parameters } = response.result
-
-    // set default to their full response because our bot isn't great at unique names.
-    let username = response.result.resolvedQuery
-
-    for (let i = 0; i < Object.keys(parameters).length; i += 1) {
-      const key = Object.keys(parameters)[i]
-
-      // filter through name parameters to find the one the name was set to (if it was set)
-      if (parameters[key] !== '') {
-        username = parameters[key]
+    this.setState({
+      isTyping: false,
+      curatedOptions: {
+        ...this.state.curatedOptions,
+        visible: true
       }
-    }
-
-    this.setState({ username })
+    })
   }
 
+  // This function listens to any response from the bot
   handleResponse = (response) => {
     const { result } = response
 
-    // Custom payload responses vs standard response
-    if (result.fulfillment.messages[1].payload) {
-      const responses = result.fulfillment.messages[1].payload.response
-      let delay = 1000;
+    // See what type of response the bot comes back with
+    const type = result.fulfillment.messages.map((message) => {
+      if (message.speech && message.speech.length > 0) return 'single'
+      if (message.payload) return 'multiple'
+
+      return null
+    })
+
+    // Change logic based on response type (multi-based response appears as multiple messages)
+    if (type.includes('multiple')) {
+      const base = result.fulfillment.messages.find((item) => item.payload).payload
+      const responses = base.response
+      let delay = 750;
 
       for (let i = 0; i < responses.length; i += 1) {
-        delay += i > 0 ? Math.floor(Math.random() * 3000) + 2000 : 0
+        delay += i > 0 ? Math.floor(Math.random() * 2000) + 1000 : 0
 
         setTimeout(() => {
           this.updateHistory(responses[i], this.state.botName, true)
 
-          if (i === responses.length - 1) this.setState({ isTyping: false })
+          // If we're on the last response, trigger next step
+          if (i === responses.length - 1) {
+            this.setState({ isTyping: false })
+
+            // If user has curated options turned on, check for any new ones from the bot
+            if (this.state.curatedOptions.visible && base.moreOptions) {
+              this.setState({
+                curatedOptions: {
+                  visible: true,
+                  links: base.moreOptions
+                }
+              })
+            }
+          }
         }, delay)
       }
     } else {
       this.updateHistory(result.fulfillment.speech, this.state.botName, true)
       this.setState({ isTyping: false })
     }
+  }
 
+  sendMessage = (event, directValue = null) => {
+    if ((event && (event.keyCode === 13 || event.which === 13)) || directValue) {
+      const message = directValue || this.state.inputValue
 
-    // store username in state
-    if (result.action === 'name.user.save') {
-      this.usernameChange(response)
+      // Pass user message into state
+      this.updateHistory(message, this.state.username)
+
+      // Send user message to analytics
+      window.dataLayer.push({ event: 'dialogflow', message })
+
+      // Send off to bot
+      this.setState({ isTyping: true, inputValue: '' }, () => {
+        this.client.textRequest(message)
+          .then(this.handleResponse)
+          .catch(this.handleError)
+      })
     }
   }
 
+  // Basic input function
+  handleInputChange = (event) => {
+    this.setState({ inputValue: event.target.value })
+  }
+
+  // Toggle for user to use preselected messages or type their own to the bot
+  changeInput = (option) => {
+    this.updateHistory(changeInputResponse[option], this.state.botName, true)
+
+    this.setState({
+      curatedOptions: {
+        ...this.state.curatedOptions,
+        visible: !this.state.curatedOptions.visible
+      }
+    })
+  }
+
+  // Basic error handling
   handleError = () => {
     this.setState({ isTyping: false })
   }
 
+  // This is the final frontier. All message-based functions end with a call to this one
+  // It updates the local state with whatever argument was passed to it
   updateHistory = (message, user, bot = false) => {
     const { chatHistory } = this.state
 
@@ -106,24 +170,6 @@ class Messenger extends Component {
     this.setState({ chatHistory })
   }
 
-  sendMessage = (message) => {
-    this.setState({ isTyping: true, inputValue: '' })
-    this.client.textRequest(message)
-      .then(this.handleResponse)
-      .catch(this.handleError)
-  }
-
-  triggerUserMessage = (event) => {
-    event.preventDefault()
-
-    this.updateHistory(this.state.inputValue, this.state.username)
-    this.sendMessage(this.state.inputValue)
-  }
-
-  handleInputChange = (event) => {
-    this.setState({ inputValue: event.target.value })
-  }
-
   render() {
     const {
       updateActiveApp,
@@ -134,7 +180,13 @@ class Messenger extends Component {
       currentlyActiveApp,
       previouslyActiveApp
     } = this.props
-    const { chatHistory, isTyping, inputValue } = this.state
+
+    const {
+      chatHistory,
+      isTyping,
+      inputValue,
+      curatedOptions
+    } = this.state
 
     const messenger = apps.messenger.toLowerCase()
     const dataView = (openApps.indexOf(messenger) === -1 || minimizedApps.indexOf(messenger) !== -1) ? 'closed' : ''
@@ -180,16 +232,48 @@ class Messenger extends Component {
 
             <span className={`activeTyping ${isTyping ? 'visible' : ''}`}>Heather is typing...</span>
 
-            <div className="userInput">
-              <form onSubmit={this.triggerUserMessage}>
-                <input
-                  type="text"
-                  id="messageField"
-                  autoFocus
-                  value={inputValue}
-                  onChange={this.handleInputChange}
-                />
-              </form>
+            <div className={`userInput ${isTyping ? 'hidden' : ''}`}>
+              <div className="field">
+                {
+                  curatedOptions.visible ? (
+                    <div className="buttonWrapper">
+                      <div>
+                        {
+                          curatedOptions.links.map(link => (
+                            <button
+                              key={link.replace(/\s+/g, '').toLowerCase()}
+                              className="button-medium"
+                              onClick={() => this.sendMessage(null, link)}>
+                              {link}
+                            </button>
+                          ))
+                        }
+                      </div>
+                    </div>
+                  ) : (
+                    <input
+                      type="text"
+                      id="messageField"
+                      autoFocus
+                      value={inputValue}
+                      onChange={this.handleInputChange}
+                      onKeyPress={this.sendMessage}
+                    />
+                  )
+                }
+              </div>
+              <button
+                onClick={() => this.changeInput(curatedOptions.visible ? 'free' : 'options')}
+                className="button-medium option-toggle"
+              >
+              {
+                curatedOptions.visible ? (
+                  'Free type'
+                ) : (
+                  'Curated'
+                )
+              }
+              </button>
             </div>
           </div>
       </Draggable>

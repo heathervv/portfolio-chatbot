@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { apps, icons } from '../constants'
+import { apps, icons, contact } from '../config'
 
 // Components
 import Program from './program'
@@ -9,17 +9,11 @@ const Contact = ({
     updateActiveApp,
     closeApp,
     updateStartbar,
-    openInNewTab,
     openApps,
     minimizedApps,
     currentlyActiveApp,
     previouslyActiveApp
   }) => {
-  let emailLink = "heathervandervecht@gmail.com"
-  let linkedin = "https://linkedin.com/in/heathervandervecht"
-  let github = "http://github.com/heathervv"
-  let twitter = "http://twitter.com/_heathervv"
-  let instagram = "http://instagram.com/heathervv"
 
   return (
     <Program
@@ -29,22 +23,21 @@ const Contact = ({
       updateActiveApp={updateActiveApp}
       updateStartbar={updateStartbar}
       closeApp={closeApp}
-      openInNewTab={openInNewTab}
       openApps={openApps}
       minimizedApps={minimizedApps}
       currentlyActiveApp={currentlyActiveApp}
       previouslyActiveApp={previouslyActiveApp} >
-      Let's chat! It's a pretty safe bet that you're awesome, and I'm always looking to meet awesome people. I'd love to grab a coffee, or even a beer if that's what you're into - just shoot me a message!
+      {contact.content}
       <br/>
       <br/>
       ==========================================
       <br/>
       <br/>
-      <a onClick={openInNewTab.bind(null, "mailto:" + emailLink)} href={"mailto:" + emailLink}>{emailLink}</a> <br/>
-      <a onClick={openInNewTab.bind(null, linkedin)} href={linkedin}>LinkedIn</a> <br/>
-      <a onClick={openInNewTab.bind(null, github)} href={github}>GitHub</a> <br/>
-      <a onClick={openInNewTab.bind(null, twitter)} href={twitter}>Twitter</a> <br/>
-      <a onClick={openInNewTab.bind(null, instagram)} href={instagram}>Instagram</a>
+      <a href={contact.emailLink}>{contact.emailLink.replace('mailto:', '')}</a> <br/>
+      <a href={contact.linkedin}>LinkedIn</a> <br/>
+      <a href={contact.github}>GitHub</a> <br/>
+      <a href={contact.twitter}>Twitter</a> <br/>
+      <a href={contact.instagram}>Instagram</a>
     </Program>
   )
 }
@@ -53,7 +46,6 @@ Contact.propTypes = {
   updateActiveApp: PropTypes.func,
   closeApp: PropTypes.func,
   updateStartbar: PropTypes.func,
-  openInNewTab: PropTypes.func,
   openApps: PropTypes.array,
   minimizedApps: PropTypes.array,
   currentlyActiveApp: PropTypes.string,

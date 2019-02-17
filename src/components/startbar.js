@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { apps, icons } from '../constants'
+import { apps, icons } from '../config'
 
 // Components
 import Clock from './clock'

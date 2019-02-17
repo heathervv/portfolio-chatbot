@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Linkify from 'react-linkify'
 
 const Message = ({ type, content, user }) => (
   <div className={`message ${type}`}>
-    <span>{`<${user}>`}</span>
-    {content}
+    <span className="username">{`<${user}>`}</span>
+    <Linkify>
+      {content}
+    </Linkify>
   </div>
 )
 

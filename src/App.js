@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 
-import { apps, icons } from './constants'
+import { apps, icons, resumeLink } from './config'
 import StartBar from './components/startbar'
 import Messenger from './components/messenger'
 import Work from './components/work'
@@ -10,7 +10,6 @@ import Contact from './components/contact'
 import wave from './images/wave.svg'
 import resume from './images/resume.svg'
 
-// const programComponents = [Messenger, Work, Contact]
 const programComponents = {
   'chat': Messenger,
   'work': Work,
@@ -25,6 +24,22 @@ class App extends Component {
     openStart: false,
     currentlyActiveApp: apps.messenger.toLowerCase(),
     previouslyActiveApp: ''
+  }
+
+  componentDidMount() {
+    if (document.addEventListener) {
+      document.addEventListener('click', this.linkClickListener, false)
+    } else {
+      document.attachEvent('onclick', this.linkClickListener)
+    }
+  }
+
+  linkClickListener = (e) => {
+    var event = window.e || e
+
+    if (event.target.tagName === 'A') {
+      this.openInNewTab(event.target.href)
+    }
   }
 
   openApp = (e, component) => {
@@ -108,7 +123,14 @@ class App extends Component {
   }
 
   render() {
-    const { openApps, minimizedApps, currentlyActiveApp, previouslyActiveApp, openStart, shutDown } = this.state
+    const {
+      openApps,
+      minimizedApps,
+      currentlyActiveApp,
+      previouslyActiveApp,
+      openStart,
+      shutDown
+    } = this.state
 
     return (
       <section className="desktop">
@@ -122,7 +144,7 @@ class App extends Component {
           <button onClick={e => this.openApp(e, apps.work.toLowerCase())}>
             <img src={icons[apps.work.toLowerCase()].url} alt={icons[apps.work.toLowerCase()].alt} /> {apps.work}
           </button>
-          <a href="https://standardresume.co/heathervandervecht" target="_blank" rel="noopener noreferrer">
+          <a href={resumeLink} target="_blank" rel="noopener noreferrer">
             <img src={resume} alt="Icon of resume" /> Resume
           </a>
         </div>
@@ -142,7 +164,6 @@ class App extends Component {
                 updateActiveApp={this.updateActiveApp}
                 closeApp={this.closeApp}
                 updateStartbar={this.updateStartbar}
-                openInNewTab={this.openInNewTab}
                 openApps={openApps}
                 minimizedApps={minimizedApps}
                 currentlyActiveApp={currentlyActiveApp}
