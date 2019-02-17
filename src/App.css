@@ -82,7 +82,6 @@ html {
       padding: 8px 10px 5px; } }
 
 .shutDownPage {
-  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -91,15 +90,10 @@ html {
   background: #000;
   opacity: 0;
   transition: opacity .2s ease-in-out;
-  pointer-events: none; }
-  .shutDownPage div {
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%); }
-  .shutDownPage img {
-    width: 35px; }
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
   .shutDownPage.visible {
     opacity: 1;
     pointer-events: auto;
@@ -138,7 +132,6 @@ html {
 .program {
   position: absolute;
   width: 100%;
-  height: 100%;
   cursor: default;
   padding-bottom: 9px;
   background: #bdbdbd;
@@ -150,11 +143,16 @@ html {
   @media (min-width: 1025px) {
     .program {
       max-width: 100%;
-      width: auto;
-      height: auto; } }
+      width: auto; } }
+  .program:not(.notification) {
+    height: 100%; }
+    @media (min-width: 1025px) {
+      .program:not(.notification) {
+        height: auto; } }
+    .program:not(.notification) .content {
+      background: #fff;
+      box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.6), inset 3px 3px rgba(0, 0, 0, 0.5); }
   .program .content {
-    background: #fff;
-    box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.6), inset 3px 3px rgba(0, 0, 0, 0.5);
     margin-top: 6px;
     width: calc(100% - 13px);
     padding: 10px;

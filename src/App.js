@@ -6,8 +6,8 @@ import StartBar from './components/startbar'
 import Messenger from './components/messenger'
 import Work from './components/work'
 import Contact from './components/contact'
+import ShutDown from './components/shutDown'
 
-import wave from './images/wave.svg'
 import resume from './images/resume.svg'
 
 const programComponents = {
@@ -116,10 +116,17 @@ class App extends Component {
     if(win) win.focus()
   }
 
-  shutDown = (e) => {
-    e.preventDefault()
+  shutDown = (e, restart = false) => {
+    if (e) e.preventDefault()
 
-    this.setState({ shutDown: true })
+    this.setState({
+      shutDown: restart ? false : true,
+      openStart: false,
+      openApps: [],
+      minimizedApps: [],
+      currentlyActiveApp: '',
+      previouslyActiveApp: ''
+    })
   }
 
   render() {
@@ -167,7 +174,8 @@ class App extends Component {
                 openApps={openApps}
                 minimizedApps={minimizedApps}
                 currentlyActiveApp={currentlyActiveApp}
-                previouslyActiveApp={previouslyActiveApp} />
+                previouslyActiveApp={previouslyActiveApp}
+              />
             )
           })
         }
@@ -185,9 +193,7 @@ class App extends Component {
         />
 
         <div className={`shutDownPage ${shutDown ? 'visible' : ''}`}>
-          <div>
-            <img src={wave} alt="wave" />
-          </div>
+          <ShutDown restart={() => this.shutDown(null, true)} />
         </div>
       </section>
     )

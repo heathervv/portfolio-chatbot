@@ -36,6 +36,9 @@ const StartBar = ({
           {
             Object.keys(apps).map((app, i) => {
               const className = apps[app].toLowerCase()
+
+              if (app === 'shutdowncomputer') return null
+
               return (
                 <button
                   key={i}

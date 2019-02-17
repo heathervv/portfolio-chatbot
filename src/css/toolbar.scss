@@ -34,6 +34,13 @@
     font-weight: 400;
     float: right;
     margin-left: 5px;
+
+    &.disabled {
+      pointer-events: none;
+      cursor: auto;
+      color: darken(#BDBDBD, 15%);
+      text-shadow: 1px 1px #fff;
+    }
   }
 }
 
@@ -51,4 +58,8 @@
 
 .paint .toolbar {
   background: linear-gradient(to right, #34ce18 0%, #f9f227 100%);
+}
+
+.shutdown .toolbar {
+  background: linear-gradient(to right, darken(blue, 25%) 0%, blue 100%);
 }
