@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 // Components
-import Draggable from 'react-draggable';
-import Toolbar from './toolbar';
+import Draggable from 'react-draggable'
+import Toolbar from './toolbar'
 
 const Program = (props) => {
   return (
@@ -28,8 +28,8 @@ const Program = (props) => {
         </div>
       </div>
     </Draggable>
-  );
-};
+  )
+}
 
 Program.propTypes = {
   programName: PropTypes.string.isRequired,
@@ -40,11 +40,10 @@ Program.propTypes = {
   updateActiveApp: PropTypes.func,
   closeApp: PropTypes.func,
   updateStartbar: PropTypes.func,
-  openInNewTab: PropTypes.func,
   openApps: PropTypes.array,
   minimizedApps: PropTypes.array,
   currentlyActiveApp: PropTypes.string,
   previouslyActiveApp: PropTypes.string
-};
+}
 
-export default Program;
+export default Program

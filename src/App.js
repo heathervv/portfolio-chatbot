@@ -1,157 +1,197 @@
-import React, { Component } from 'react';
-import Messenger from './_/components/messenger';
-import Work from './_/components/work';
-import Contact from './_/components/contact';
-import Paint from './_/components/paint';
-import StartBar from './_/components/startbar';
-import './_/css/App.css';
+import React, { Component } from 'react'
+import './App.css'
 
-import bot from './_/images/bot.svg';
-import email from './_/images/email.svg';
-import briefcase from './_/images/briefcase.svg';
-import wave from './_/images/wave.svg';
-import resumeGraphic from './_/images/resume.svg';
+import { apps, icons, resumeLink } from './config'
+import StartBar from './components/startbar'
+import Messenger from './components/messenger'
+import Work from './components/work'
+import Contact from './components/contact'
 
-import resume from './_/Resume-HeatherVandervecht.pdf';
+import wave from './images/wave.svg'
+import resume from './images/resume.svg'
 
-const programs = [Messenger, Work, Contact, Paint];
+const programComponents = {
+  'chat': Messenger,
+  'work': Work,
+  'contact': Contact
+}
 
 class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      shutDown: false,
-      openApps: ['messenger'],
-      minimizedApps: [],
-      openStart: false,
-      currentlyActiveApp: 'messenger',
-      previouslyActiveApp: ''
-    };
-
-    this.openApp = this.openApp.bind(this);
-    this.closeApp = this.closeApp.bind(this);
-    this.updateStartbar = this.updateStartbar.bind(this);
-    this.updateActiveApp = this.updateActiveApp.bind(this);
-    this.start = this.start.bind(this);
-    this.shutDown = this.shutDown.bind(this);
+  state = {
+    shutDown: false,
+    openApps: [apps.messenger.toLowerCase()],
+    minimizedApps: [],
+    openStart: false,
+    currentlyActiveApp: apps.messenger.toLowerCase(),
+    previouslyActiveApp: ''
   }
 
-  openApp(event, component) {
-    event.preventDefault();
-
-    const openApps = this.state.openApps;
-    openApps.push(component);
-
-    this.setState({ openApps });
-
-    this.updateActiveApp(component);
-
-    this.start('close');
+  componentDidMount() {
+    if (document.addEventListener) {
+      document.addEventListener('click', this.linkClickListener, false)
+    } else {
+      document.attachEvent('onclick', this.linkClickListener)
+    }
   }
 
-  closeApp(component, event) {
-    event.preventDefault();
+  linkClickListener = (e) => {
+    var event = window.e || e
 
-    let openApps = this.state.openApps;
-    openApps = openApps.filter(e => e !== component);
-
-    this.setState({ openApps: openApps });
+    if (event.target.tagName === 'A') {
+      this.openInNewTab(event.target.href)
+    }
   }
 
-  updateStartbar(component, appStatus) {
-    const minimizedApps = this.state.minimizedApps;
+  openApp = (e, component) => {
+    e.preventDefault()
 
-    if (appStatus === 'minimize') {
-      minimizedApps.push(component);
-    } else if (this.state.minimizedApps.indexOf(component) > -1) {
-      const index = minimizedApps.indexOf(component);
-      minimizedApps.splice(index, 1);
+    const { openApps, minimizedApps } = this.state
+    openApps.push(component)
 
-      this.updateActiveApp(component, null);
-    } else if (this.state.minimizedApps.indexOf(component) === -1) {
-      minimizedApps.push(component);
+    if (minimizedApps.indexOf(component) > -1) {
+      for (let i = minimizedApps.length - 1; i >= 0; i--) {
+        if (minimizedApps[i] === component) {
+            minimizedApps.splice(i, 1);
+        }
+      }
     }
 
-    this.setState({ minimizedApps });
-    this.start('close');
+    this.setState({ openApps, minimizedApps })
+
+    this.updateActiveApp(component)
+
+    this.start('close')
   }
 
-  updateActiveApp(component, event) {
-    if (event) event.preventDefault();
+  closeApp = (component, e) => {
+    e.preventDefault()
 
-    if (component === this.state.updateActiveApp) return;
+    let openApps = this.state.openApps
+    openApps = openApps.filter(e => e !== component)
 
-    this.setState({ previouslyActiveApp: this.state.currentlyActiveApp });
-    this.setState({ currentlyActiveApp: component });
+    this.setState({ openApps })
   }
 
-  start(status) {
+  updateStartbar = (component, minimizeWindow) => {
+    const minimizedApps = this.state.minimizedApps
+
+    if (minimizeWindow) {
+      // if we manually ask to minimize
+      minimizedApps.push(component)
+    } else if (this.state.minimizedApps.indexOf(component) > -1) {
+      // if app is currently minimized and needs to be brought back
+      const index = minimizedApps.indexOf(component)
+      minimizedApps.splice(index, 1)
+
+      this.updateActiveApp(component, null)
+    } else {
+      // Otherwise, let's just set to currently active app
+      this.updateActiveApp(component, null)
+    }
+
+    this.setState({ minimizedApps })
+    this.start('close')
+  }
+
+  updateActiveApp = (component, e) => {
+    if (e) e.preventDefault()
+
+    if (component === this.state.updateActiveApp) return
+
+    this.setState({ previouslyActiveApp: this.state.currentlyActiveApp })
+    this.setState({ currentlyActiveApp: component })
+  }
+
+
+  start = (status) => {
     if (status === 'close')
-      this.setState({ openStart: false });
+      this.setState({ openStart: false })
     else
-      this.setState({ openStart: true });
+      this.setState({ openStart: true })
   }
 
-  openInNewTab(elem) {
-    const win = window.open(elem, '_blank');
+  openInNewTab = (elem) => {
+    const win = window.open(elem, '_blank')
 
-    if(win) win.focus();
+    if(win) win.focus()
   }
 
-  shutDown(e) {
-    e.preventDefault();
+  shutDown = (e) => {
+    e.preventDefault()
 
-    this.setState({ shutDown: true });
+    this.setState({ shutDown: true })
   }
 
   render() {
+    const {
+      openApps,
+      minimizedApps,
+      currentlyActiveApp,
+      previouslyActiveApp,
+      openStart,
+      shutDown
+    } = this.state
+
     return (
       <section className="desktop">
         <div className="icons">
-          <a href="#" onClick={() => this.openApp(event, 'messenger')}><img src={bot} alt="Icon of bot"/> Chat</a>
-          <a href="#" onClick={() => this.openApp(event, 'contact')}><img src={email} alt="Icon of email"/> Contact</a>
-          <a href="#" onClick={() => this.openApp(event, 'work')}><img src={briefcase} alt="Icon of briefcase"/> Work</a>
-          <a href={resume} target="_blank"><img src={resumeGraphic} alt="Icon of resume"/> Resume</a>
+          <button onClick={e => this.openApp(e, apps.messenger.toLowerCase())}>
+            <img src={icons[apps.messenger.toLowerCase()].url} alt={icons[apps.messenger.toLowerCase()].alt} /> {apps.messenger}
+          </button>
+          <button onClick={e => this.openApp(e, apps.contact.toLowerCase())}>
+            <img src={icons[apps.contact.toLowerCase()].url} alt={icons[apps.contact.toLowerCase()].alt} /> {apps.contact}
+          </button>
+          <button onClick={e => this.openApp(e, apps.work.toLowerCase())}>
+            <img src={icons[apps.work.toLowerCase()].url} alt={icons[apps.work.toLowerCase()].alt} /> {apps.work}
+          </button>
+          <a href={resumeLink} target="_blank" rel="noopener noreferrer">
+            <img src={resume} alt="Icon of resume" /> Resume
+          </a>
         </div>
 
         {
-          programs.map((program, i) => {
-            const ProgramBlock = program;
+          Object.keys(programComponents).map((program, i) => {
+            if (
+              openApps.indexOf(program) === -1 &&
+              minimizedApps.indexOf(program) === -1
+            ) return null
+
+            const ProgramBlock = programComponents[program]
+
             return (
               <ProgramBlock
                 key={i}
                 updateActiveApp={this.updateActiveApp}
                 closeApp={this.closeApp}
                 updateStartbar={this.updateStartbar}
-                openInNewTab={this.openInNewTab}
-                openApps={this.state.openApps}
-                minimizedApps={this.state.minimizedApps}
-                currentlyActiveApp={this.state.currentlyActiveApp}
-                previouslyActiveApp={this.state.previouslyActiveApp} />
-            );
+                openApps={openApps}
+                minimizedApps={minimizedApps}
+                currentlyActiveApp={currentlyActiveApp}
+                previouslyActiveApp={previouslyActiveApp} />
+            )
           })
         }
 
         <StartBar
           openApp={this.openApp}
           updateActiveApp={this.updateActiveApp}
-          currentlyActiveApp={this.state.currentlyActiveApp}
-          openApps={this.state.openApps}
-          minimizedApps={this.state.minimizedApps}
+          currentlyActiveApp={currentlyActiveApp}
+          openApps={openApps}
+          minimizedApps={minimizedApps}
           shutDown={this.shutDown}
           updateStartbar={this.updateStartbar}
           start={this.start}
-          openStart={this.state.openStart} />
+          openStart={openStart}
+        />
 
-        <div className={`shutDownPage ${this.state.shutDown === true ? 'visible' : ''}`}>
+        <div className={`shutDownPage ${shutDown ? 'visible' : ''}`}>
           <div>
-            <img src={wave} alt="wave"/>
+            <img src={wave} alt="wave" />
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
-export default App;
+export default App
