@@ -12,7 +12,7 @@ class Clock extends PureComponent {
   }
 
   checkTime(i) {
-    return i < 10 ? i = '0' + i : i
+    return i < 10 ? '0' + i : i
   }
 
   startTime = () => {

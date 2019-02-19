@@ -5,7 +5,7 @@ import Linkify from 'react-linkify'
 const Message = ({ type, content, user }) => (
   <div className={`message ${type}`}>
     <span className="username">{`<${user}>`}</span>
-    <Linkify>
+    <Linkify properties={{target: "_blank"}}>
       {content}
     </Linkify>
   </div>

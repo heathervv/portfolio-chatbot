@@ -12,7 +12,6 @@ import flag from '../images/flag.svg'
 import computer from '../images/computer.svg'
 
 const StartBar = ({
-  openApp,
   openApps,
   shutDown,
   start,
@@ -54,7 +53,7 @@ const StartBar = ({
                         'minimized-program' :
                         ''
                     }`}
-                  onClick={e => updateStartbar(className)}>
+                  onClick={() => updateStartbar(className)}>
                   <img src={icons[className].url} alt={icons[className].alt}/>
                   <span>{apps[app]}</span>
                 </button>
@@ -69,7 +68,7 @@ const StartBar = ({
         <div className="start-cupboard visible">
           <button
           className="shutdown"
-          onClick={e => shutDown(e)}>
+          onClick={() => shutDown()}>
             <img src={computer} alt="computer"/>
             <span>Shut Down...</span>
           </button>
@@ -80,7 +79,6 @@ const StartBar = ({
 }
 
 StartBar.propTypes = {
-  openApp: PropTypes.func,
   openApps: PropTypes.array,
   shutDown: PropTypes.func,
   start: PropTypes.func,
@@ -91,7 +89,6 @@ StartBar.propTypes = {
 }
 
 StartBar.defaultProps = {
-  openApp: () => {},
   shutDown: () => {},
   start: () => {},
   updateStartbar: () => {},

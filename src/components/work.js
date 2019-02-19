@@ -27,11 +27,11 @@ const Work = ({
     currentlyActiveApp={currentlyActiveApp}
     previouslyActiveApp={previouslyActiveApp}
   >
-    <Linkify>
+    <Linkify properties={{target: "_blank", rel: "noopener noreferrer"}}>
       {
         work.map((item, i) => (
           <div key={i}>
-            <h3><a href={item.url}>{item.title}</a></h3>
+            <h3><a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a></h3>
             <p>{item.copy}</p>
           </div>
         ))

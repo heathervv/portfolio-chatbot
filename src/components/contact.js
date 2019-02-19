@@ -34,10 +34,10 @@ const Contact = ({
       <br/>
       <br/>
       <a href={contact.emailLink}>{contact.emailLink.replace('mailto:', '')}</a> <br/>
-      <a href={contact.linkedin}>LinkedIn</a> <br/>
-      <a href={contact.github}>GitHub</a> <br/>
-      <a href={contact.twitter}>Twitter</a> <br/>
-      <a href={contact.instagram}>Instagram</a>
+      <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a> <br/>
+      <a href={contact.github} target="_blank" rel="noopener noreferrer">GitHub</a> <br/>
+      <a href={contact.twitter} target="_blank" rel="noopener noreferrer">Twitter</a> <br/>
+      <a href={contact.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
     </Program>
   )
 }

@@ -26,24 +26,7 @@ class App extends Component {
     previouslyActiveApp: ''
   }
 
-  componentDidMount() {
-    if (document.addEventListener) {
-      document.addEventListener('click', this.linkClickListener, false)
-    } else {
-      document.attachEvent('onclick', this.linkClickListener)
-    }
-  }
-
-  linkClickListener = (e) => {
-    var event = window.e || e
-
-    if (event.target.tagName === 'A') {
-      this.openInNewTab(event.target.href)
-    }
-  }
-
   openApp = (e, component) => {
-    e.preventDefault()
 
     const { openApps, minimizedApps } = this.state
     openApps.push(component)
@@ -64,7 +47,6 @@ class App extends Component {
   }
 
   closeApp = (component, e) => {
-    e.preventDefault()
 
     let openApps = this.state.openApps
     openApps = openApps.filter(e => e !== component)
@@ -72,7 +54,7 @@ class App extends Component {
     this.setState({ openApps })
   }
 
-  updateStartbar = (component, minimizeWindow) => {
+  updateStartBar = (component, minimizeWindow) => {
     const minimizedApps = this.state.minimizedApps
 
     if (minimizeWindow) {
@@ -93,8 +75,7 @@ class App extends Component {
     this.start('close')
   }
 
-  updateActiveApp = (component, e) => {
-    if (e) e.preventDefault()
+  updateActiveApp = (component) => {
 
     if (component === this.state.updateActiveApp) return
 
@@ -110,17 +91,10 @@ class App extends Component {
       this.setState({ openStart: true })
   }
 
-  openInNewTab = (elem) => {
-    const win = window.open(elem, '_blank')
-
-    if(win) win.focus()
-  }
-
-  shutDown = (e, restart = false) => {
-    if (e) e.preventDefault()
+  shutDown = (restart = false) => {
 
     this.setState({
-      shutDown: restart ? false : true,
+      shutDown: !restart,
       openStart: false,
       openApps: [],
       minimizedApps: [],
@@ -159,8 +133,8 @@ class App extends Component {
         {
           Object.keys(programComponents).map((program, i) => {
             if (
-              openApps.indexOf(program) === -1 &&
-              minimizedApps.indexOf(program) === -1
+              !openApps.includes(program) &&
+              !minimizedApps.includes(program)
             ) return null
 
             const ProgramBlock = programComponents[program]
@@ -170,7 +144,7 @@ class App extends Component {
                 key={i}
                 updateActiveApp={this.updateActiveApp}
                 closeApp={this.closeApp}
-                updateStartbar={this.updateStartbar}
+                updateStartbar={this.updateStartBar}
                 openApps={openApps}
                 minimizedApps={minimizedApps}
                 currentlyActiveApp={currentlyActiveApp}
@@ -181,19 +155,18 @@ class App extends Component {
         }
 
         <StartBar
-          openApp={this.openApp}
           updateActiveApp={this.updateActiveApp}
           currentlyActiveApp={currentlyActiveApp}
           openApps={openApps}
           minimizedApps={minimizedApps}
           shutDown={this.shutDown}
-          updateStartbar={this.updateStartbar}
+          updateStartbar={this.updateStartBar}
           start={this.start}
           openStart={openStart}
         />
 
         <div className={`shutDownPage ${shutDown ? 'visible' : ''}`}>
-          <ShutDown restart={() => this.shutDown(null, true)} />
+          <ShutDown restart={() => this.shutDown(true)} />
         </div>
       </section>
     )
