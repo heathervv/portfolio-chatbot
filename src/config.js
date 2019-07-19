@@ -52,11 +52,6 @@ const work = [
     copy: 'This project was an incredible experience for quite a few reasons! Not only because David and Doug are some of the nicest, funniest people I\'ve ever met, but also because they really wanted to try and push the envelope with their website. I had the opportunity to implement physics on this project - not many things are cooler than that. I\'m also incredibly proud of the case study template as I think it blends functionality and form together in a really delightful way. While the whole site is built to be editable via a CMS, I focused on really supporting flexibility from the CMS for the case studies - it can be ordered however they need, optimized to load tons of videos, with some great animations automatically scattered throughout each page.'
   },
   {
-    title: 'Blunt',
-    url: '//blunt.af',
-    copy: 'Blunt is a small agency I co-founded with Maxim (maximsiebert.com) with the desire to create unique work. The self-titled website was a lot of fun with the interesting challenge of also writing and laying out the content to describe our goals. V1 of this site had infinite scrolling!'
-  },
-  {
     title: 'Let\'s Find Momo',
     url: '//letsfindmomo.com',
     copy: 'Filament teamed up with Andrew Knapp and Momo (his dog) to create this playful website. As lead dev on this project I helped make sure the project stayed on time, solved any problems the team had, and focused on building out the gameplay functionality. Built with React and WordPress.'
