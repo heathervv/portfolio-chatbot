@@ -46,7 +46,7 @@ $desktop: 1025;
       border-right: 2px solid rgba(#000,.25);
     }
     a:not(.active),
-      button:not(.active) {
+    button:not(.active) {
       font-weight: 400;
     }
     a,
@@ -55,14 +55,19 @@ $desktop: 1025;
       min-width: 105px;
       text-align: center;
     }
-  }
-    .closed-program {
-      display: none;
+
+    .startbar-settings {
+      width: 128px;
     }
   }
 
-    a,
-    button {
+  .closed-program {
+    display: none;
+  }
+}
+
+  a,
+  button {
     img {
       margin-right: 5px;
     }
@@ -105,5 +110,10 @@ $desktop: 1025;
       max-width: 30px;
       margin-right: 5px;
     }
+  }
+
+  .shutdown {
+    border-top: 1px solid #888;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 }

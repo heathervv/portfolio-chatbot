@@ -6,6 +6,7 @@ import StartBar from './components/startbar'
 import Messenger from './components/messenger'
 import Work from './components/work'
 import Contact from './components/contact'
+import Settings from './components/settings'
 import ShutDown from './components/shutDown'
 
 import resume from './images/resume.svg'
@@ -13,7 +14,8 @@ import resume from './images/resume.svg'
 const programComponents = {
   'chat': Messenger,
   'work': Work,
-  'contact': Contact
+  'contact': Contact,
+  'settings': Settings
 }
 
 class App extends Component {
@@ -190,6 +192,7 @@ class App extends Component {
           updateStartbar={this.updateStartbar}
           start={this.start}
           openStart={openStart}
+          openSettings={e => this.openApp(e, apps.settings.toLowerCase())}
         />
 
         <div className={`shutDownPage ${shutDown ? 'visible' : ''}`}>

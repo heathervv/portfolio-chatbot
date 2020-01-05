@@ -1,13 +1,15 @@
 const bot = require('./images/bot.svg')
 const email = require('./images/email.svg')
 const briefcase = require('./images/briefcase.svg')
+const settings = require('./images/settings.svg')
 const moon = require('./images/moon.svg')
 
 const apps = {
   messenger: 'Chat',
   work: 'Work',
   contact: 'Contact',
-  shutdown: 'Shutdown'
+  shutdown: 'Shutdown',
+  settings: 'Settings'
 }
 
 const icons = {
@@ -26,6 +28,10 @@ const icons = {
   shutdown: {
     url: moon,
     alt: 'Icon of moon'
+  },
+  settings: {
+    url: briefcase, // TODO: fix this
+    alt: 'Icon of settings'
   }
 }
 
