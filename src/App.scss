@@ -175,7 +175,8 @@ html {
     @media (min-width: $desktop + px) {
       height: auto;
     }
-
+  }
+  &:not(.system) {
     .content {
       background: #fff;
       box-shadow: 3px 3px 0 rgba(#fff,.6), inset 3px 3px rgba(#000,.5);

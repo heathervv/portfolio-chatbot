@@ -30,7 +30,7 @@ const icons = {
     alt: 'Icon of moon'
   },
   settings: {
-    url: briefcase, // TODO: fix this
+    url: settings,
     alt: 'Icon of settings'
   }
 }

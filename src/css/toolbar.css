@@ -47,5 +47,6 @@
 .paint .toolbar {
   background: linear-gradient(to right, #34ce18 0%, #f9f227 100%); }
 
-.shutdown .toolbar {
+.shutdown .toolbar,
+.settings .toolbar {
   background: linear-gradient(to right, navy 0%, blue 100%); }

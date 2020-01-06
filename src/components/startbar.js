@@ -10,7 +10,6 @@ import '../css/startbar.css'
 // Assets
 import flag from '../images/flag.svg'
 import computer from '../images/computer.svg'
-// TODO: Fix settings icon https://emojitwo.github.io/
 import settings from '../images/settings.svg'
 
 const StartBar = ({
@@ -73,7 +72,7 @@ const StartBar = ({
           <button
           className="settings"
           onClick={openSettings}>
-            <img src={computer} alt="settings"/>
+            <img src={settings} alt="settings"/>
             <span>Settings</span>
           </button>
           <button

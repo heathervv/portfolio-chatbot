@@ -14,7 +14,7 @@ const Program = (props) => {
       }
       handle=".toolbar">
       <div
-        className={`${props.programName.toLowerCase()} program txt-file ${props.currentlyActiveApp === props.programName.toLowerCase() ? 'active' : ''} ${props.previouslyActiveApp === props.programName.toLowerCase() ? 'previous-active' : ''} ${props.notificationStyle ? 'notification' : ''}`}
+        className={`${props.programName.toLowerCase()} program txt-file ${props.currentlyActiveApp === props.programName.toLowerCase() ? 'active' : ''} ${props.previouslyActiveApp === props.programName.toLowerCase() ? 'previous-active' : ''} ${props.notificationStyle ? 'notification' : ''} ${props.systemStyle ? 'system' : ''}`}
         data-view={props.openApps.indexOf(props.programName.toLowerCase()) === -1 ? 'closed' : props.minimizedApps.indexOf(props.programName.toLowerCase()) !== -1 ? 'closed' : ''}
         onClick={props.updateActiveApp.bind(null, props.programName.toLowerCase())}>
         <Toolbar
@@ -49,7 +49,8 @@ Program.propTypes = {
   minimizedApps: PropTypes.array,
   currentlyActiveApp: PropTypes.string,
   previouslyActiveApp: PropTypes.string,
-  notificationStyle: PropTypes.bool
+  notificationStyle: PropTypes.bool,
+  systemStyle: PropTypes.bool
 }
 
 Program.defaultProps = {
@@ -62,7 +63,8 @@ Program.defaultProps = {
   minimizedApps: [],
   currentlyActiveApp: null,
   previouslyActiveApp: null,
-  notificationStyle: false
+  notificationStyle: false,
+  systemStyle: false
 }
 
 export default Program

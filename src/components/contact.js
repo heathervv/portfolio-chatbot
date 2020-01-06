@@ -26,7 +26,8 @@ const Contact = ({
       openApps={openApps}
       minimizedApps={minimizedApps}
       currentlyActiveApp={currentlyActiveApp}
-      previouslyActiveApp={previouslyActiveApp} >
+      previouslyActiveApp={previouslyActiveApp}
+    >
       {contact.content}
       <br/>
       <br/>
