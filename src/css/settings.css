@@ -38,3 +38,6 @@
     .settings .options .option.selected button {
       background: blue;
       color: #fff; }
+
+.settings .attributions p:last-child {
+  margin-top: 5px; }

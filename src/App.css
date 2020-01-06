@@ -106,7 +106,8 @@ html {
   right: 0;
   bottom: 0;
   overflow: hidden;
-  background: url("images/wallpaper.jpg") no-repeat bottom center;
+  background-repeat: no-repeat;
+  background-position: bottom center;
   background-size: cover; }
   @media (min-width: 1025px) {
     .desktop {

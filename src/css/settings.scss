@@ -1,4 +1,4 @@
-$tablet: 750;
+// $tablet: 750;
 $desktop: 1025;
 
 .settings {
@@ -54,5 +54,9 @@ $desktop: 1025;
         color: #fff;
       }
     }
+  }
+
+  .attributions p:last-child {
+    margin-top: 5px;
   }
 }

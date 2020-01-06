@@ -1,14 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { apps, icons } from '../config'
+import { apps, icons, systemSettings } from '../config'
 
 // Components
 import Program from './program'
 
 import '../css/settings.css'
-
-// TOOD:
-// - attach to cookie?
 
 const Settings = ({
     updateActiveApp,
@@ -17,7 +14,9 @@ const Settings = ({
     openApps,
     minimizedApps,
     currentlyActiveApp,
-    previouslyActiveApp
+    previouslyActiveApp,
+    activeSystemSettings,
+    changeSystemSettings
   }) => (
   <Program
     programName={apps.settings}
@@ -34,12 +33,19 @@ const Settings = ({
     <div className="section background">
       <p className="sectionTitle">Background</p>
       <ul className="options">
-        <li className="option"><button>Classic</button></li>
-        <li className="option selected"><button>Nasa</button></li>
-        <li className="option"><button>Clouds</button></li>
-        <li className="option"><button>Logo</button></li>
-        <li className="option"><button>Vaporwave</button></li>
-        <li className="option"><button>Harry Potter</button></li>
+        {
+          systemSettings.background.map((background) => {
+            let className = 'option'
+
+            if (background.name === activeSystemSettings.background.name) {
+              className += ' selected'
+            }
+
+            return (
+                <li className={className}><button onClick={() => changeSystemSettings(background)}>{background.name}</button></li>
+            )
+          })
+        }
       </ul>
     </div>
 
@@ -67,7 +73,9 @@ Settings.propTypes = {
   openApps: PropTypes.array,
   minimizedApps: PropTypes.array,
   currentlyActiveApp: PropTypes.string,
-  previouslyActiveApp: PropTypes.string
+  previouslyActiveApp: PropTypes.string,
+  activeSystemSettings: PropTypes.object,
+  changeSystemSettings: PropTypes.func
 }
 
 export default Settings

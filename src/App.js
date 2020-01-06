@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 
-import { apps, icons, resumeLink } from './config'
+import { apps, icons, resumeLink, systemSettings } from './config'
 import StartBar from './components/startbar'
 import Messenger from './components/messenger'
 import Work from './components/work'
@@ -25,7 +25,10 @@ class App extends Component {
     minimizedApps: [],
     openStart: false,
     currentlyActiveApp: apps.messenger.toLowerCase(),
-    previouslyActiveApp: ''
+    previouslyActiveApp: '',
+    systemSettings: {
+      background: systemSettings.background[1]
+    }
   }
 
   componentDidMount() {
@@ -131,6 +134,17 @@ class App extends Component {
     })
   }
 
+  changeSystemSettings = (background = null) => {
+    if (background) {
+      this.setState({
+        systemSettings: {
+          ...this.state.systemSettings,
+          background
+        }
+      })
+    }
+  }
+
   render() {
     const {
       openApps,
@@ -138,11 +152,12 @@ class App extends Component {
       currentlyActiveApp,
       previouslyActiveApp,
       openStart,
-      shutDown
+      shutDown,
+      systemSettings
     } = this.state
 
     return (
-      <section className="desktop">
+      <section className="desktop" style={{ backgroundImage: `url(${systemSettings.background.url})` }}>
         <div className="icons">
           <button onClick={e => this.openApp(e, apps.messenger.toLowerCase())}>
             <img src={icons[apps.messenger.toLowerCase()].url} alt={icons[apps.messenger.toLowerCase()].alt} /> {apps.messenger}
@@ -177,6 +192,8 @@ class App extends Component {
                 minimizedApps={minimizedApps}
                 currentlyActiveApp={currentlyActiveApp}
                 previouslyActiveApp={previouslyActiveApp}
+                activeSystemSettings={systemSettings}
+                changeSystemSettings={this.changeSystemSettings}
               />
             )
           })

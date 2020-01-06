@@ -3,6 +3,7 @@ const email = require('./images/email.svg')
 const briefcase = require('./images/briefcase.svg')
 const settings = require('./images/settings.svg')
 const moon = require('./images/moon.svg')
+const background_nasa = require('./images/backgrounds/nasa.jpg')
 
 const apps = {
   messenger: 'Chat',
@@ -80,6 +81,34 @@ const dialogFlow = {
   token: '184dc97ff8e442a7991119cf7e45e47f'
 }
 
+// TODO: update URLs to be correct
+const systemSettings_background = [
+  {
+    'name': 'Classic',
+    'url': background_nasa
+  },
+  {
+    'name': 'Nasa',
+    'url': background_nasa
+  },
+  {
+    'name': 'Clouds',
+    'url': background_nasa
+  },
+  {
+    'name': 'Logo',
+    'url': background_nasa
+  },
+  {
+    'name': 'Vaporwave',
+    'url': background_nasa
+  },
+  {
+    'name': 'Harry Potter',
+    'url': background_nasa
+  }
+]
+
 module.exports = {
   apps,
   icons,
@@ -88,5 +117,8 @@ module.exports = {
   work,
   dialogFlow,
   initialResponse,
-  changeInputResponse
+  changeInputResponse,
+  systemSettings: {
+    background: systemSettings_background
+  }
 }
