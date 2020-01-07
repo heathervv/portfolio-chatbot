@@ -42,7 +42,7 @@ const Settings = ({
             }
 
             return (
-                <li className={className}><button onClick={() => changeSystemSettings(background)}>{background.name}</button></li>
+                <li key={background.name} className={className}><button onClick={() => changeSystemSettings(background)}>{background.name}</button></li>
             )
           })
         }
@@ -52,9 +52,19 @@ const Settings = ({
     <div className="section theme">
       <p className="sectionTitle">Appearance</p>
       <ul className="options">
-        <li className="option selected"><button>Light</button></li>
-        <li className="option"><button>Dark</button></li>
-        <li className="option"><button>Modern</button></li>
+        {
+          systemSettings.theme.map((theme) => {
+            let className = 'option'
+
+            if (theme === activeSystemSettings.theme) {
+              className += ' selected'
+            }
+
+            return (
+                <li key={theme} className={className}><button onClick={() => changeSystemSettings(null, theme)}>{theme}</button></li>
+            )
+          })
+        }
       </ul>
     </div>
 

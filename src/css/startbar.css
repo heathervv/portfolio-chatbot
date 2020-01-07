@@ -7,9 +7,7 @@
       left: 0;
       bottom: 0;
       width: 100%;
-      background: #bdbdbd;
       padding: 8px 0 0 8px;
-      box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.8);
       z-index: 3; }
       .startbar a img,
       .startbar button img {
@@ -36,9 +34,7 @@
           display: block;
           content: '';
           height: 100%;
-          width: 1px;
-          border-left: 2px solid rgba(255, 255, 255, 0.8);
-          border-right: 2px solid rgba(0, 0, 0, 0.25); }
+          width: 1px; }
         .startbar .programs a:not(.active),
         .startbar .programs button:not(.active) {
           font-weight: 400; }
@@ -60,8 +56,6 @@
   left: 11px;
   bottom: 48px;
   width: 275px;
-  background: #bdbdbd;
-  box-shadow: -3px -3px 0 #f2f2f2, inset -3px -3px 0 rgba(0, 0, 0, 0.25);
   padding: 0 3px 3px 0;
   display: none;
   z-index: 3; }
@@ -72,12 +66,7 @@
     display: block;
     width: 100%;
     padding: 9px 7px 15px 10px;
-    color: #000;
     text-align: left; }
-    .start-cupboard a:hover,
-    .start-cupboard button:hover {
-      background: blue;
-      color: #fff; }
     .start-cupboard a img,
     .start-cupboard a span,
     .start-cupboard button img,
@@ -91,6 +80,3 @@
     .start-cupboard button img {
       max-width: 30px;
       margin-right: 5px; }
-  .start-cupboard .shutdown {
-    border-top: 1px solid #888;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8); }

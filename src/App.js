@@ -11,6 +11,8 @@ import ShutDown from './components/shutDown'
 
 import resume from './images/resume.svg'
 
+import './css/theme.css'
+
 const programComponents = {
   'chat': Messenger,
   'work': Work,
@@ -27,7 +29,8 @@ class App extends Component {
     currentlyActiveApp: apps.messenger.toLowerCase(),
     previouslyActiveApp: '',
     systemSettings: {
-      background: systemSettings.background[1]
+      background: systemSettings.background[1],
+      theme: systemSettings.theme[0]
     }
   }
 
@@ -134,12 +137,21 @@ class App extends Component {
     })
   }
 
-  changeSystemSettings = (background = null) => {
+  changeSystemSettings = (background = null, theme = null) => {
     if (background) {
       this.setState({
         systemSettings: {
           ...this.state.systemSettings,
           background
+        }
+      })
+    }
+
+    if (theme) {
+      this.setState({
+        systemSettings: {
+          ...this.state.systemSettings,
+          theme
         }
       })
     }
@@ -157,7 +169,7 @@ class App extends Component {
     } = this.state
 
     return (
-      <section className="desktop" style={{ backgroundImage: `url(${systemSettings.background.url})` }}>
+      <section className={`desktop theme-${systemSettings.theme.toLowerCase()}`} style={{ backgroundImage: `url(${systemSettings.background.url})` }}>
         <div className="icons">
           <button onClick={e => this.openApp(e, apps.messenger.toLowerCase())}>
             <img src={icons[apps.messenger.toLowerCase()].url} alt={icons[apps.messenger.toLowerCase()].alt} /> {apps.messenger}

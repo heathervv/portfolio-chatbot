@@ -109,6 +109,8 @@ const systemSettings_background = [
   }
 ]
 
+const systemSettings_theme = ['Light', 'Dark']
+
 module.exports = {
   apps,
   icons,
@@ -119,6 +121,7 @@ module.exports = {
   initialResponse,
   changeInputResponse,
   systemSettings: {
-    background: systemSettings_background
+    background: systemSettings_background,
+    theme: systemSettings_theme
   }
 }
