@@ -3,7 +3,12 @@ const email = require('./images/email.svg')
 const briefcase = require('./images/briefcase.svg')
 const settings = require('./images/settings.svg')
 const moon = require('./images/moon.svg')
+const background_classic = require('./images/backgrounds/classic.jpg')
+const background_xp = require('./images/backgrounds/xp.jpg')
 const background_nasa = require('./images/backgrounds/nasa.jpg')
+const background_clouds = require('./images/backgrounds/clouds.jpg')
+const background_logo = require('./images/backgrounds/logo.jpg')
+const background_vaporwave = require('./images/backgrounds/vaporwave.jpg')
 
 const apps = {
   messenger: 'Chat',
@@ -85,7 +90,11 @@ const dialogFlow = {
 const systemSettings_background = [
   {
     'name': 'Classic',
-    'url': background_nasa
+    'url': background_classic
+  },
+  {
+    'name': 'XP',
+    'url': background_xp
   },
   {
     'name': 'Nasa',
@@ -93,19 +102,15 @@ const systemSettings_background = [
   },
   {
     'name': 'Clouds',
-    'url': background_nasa
+    'url': background_clouds
   },
   {
     'name': 'Logo',
-    'url': background_nasa
+    'url': background_logo
   },
   {
     'name': 'Vaporwave',
-    'url': background_nasa
-  },
-  {
-    'name': 'Harry Potter',
-    'url': background_nasa
+    'url': background_vaporwave
   }
 ]
 
