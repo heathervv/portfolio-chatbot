@@ -12,6 +12,7 @@ const ShutDown = ({ restart }) => (
     openApps={[apps.shutdown.toLowerCase()]}
     programIcon={icons[apps.shutdown.toLowerCase()].url}
     notificationStyle
+    systemStyle
   >
     It is now safe to turn off your computer.
     <br />

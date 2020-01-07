@@ -1,29 +1,41 @@
 import React, { Component } from 'react'
 import './App.css'
 
-import { apps, icons, resumeLink } from './config'
+import { apps, icons, resumeLink, systemSettings } from './config'
 import StartBar from './components/startbar'
 import Messenger from './components/messenger'
 import Work from './components/work'
 import Contact from './components/contact'
+import Settings from './components/settings'
 import ShutDown from './components/shutDown'
 
 import resume from './images/resume.svg'
 
+import './css/theme.css'
+
 const programComponents = {
   'chat': Messenger,
   'work': Work,
-  'contact': Contact
+  'contact': Contact,
+  'settings': Settings
 }
 
 class App extends Component {
-  state = {
-    shutDown: false,
-    openApps: [apps.messenger.toLowerCase()],
-    minimizedApps: [],
-    openStart: false,
-    currentlyActiveApp: apps.messenger.toLowerCase(),
-    previouslyActiveApp: ''
+  constructor() {
+    super()
+
+    this.state = {
+      shutDown: false,
+      openApps: [apps.messenger.toLowerCase()],
+      minimizedApps: [],
+      openStart: false,
+      currentlyActiveApp: apps.messenger.toLowerCase(),
+      previouslyActiveApp: '',
+      systemSettings: {
+        background: this.loadSystemBackground(),
+        theme: this.loadSystemTheme()
+      }
+    }
   }
 
   componentDidMount() {
@@ -129,6 +141,54 @@ class App extends Component {
     })
   }
 
+  loadSystemBackground = () => {
+    const existingBackground = localStorage.getItem('background')
+
+    if (existingBackground) {
+      return systemSettings.background.find((background) => background.name === existingBackground)
+    } else {
+      localStorage.setItem('background', systemSettings.background[2].name)
+
+      return systemSettings.background[2]
+    }
+  }
+
+  loadSystemTheme = () => {
+    const existingTheme = localStorage.getItem('theme')
+
+    if (existingTheme) {
+      return systemSettings.theme.find((theme) => theme === existingTheme)
+    } else {
+      localStorage.setItem('theme', systemSettings.theme[0])
+
+      return systemSettings.theme[0]
+    }
+  }
+
+  changeSystemSettings = (background = null, theme = null) => {
+    if (background) {
+      localStorage.setItem('background', background.name)
+
+      this.setState({
+        systemSettings: {
+          ...this.state.systemSettings,
+          background
+        }
+      })
+    }
+
+    if (theme) {
+      localStorage.setItem('theme', theme)
+
+      this.setState({
+        systemSettings: {
+          ...this.state.systemSettings,
+          theme
+        }
+      })
+    }
+  }
+
   render() {
     const {
       openApps,
@@ -136,11 +196,12 @@ class App extends Component {
       currentlyActiveApp,
       previouslyActiveApp,
       openStart,
-      shutDown
+      shutDown,
+      systemSettings
     } = this.state
 
     return (
-      <section className="desktop">
+      <section className={`desktop theme-${systemSettings.theme.toLowerCase()}`} style={{ backgroundImage: `url(${systemSettings.background.url})` }}>
         <div className="icons">
           <button onClick={e => this.openApp(e, apps.messenger.toLowerCase())}>
             <img src={icons[apps.messenger.toLowerCase()].url} alt={icons[apps.messenger.toLowerCase()].alt} /> {apps.messenger}
@@ -175,6 +236,8 @@ class App extends Component {
                 minimizedApps={minimizedApps}
                 currentlyActiveApp={currentlyActiveApp}
                 previouslyActiveApp={previouslyActiveApp}
+                activeSystemSettings={systemSettings}
+                changeSystemSettings={this.changeSystemSettings}
               />
             )
           })
@@ -190,6 +253,7 @@ class App extends Component {
           updateStartbar={this.updateStartbar}
           start={this.start}
           openStart={openStart}
+          openSettings={e => this.openApp(e, apps.settings.toLowerCase())}
         />
 
         <div className={`shutDownPage ${shutDown ? 'visible' : ''}`}>

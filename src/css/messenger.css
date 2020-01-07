@@ -99,10 +99,9 @@
     margin-left: 3px;
     margin-top: 10px;
     margin-bottom: 2px;
-    box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.6), inset 3px 3px rgba(0, 0, 0, 0.5);
     padding: 3px 0 0 3px; }
   .userInput .option-toggle {
-    position: absolute;
+    position: absolute !important;
     right: 0;
     top: 2px;
     width: 100px; }
@@ -113,6 +112,4 @@
     pointer-events: none; }
   .userInput.hidden .option-toggle {
     pointer-events: none;
-    cursor: auto;
-    color: #979797;
-    text-shadow: 1px 1px #fff; }
+    cursor: auto; }

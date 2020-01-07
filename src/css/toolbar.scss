@@ -38,8 +38,6 @@
     &.disabled {
       pointer-events: none;
       cursor: auto;
-      color: darken(#BDBDBD, 15%);
-      text-shadow: 1px 1px #fff;
     }
   }
 }
@@ -60,6 +58,7 @@
   background: linear-gradient(to right, #34ce18 0%, #f9f227 100%);
 }
 
-.shutdown .toolbar {
+.shutdown .toolbar,
+.settings .toolbar {
   background: linear-gradient(to right, darken(blue, 25%) 0%, blue 100%);
 }

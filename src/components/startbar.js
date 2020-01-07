@@ -10,6 +10,7 @@ import '../css/startbar.css'
 // Assets
 import flag from '../images/flag.svg'
 import computer from '../images/computer.svg'
+import settings from '../images/settings.svg'
 
 const StartBar = ({
   openApp,
@@ -19,7 +20,8 @@ const StartBar = ({
   openStart,
   minimizedApps,
   updateStartbar,
-  currentlyActiveApp
+  currentlyActiveApp,
+  openSettings
 }) => {
   const nextStatus = openStart ? 'close' : 'open'
 
@@ -43,7 +45,7 @@ const StartBar = ({
                 <button
                   key={i}
                   className={`
-                    startbar-button startbar-{className} button
+                    startbar-button startbar-${className} button
                     ${currentlyActiveApp.indexOf(className) > -1 ? 'active' : ''}
                     ${
                       openApps.indexOf(className) === -1 ?
@@ -68,6 +70,12 @@ const StartBar = ({
         openStart &&
         <div className="start-cupboard visible">
           <button
+          className="settings"
+          onClick={openSettings}>
+            <img src={settings} alt="settings"/>
+            <span>Settings</span>
+          </button>
+          <button
           className="shutdown"
           onClick={e => shutDown(e)}>
             <img src={computer} alt="computer"/>
@@ -87,7 +95,8 @@ StartBar.propTypes = {
   openStart: PropTypes.bool,
   minimizedApps: PropTypes.array,
   updateStartbar: PropTypes.func,
-  currentlyActiveApp: PropTypes.string
+  currentlyActiveApp: PropTypes.string,
+  openSettings: PropTypes.func
 }
 
 StartBar.defaultProps = {
@@ -98,7 +107,8 @@ StartBar.defaultProps = {
   openApps: [],
   openStart: false,
   minimizedApps: [],
-  currentlyActiveApp: ''
+  currentlyActiveApp: '',
+  openSettings: () => {}
 }
 
 export default StartBar

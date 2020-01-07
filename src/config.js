@@ -1,13 +1,21 @@
 const bot = require('./images/bot.svg')
 const email = require('./images/email.svg')
 const briefcase = require('./images/briefcase.svg')
+const settings = require('./images/settings.svg')
 const moon = require('./images/moon.svg')
+const background_classic = require('./images/backgrounds/classic.jpg')
+const background_xp = require('./images/backgrounds/xp.jpg')
+const background_nasa = require('./images/backgrounds/nasa.jpg')
+const background_clouds = require('./images/backgrounds/clouds.jpg')
+const background_logo = require('./images/backgrounds/logo.jpg')
+const background_vaporwave = require('./images/backgrounds/vaporwave.jpg')
 
 const apps = {
   messenger: 'Chat',
   work: 'Work',
   contact: 'Contact',
-  shutdown: 'Shutdown'
+  shutdown: 'Shutdown',
+  settings: 'Settings'
 }
 
 const icons = {
@@ -26,6 +34,10 @@ const icons = {
   shutdown: {
     url: moon,
     alt: 'Icon of moon'
+  },
+  settings: {
+    url: settings,
+    alt: 'Icon of settings'
   }
 }
 
@@ -74,6 +86,36 @@ const dialogFlow = {
   token: '184dc97ff8e442a7991119cf7e45e47f'
 }
 
+// TODO: update URLs to be correct
+const systemSettings_background = [
+  {
+    'name': 'Classic',
+    'url': background_classic
+  },
+  {
+    'name': 'XP',
+    'url': background_xp
+  },
+  {
+    'name': 'Nasa',
+    'url': background_nasa
+  },
+  {
+    'name': 'Clouds',
+    'url': background_clouds
+  },
+  {
+    'name': 'Logo',
+    'url': background_logo
+  },
+  {
+    'name': 'Vaporwave',
+    'url': background_vaporwave
+  }
+]
+
+const systemSettings_theme = ['Light', 'Dark']
+
 module.exports = {
   apps,
   icons,
@@ -82,5 +124,9 @@ module.exports = {
   work,
   dialogFlow,
   initialResponse,
-  changeInputResponse
+  changeInputResponse,
+  systemSettings: {
+    background: systemSettings_background,
+    theme: systemSettings_theme
+  }
 }

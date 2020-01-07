@@ -31,9 +31,7 @@
     margin-left: 5px; }
     .toolbar button.disabled {
       pointer-events: none;
-      cursor: auto;
-      color: #979797;
-      text-shadow: 1px 1px #fff; }
+      cursor: auto; }
 
 .messenger .toolbar {
   background: linear-gradient(to right, #0000F7 0%, #00FEFE 100%); }
@@ -47,5 +45,6 @@
 .paint .toolbar {
   background: linear-gradient(to right, #34ce18 0%, #f9f227 100%); }
 
-.shutdown .toolbar {
+.shutdown .toolbar,
+.settings .toolbar {
   background: linear-gradient(to right, navy 0%, blue 100%); }
