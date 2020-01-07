@@ -21,16 +21,20 @@ const programComponents = {
 }
 
 class App extends Component {
-  state = {
-    shutDown: false,
-    openApps: [apps.messenger.toLowerCase()],
-    minimizedApps: [],
-    openStart: false,
-    currentlyActiveApp: apps.messenger.toLowerCase(),
-    previouslyActiveApp: '',
-    systemSettings: {
-      background: systemSettings.background[1],
-      theme: systemSettings.theme[0]
+  constructor() {
+    super()
+
+    this.state = {
+      shutDown: false,
+      openApps: [apps.messenger.toLowerCase()],
+      minimizedApps: [],
+      openStart: false,
+      currentlyActiveApp: apps.messenger.toLowerCase(),
+      previouslyActiveApp: '',
+      systemSettings: {
+        background: this.loadSystemBackground(),
+        theme: this.loadSystemTheme()
+      }
     }
   }
 
@@ -137,8 +141,34 @@ class App extends Component {
     })
   }
 
+  loadSystemBackground = () => {
+    const existingBackground = localStorage.getItem('background')
+
+    if (existingBackground) {
+      return systemSettings.background.find((background) => background.name === existingBackground)
+    } else {
+      localStorage.setItem('background', systemSettings.background[2].name)
+
+      return systemSettings.background[2]
+    }
+  }
+
+  loadSystemTheme = () => {
+    const existingTheme = localStorage.getItem('theme')
+
+    if (existingTheme) {
+      return systemSettings.theme.find((theme) => theme === existingTheme)
+    } else {
+      localStorage.setItem('theme', systemSettings.theme[0])
+
+      return systemSettings.theme[0]
+    }
+  }
+
   changeSystemSettings = (background = null, theme = null) => {
     if (background) {
+      localStorage.setItem('background', background.name)
+
       this.setState({
         systemSettings: {
           ...this.state.systemSettings,
@@ -148,6 +178,8 @@ class App extends Component {
     }
 
     if (theme) {
+      localStorage.setItem('theme', theme)
+
       this.setState({
         systemSettings: {
           ...this.state.systemSettings,
