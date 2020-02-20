@@ -8,6 +8,7 @@ import Work from './components/work'
 import Contact from './components/contact'
 import Settings from './components/settings'
 import ShutDown from './components/shutDown'
+import Screensaver from './components/screensaver'
 
 import resume from './images/resume.svg'
 
@@ -259,6 +260,8 @@ class App extends Component {
         <div className={`shutDownPage ${shutDown ? 'visible' : ''}`}>
           <ShutDown restart={() => this.shutDown(null, true)} />
         </div>
+
+        <Screensaver />
       </section>
     )
   }
