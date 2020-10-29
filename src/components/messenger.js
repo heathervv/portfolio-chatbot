@@ -193,64 +193,64 @@ class Messenger extends Component {
 
     return (
       <Draggable
-    		defaultPosition={{x: Math.random() * (150 - 50) + 50, y: Math.random() * (150 - 50) + 50}}
-    		handle=".toolbar">
-          <div
-    				className={`
+        defaultPosition={{ x: Math.random() * (150 - 50) + 50, y: Math.random() * (150 - 50) + 50 }}
+        handle=".toolbar">
+        <div
+          className={`
               messenger
               program
               ${currentlyActiveApp === messenger ? 'active' : ''}
               ${previouslyActiveApp === messenger ? 'previous-active' : ''}
             `}
-    				onClick={updateActiveApp.bind(null, messenger)}
-            data-view={dataView}
-          >
-            <Toolbar
-    					closeApp={closeApp}
-    					updateStartbar={updateStartbar}
-    					component={messenger}
-    					image={icons[apps.messenger.toLowerCase()].url}
-    					title={apps.messenger}
-            />
+          onClick={updateActiveApp.bind(null, messenger)}
+          data-view={dataView}
+        >
+          <Toolbar
+            closeApp={closeApp}
+            updateStartbar={updateStartbar}
+            component={messenger}
+            image={icons[apps.messenger.toLowerCase()].url}
+            title={apps.messenger}
+          />
 
-            <div className="messages content" ref={(input) => { this.messages = input }} >
-              <TransitionGroup>
-                {
-                  chatHistory.map((item, index) => (
-                    <CSSTransition key={index} timeout={500} classNames="message">
-                      <Message
-    										key={index}
-    										type={item.bot ? 'sent' : 'received'}
-                        user={item.user}
-    										content={item.message}
-    									/>
-                    </CSSTransition>
-                  ))
-                }
-              </TransitionGroup>
-            </div>
+          <div className="messages content" ref={(input) => { this.messages = input }} >
+            <TransitionGroup>
+              {
+                chatHistory.map((item, index) => (
+                  <CSSTransition key={index} timeout={500} classNames="message">
+                    <Message
+                      key={index}
+                      type={item.bot ? 'sent' : 'received'}
+                      user={item.user}
+                      content={item.message}
+                    />
+                  </CSSTransition>
+                ))
+              }
+            </TransitionGroup>
+          </div>
 
-            <span className={`activeTyping ${isTyping ? 'visible' : ''}`}>Heather is typing...</span>
+          <span className={`activeTyping ${isTyping ? 'visible' : ''}`}>Heather is typing...</span>
 
-            <div className={`userInput ${isTyping ? 'hidden' : ''}`}>
-              <div className="field">
-                {
-                  curatedOptions.visible ? (
-                    <div className="buttonWrapper">
-                      <div>
-                        {
-                          curatedOptions.links.map(link => (
-                            <button
-                              key={link.replace(/\s+/g, '').toLowerCase()}
-                              className="button-medium"
-                              onClick={() => this.sendMessage(null, link)}>
-                              {link}
-                            </button>
-                          ))
-                        }
-                      </div>
+          <div className={`userInput ${isTyping ? 'hidden' : ''}`}>
+            <div className="field">
+              {
+                curatedOptions.visible ? (
+                  <div className="buttonWrapper">
+                    <div>
+                      {
+                        curatedOptions.links.map(link => (
+                          <button
+                            key={link.replace(/\s+/g, '').toLowerCase()}
+                            className="button-medium"
+                            onClick={() => this.sendMessage(null, link)}>
+                            {link}
+                          </button>
+                        ))
+                      }
                     </div>
-                  ) : (
+                  </div>
+                ) : (
                     <input
                       type="text"
                       id="messageField"
@@ -260,22 +260,22 @@ class Messenger extends Component {
                       onKeyPress={this.sendMessage}
                     />
                   )
-                }
-              </div>
-              <button
-                onClick={() => this.changeInput(curatedOptions.visible ? 'free' : 'options')}
-                className="button-medium option-toggle"
-              >
+              }
+            </div>
+            <button
+              onClick={() => this.changeInput(curatedOptions.visible ? 'free' : 'options')}
+              className="button-medium option-toggle"
+            >
               {
                 curatedOptions.visible ? (
                   'Free type'
                 ) : (
-                  'Curated'
-                )
+                    'Curated'
+                  )
               }
-              </button>
-            </div>
+            </button>
           </div>
+        </div>
       </Draggable>
     )
   }

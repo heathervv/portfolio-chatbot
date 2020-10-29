@@ -1,14 +1,14 @@
-const bot = require('./images/bot.svg')
-const email = require('./images/email.svg')
-const briefcase = require('./images/briefcase.svg')
-const settings = require('./images/settings.svg')
-const moon = require('./images/moon.svg')
-const background_classic = require('./images/backgrounds/classic.jpg')
-const background_xp = require('./images/backgrounds/xp.jpg')
-const background_nasa = require('./images/backgrounds/nasa.jpg')
-const background_clouds = require('./images/backgrounds/clouds.jpg')
-const background_logo = require('./images/backgrounds/logo.jpg')
-const background_vaporwave = require('./images/backgrounds/vaporwave.jpg')
+const bot = require('./images/bot.svg').default
+const email = require('./images/email.svg').default
+const briefcase = require('./images/briefcase.svg').default
+const settings = require('./images/settings.svg').default
+const moon = require('./images/moon.svg').default
+const background_classic = require('./images/backgrounds/classic.jpg').default
+const background_xp = require('./images/backgrounds/xp.jpg').default
+const background_nasa = require('./images/backgrounds/nasa.jpg').default
+const background_clouds = require('./images/backgrounds/clouds.jpg').default
+const background_logo = require('./images/backgrounds/logo.jpg').default
+const background_vaporwave = require('./images/backgrounds/vaporwave.jpg').default
 
 const apps = {
   messenger: 'Chat',
