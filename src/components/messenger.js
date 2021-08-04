@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { ApiAiClient } from 'api-ai-javascript'
+import Axios from 'axios';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import {
   apps,
   icons,
-  dialogFlow,
   initialResponse,
-  changeInputResponse
+  changeInputResponse,
+  API
 } from '../config'
 
 // Components
@@ -20,9 +20,6 @@ import '../css/messenger.css'
 class Messenger extends Component {
   constructor() {
     super()
-
-    // Create new bot client
-    this.client = new ApiAiClient({ accessToken: dialogFlow.token })
 
     // Set all our base app details
     this.state = {
@@ -71,47 +68,30 @@ class Messenger extends Component {
 
   // This function listens to any response from the bot
   handleResponse = (response) => {
-    const { result } = response
+    const messages = response.data.response;
+    let delay = 1000;
 
-    // See what type of response the bot comes back with
-    const type = result.fulfillment.messages.map((message) => {
-      if (message.speech && message.speech.length > 0) return 'single'
-      if (message.payload) return 'multiple'
+    for (let i = 0; i < messages.length; i += 1) {
+      delay += i > 0 ? Math.floor(Math.random() * 2000) + 1000 : 0
 
-      return null
-    })
+      setTimeout(() => {
+        this.updateHistory(messages[i], this.state.botName, true)
 
-    // Change logic based on response type (multi-based response appears as multiple messages)
-    if (type.includes('multiple')) {
-      const base = result.fulfillment.messages.find((item) => item.payload).payload
-      const responses = base.response
-      let delay = 1000;
+        // If we're on the last response, trigger next step
+        if (i === messages.length - 1) {
+          this.setState({ isTyping: false })
 
-      for (let i = 0; i < responses.length; i += 1) {
-        delay += i > 0 ? Math.floor(Math.random() * 2000) + 1000 : 0
-
-        setTimeout(() => {
-          this.updateHistory(responses[i], this.state.botName, true)
-
-          // If we're on the last response, trigger next step
-          if (i === responses.length - 1) {
-            this.setState({ isTyping: false })
-
-            // If user has curated options turned on, check for any new ones from the bot
-            if (this.state.curatedOptions.visible && base.moreOptions) {
-              this.setState({
-                curatedOptions: {
-                  visible: true,
-                  links: base.moreOptions
-                }
-              })
-            }
+          // If user has curated options turned on, check for any new ones from the bot
+          if (this.state.curatedOptions.visible && response.data.followUp) {
+            this.setState({
+              curatedOptions: {
+                visible: true,
+                links: response.data.followUp
+              }
+            })
           }
-        }, delay)
-      }
-    } else {
-      this.updateHistory(result.fulfillment.speech, this.state.botName, true)
-      this.setState({ isTyping: false })
+        }
+      }, delay);
     }
   }
 
@@ -127,7 +107,7 @@ class Messenger extends Component {
 
       // Send off to bot
       this.setState({ isTyping: true, inputValue: '' }, () => {
-        this.client.textRequest(message)
+        Axios.post(API, { message })
           .then(this.handleResponse)
           .catch(this.handleError)
       })

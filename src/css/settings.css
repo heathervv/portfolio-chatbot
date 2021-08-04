@@ -1,43 +1,52 @@
 @media (min-width: 1025px) {
   .settings {
-    width: 600px; } }
-
+    width: 600px;
+  }
+}
 .settings .sectionTitle {
   font-weight: 600;
   margin-top: 0;
-  margin-bottom: 5px; }
-
+  margin-bottom: 5px;
+}
 .settings .section:not(:first-child) {
   position: relative;
   border-top: 1px solid #888;
-  margin-top: 20px; }
-  .settings .section:not(:first-child):before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.8); }
-  .settings .section:not(:first-child) .sectionTitle {
-    margin-top: 15px; }
-
+  margin-top: 20px;
+}
+.settings .section:not(:first-child):before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.8);
+}
+.settings .section:not(:first-child) .sectionTitle {
+  margin-top: 15px;
+}
 .settings .options {
   background: #fff;
   box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.6), inset 3px 3px rgba(0, 0, 0, 0.5);
   padding: 3px 0 3px 3px;
-  margin-top: 0; }
-  .settings .options .option {
-    display: block;
-    font-size: 14px;
-    list-style-type: none; }
-    .settings .options .option button {
-      width: 100%;
-      text-align: left;
-      padding: 3px 7px; }
-    .settings .options .option.selected button {
-      background: blue;
-      color: #fff; }
-
+  margin-top: 0;
+}
+.settings .options .option {
+  display: block;
+  font-size: 14px;
+  list-style-type: none;
+}
+.settings .options .option button {
+  width: 100%;
+  text-align: left;
+  padding: 3px 7px;
+}
+.settings .options .option.selected button {
+  background: blue;
+  color: #fff;
+}
 .settings .attributions p:last-child {
-  margin-top: 5px; }
+  margin-top: 5px;
+}
+
+/*# sourceMappingURL=settings.css.map */

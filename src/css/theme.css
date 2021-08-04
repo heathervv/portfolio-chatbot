@@ -1,28 +1,32 @@
 .button {
-  font-family: 'Anonymous Pro', monospace;
+  font-family: "Anonymous Pro", monospace;
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
   padding: 10px 15px 10px 13px;
   vertical-align: middle;
   -webkit-appearance: initial;
-  border: none; }
-  .button:active, .button.active {
-    padding-top: 12px;
-    padding-bottom: 8px; }
+  border: none;
+}
+.button:active, .button.active {
+  padding-top: 12px;
+  padding-bottom: 8px;
+}
 
 .button-medium {
-  font-family: 'Anonymous Pro', monospace;
+  font-family: "Anonymous Pro", monospace;
   display: inline-block;
   font-size: 14px;
   font-weight: bold;
   padding: 7px 13px 6px;
-  line-height: 1; }
-  .button-medium:active, .button-medium.active {
-    position: relative;
-    top: 2px;
-    padding-top: 7px;
-    padding-bottom: 5px; }
+  line-height: 1;
+}
+.button-medium:active, .button-medium.active {
+  position: relative;
+  top: 2px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+}
 
 .button-small {
   display: inline-block;
@@ -30,11 +34,14 @@
   font-size: 13px;
   font-family: sans-serif;
   padding: 5px 8px;
-  text-align: center; }
-  @media (min-width: 1025px) {
-    .button-small {
-      min-width: 25px;
-      min-height: 25px; } }
+  text-align: center;
+}
+@media (min-width: 1025px) {
+  .button-small {
+    min-width: 25px;
+    min-height: 25px;
+  }
+}
 
 .button-inset {
   display: inline-block;
@@ -42,181 +49,205 @@
   font-size: 13px;
   font-family: sans-serif;
   padding: 5px 8px;
-  text-align: center; }
-  @media (max-width: 1024px) {
-    .button-inset.minimize {
-      padding: 8px 10px 5px; } }
+  text-align: center;
+}
+@media (max-width: 1024px) {
+  .button-inset.minimize {
+    padding: 8px 10px 5px;
+  }
+}
 
-.theme-light .button
-.button-inset,
+.theme-light .button .button-inset,
 .theme-light .button-small,
 .theme-light .button-medium {
   color: #000;
-  background: #bdbdbd; }
-  .theme-light .button
-.button-inset:active, .theme-light .button
-.button-inset.active,
-  .theme-light .button-small:active,
-  .theme-light .button-small.active,
-  .theme-light .button-medium:active,
-  .theme-light .button-medium.active {
-    background: #e6e6e6; }
-
+  background: #bdbdbd;
+}
+.theme-light .button .button-inset:active, .theme-light .button .button-inset.active,
+.theme-light .button-small:active,
+.theme-light .button-small.active,
+.theme-light .button-medium:active,
+.theme-light .button-medium.active {
+  background: #e6e6e6;
+}
 .theme-light .button {
-  box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.8), inset -3px -3px 0 rgba(0, 0, 0, 0.25), 2px 2px 0 #000; }
-  .theme-light .button:active, .theme-light .button.active {
-    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #fff, inset -2px -2px 0 #ddd, inset 4px 4px 0 #888; }
-
+  box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.8), inset -3px -3px 0 rgba(0, 0, 0, 0.25), 2px 2px 0 #000;
+}
+.theme-light .button:active, .theme-light .button.active {
+  box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #fff, inset -2px -2px 0 #ddd, inset 4px 4px 0 #888;
+}
 .theme-light .button-medium {
-  box-shadow: 2px 2px #000, inset -2px -2px rgba(0, 0, 0, 0.25), inset 2px 2px rgba(255, 255, 255, 0.8); }
-  .theme-light .button-medium:active, .theme-light .button-medium.active {
-    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #fff, inset -2px -2px 0 #ddd, inset 4px 4px 0 #888; }
-
+  box-shadow: 2px 2px #000, inset -2px -2px rgba(0, 0, 0, 0.25), inset 2px 2px rgba(255, 255, 255, 0.8);
+}
+.theme-light .button-medium:active, .theme-light .button-medium.active {
+  box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #fff, inset -2px -2px 0 #ddd, inset 4px 4px 0 #888;
+}
 .theme-light .button-small {
-  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.25), inset 2px 2px 0 rgba(255, 255, 255, 0.8); }
-  .theme-light .button-small:active, .theme-light .button-small.active {
-    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #ddd, inset -2px -2px 0 #ddd; }
-
+  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.25), inset 2px 2px 0 rgba(255, 255, 255, 0.8);
+}
+.theme-light .button-small:active, .theme-light .button-small.active {
+  box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #ddd, inset -2px -2px 0 #ddd;
+}
 .theme-light .button-inset {
-  box-shadow: 2px 2px 0 rgba(255, 255, 255, 0.6), inset 2px 2px rgba(0, 0, 0, 0.5); }
-  .theme-light .button-inset:active, .theme-light .button-inset.active {
-    background: #e6e6e6;
-    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #ddd, inset -2px -2px 0 #ddd; }
-
+  box-shadow: 2px 2px 0 rgba(255, 255, 255, 0.6), inset 2px 2px rgba(0, 0, 0, 0.5);
+}
+.theme-light .button-inset:active, .theme-light .button-inset.active {
+  background: #e6e6e6;
+  box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #ddd, inset -2px -2px 0 #ddd;
+}
 .theme-light .startbar {
   background: #bdbdbd;
-  box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.8); }
-  .theme-light .startbar .programs:before {
-    border-left: 2px solid rgba(255, 255, 255, 0.8);
-    border-right: 2px solid rgba(0, 0, 0, 0.25); }
-  .theme-light .startbar a,
-  .theme-light .startbar button {
-    color: #000; }
-
+  box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.8);
+}
+.theme-light .startbar .programs:before {
+  border-left: 2px solid rgba(255, 255, 255, 0.8);
+  border-right: 2px solid rgba(0, 0, 0, 0.25);
+}
+.theme-light .startbar a,
+.theme-light .startbar button {
+  color: #000;
+}
 .theme-light .start-cupboard {
   background: #bdbdbd;
-  box-shadow: -3px -3px 0 #f2f2f2, inset -3px -3px 0 rgba(0, 0, 0, 0.25); }
-  .theme-light .start-cupboard a,
-  .theme-light .start-cupboard button {
-    color: #000; }
-    .theme-light .start-cupboard a:hover,
-    .theme-light .start-cupboard button:hover {
-      background: blue;
-      color: #fff; }
-  .theme-light .start-cupboard .shutdown {
-    border-top: 1px solid #888;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8); }
-
+  box-shadow: -3px -3px 0 #f2f2f2, inset -3px -3px 0 rgba(0, 0, 0, 0.25);
+}
+.theme-light .start-cupboard a,
+.theme-light .start-cupboard button {
+  color: #000;
+}
+.theme-light .start-cupboard a:hover,
+.theme-light .start-cupboard button:hover {
+  background: blue;
+  color: #fff;
+}
+.theme-light .start-cupboard .shutdown {
+  border-top: 1px solid #888;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
 .theme-light .program {
   background: #bdbdbd;
-  box-shadow: -3px -3px 0 #f2f2f2, inset -3px -3px 0 rgba(0, 0, 0, 0.25); }
-  .theme-light .program:not(.system) .content {
-    box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.6), inset 3px 3px rgba(0, 0, 0, 0.5); }
-
+  box-shadow: -3px -3px 0 #f2f2f2, inset -3px -3px 0 rgba(0, 0, 0, 0.25);
+}
+.theme-light .program:not(.system) .content {
+  box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.6), inset 3px 3px rgba(0, 0, 0, 0.5);
+}
 .theme-light .toolbar button.disabled {
   color: #979797;
-  text-shadow: 1px 1px #fff; }
-
+  text-shadow: 1px 1px #fff;
+}
 .theme-light .userInput .field {
-  box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.6), inset 3px 3px rgba(0, 0, 0, 0.5); }
-
+  box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.6), inset 3px 3px rgba(0, 0, 0, 0.5);
+}
 .theme-light .userInput.hidden .option-toggle {
   color: #979797;
-  text-shadow: 1px 1px #fff; }
-
+  text-shadow: 1px 1px #fff;
+}
 .theme-light .clock {
   color: #000;
-  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.25), 2px 2px 0 rgba(255, 255, 255, 0.8); }
-
+  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.25), 2px 2px 0 rgba(255, 255, 255, 0.8);
+}
 .theme-light .settings,
 .theme-light .notification {
-  color: #000; }
+  color: #000;
+}
 
-.theme-dark .button
-.button-inset,
+.theme-dark .button .button-inset,
 .theme-dark .button-small,
 .theme-dark .button-medium {
   color: #fff;
-  background: #333; }
-  .theme-dark .button
-.button-inset:active, .theme-dark .button
-.button-inset.active,
-  .theme-dark .button-small:active,
-  .theme-dark .button-small.active,
-  .theme-dark .button-medium:active,
-  .theme-dark .button-medium.active {
-    background: #000; }
-
+  background: #333;
+}
+.theme-dark .button .button-inset:active, .theme-dark .button .button-inset.active,
+.theme-dark .button-small:active,
+.theme-dark .button-small.active,
+.theme-dark .button-medium:active,
+.theme-dark .button-medium.active {
+  background: #000;
+}
 .theme-dark .button {
-  box-shadow: inset 3px 3px 0 rgba(102, 102, 102, 0.8), inset -3px -3px 0 rgba(0, 0, 0, 0.5), 2px 2px 0 #000; }
-  .theme-dark .button:active, .theme-dark .button.active {
-    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #555, inset -2px -2px 0 #777, inset 4px 4px 0 #474747; }
-
+  box-shadow: inset 3px 3px 0 rgba(102, 102, 102, 0.8), inset -3px -3px 0 rgba(0, 0, 0, 0.5), 2px 2px 0 #000;
+}
+.theme-dark .button:active, .theme-dark .button.active {
+  box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #555, inset -2px -2px 0 #777, inset 4px 4px 0 #474747;
+}
 .theme-dark .button-medium {
-  box-shadow: 2px 2px #000, inset -2px -2px rgba(0, 0, 0, 0.5), inset 2px 2px rgba(102, 102, 102, 0.8); }
-  .theme-dark .button-medium:active, .theme-dark .button-medium.active {
-    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #555, inset -2px -2px 0 #777, inset 4px 4px 0 #474747; }
-
+  box-shadow: 2px 2px #000, inset -2px -2px rgba(0, 0, 0, 0.5), inset 2px 2px rgba(102, 102, 102, 0.8);
+}
+.theme-dark .button-medium:active, .theme-dark .button-medium.active {
+  box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #555, inset -2px -2px 0 #777, inset 4px 4px 0 #474747;
+}
 .theme-dark .button-small {
-  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.5), inset 2px 2px 0 rgba(102, 102, 102, 0.8); }
-  .theme-dark .button-small:active, .theme-dark .button-small.active {
-    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #555, inset -2px -2px 0 #666; }
-
+  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.5), inset 2px 2px 0 rgba(102, 102, 102, 0.8);
+}
+.theme-dark .button-small:active, .theme-dark .button-small.active {
+  box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #555, inset -2px -2px 0 #666;
+}
 .theme-dark .button-inset {
-  box-shadow: 2px 2px 0 rgba(102, 102, 102, 0.6), inset 2px 2px rgba(0, 0, 0, 0.75); }
-  .theme-dark .button-inset:active, .theme-dark .button-inset.active {
-    background: #e6e6e6;
-    box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #666, inset -2px -2px 0 #666; }
-
+  box-shadow: 2px 2px 0 rgba(102, 102, 102, 0.6), inset 2px 2px rgba(0, 0, 0, 0.75);
+}
+.theme-dark .button-inset:active, .theme-dark .button-inset.active {
+  background: #e6e6e6;
+  box-shadow: inset 2px 2px 0 #000, 1px 1px 0 #666, inset -2px -2px 0 #666;
+}
 .theme-dark .startbar {
   background: #333;
-  box-shadow: inset 0 4px 0 #666; }
-  .theme-dark .startbar .programs:before {
-    border-left: 2px solid rgba(102, 102, 102, 0.8);
-    border-right: 2px solid rgba(0, 0, 0, 0.5); }
-  .theme-dark .startbar a,
-  .theme-dark .startbar button {
-    color: #fff; }
-
+  box-shadow: inset 0 4px 0 #666;
+}
+.theme-dark .startbar .programs:before {
+  border-left: 2px solid rgba(102, 102, 102, 0.8);
+  border-right: 2px solid rgba(0, 0, 0, 0.5);
+}
+.theme-dark .startbar a,
+.theme-dark .startbar button {
+  color: #fff;
+}
 .theme-dark .start-cupboard {
   background: #333;
-  box-shadow: -3px -3px 0 #666, inset -3px -3px 0 rgba(0, 0, 0, 0.5); }
-  .theme-dark .start-cupboard a,
-  .theme-dark .start-cupboard button {
-    color: #fff; }
-    .theme-dark .start-cupboard a:hover,
-    .theme-dark .start-cupboard button:hover {
-      background: blue;
-      color: #fff; }
-  .theme-dark .start-cupboard .shutdown {
-    border-top: 1px solid #000;
-    box-shadow: inset 0 1px 0 rgba(102, 102, 102, 0.8); }
-
+  box-shadow: -3px -3px 0 #666, inset -3px -3px 0 rgba(0, 0, 0, 0.5);
+}
+.theme-dark .start-cupboard a,
+.theme-dark .start-cupboard button {
+  color: #fff;
+}
+.theme-dark .start-cupboard a:hover,
+.theme-dark .start-cupboard button:hover {
+  background: blue;
+  color: #fff;
+}
+.theme-dark .start-cupboard .shutdown {
+  border-top: 1px solid #000;
+  box-shadow: inset 0 1px 0 rgba(102, 102, 102, 0.8);
+}
 .theme-dark .program {
   background: #333;
-  box-shadow: -3px -3px 0 #666, inset -3px -3px 0 rgba(0, 0, 0, 0.5); }
-  .theme-dark .program:not(.system) .content {
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6), inset 3px 3px rgba(102, 102, 102, 0.5); }
-
+  box-shadow: -3px -3px 0 #666, inset -3px -3px 0 rgba(0, 0, 0, 0.5);
+}
+.theme-dark .program:not(.system) .content {
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6), inset 3px 3px rgba(102, 102, 102, 0.5);
+}
 .theme-dark .toolbar button.disabled {
   color: #1a1a1a;
-  text-shadow: 1px 1px #666; }
-
+  text-shadow: 1px 1px #666;
+}
 .theme-dark .userInput .field {
-  box-shadow: 3px 3px 0 rgba(102, 102, 102, 0.6), inset 3px 3px rgba(0, 0, 0, 0.75); }
-
+  box-shadow: 3px 3px 0 rgba(102, 102, 102, 0.6), inset 3px 3px rgba(0, 0, 0, 0.75);
+}
 .theme-dark .userInput.hidden .option-toggle {
   color: #0d0d0d;
-  text-shadow: 1px 1px #ccc; }
-
+  text-shadow: 1px 1px #ccc;
+}
 .theme-dark .clock {
   color: #fff;
-  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.5), 2px 2px 0 rgba(102, 102, 102, 0.8); }
-
+  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.5), 2px 2px 0 rgba(102, 102, 102, 0.8);
+}
 .theme-dark .settings,
 .theme-dark .notification {
-  color: #fff; }
-  .theme-dark .settings a,
-  .theme-dark .notification a {
-    background: #bdbdbd;
-    padding: 2px; }
+  color: #fff;
+}
+.theme-dark .settings a,
+.theme-dark .notification a {
+  background: #bdbdbd;
+  padding: 2px;
+}
+
+/*# sourceMappingURL=theme.css.map */

@@ -82,10 +82,6 @@ const changeInputResponse = {
   options: "A little guidance never hurt anybody. 🔮"
 }
 
-const dialogFlow = {
-  token: '184dc97ff8e442a7991119cf7e45e47f'
-}
-
 // TODO: update URLs to be correct
 const systemSettings_background = [
   {
@@ -116,17 +112,19 @@ const systemSettings_background = [
 
 const systemSettings_theme = ['Light', 'Dark']
 
+const API = 'https://portfolio-chatbot-api.herokuapp.com/api/message';
+
 module.exports = {
   apps,
   icons,
   resumeLink,
   contact,
   work,
-  dialogFlow,
   initialResponse,
   changeInputResponse,
   systemSettings: {
     background: systemSettings_background,
     theme: systemSettings_theme
-  }
+  },
+  API
 }
