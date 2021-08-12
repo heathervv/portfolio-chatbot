@@ -1,205 +1,174 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-autofocus */
+/* Event handler added to div for delight, not actual functionality */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import Axios from 'axios';
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import Draggable from 'react-draggable';
 import {
   apps,
   icons,
   initialResponse,
   changeInputResponse,
-  API
-} from '../config'
+  API,
+} from '../config';
 
 // Components
-import Draggable from 'react-draggable'
-import Toolbar from './toolbar'
-import Message from './message'
+import Toolbar from './toolbar';
+import Message from './message';
 
-import '../css/messenger.css'
+import '../css/messenger.css';
 
-class Messenger extends Component {
-  constructor() {
-    super()
+const Messenger = ({
+  updateActiveApp,
+  closeApp,
+  updateStartbar,
+  openApps,
+  minimizedApps,
+  currentlyActiveApp,
+  previouslyActiveApp,
+}) => {
+  const botName = 'HeatherBot';
+  const username = `Anon${Math.floor(Math.random() * (9999 - 1000) + 1000)}`;
+  const messenger = apps.messenger.toLowerCase();
+  const dataView = (openApps.indexOf(messenger) === -1 || minimizedApps.indexOf(messenger) !== -1) ? 'closed' : '';
 
-    // Set all our base app details
-    this.state = {
-      chatHistory: [],
-      username: `Anon${Math.floor(Math.random() * (9999 - 1000) + 1000)}`,
-      botName: 'HeatherBot',
-      isTyping: true,
-      inputValue: '',
-      curatedOptions: {
-        visible: false,
-        links: [
-          'Who are you?',
-          'Can I see your work?',
-          'What do you like to code in?',
-          'I\'d like to get in touch with you'
-        ]
-      }
-    }
-  }
+  const messages = useRef();
 
-  componentDidMount() {
-    // First message is doesn't come from bot so we can introduce the app to the user
+  const [chatHistory, setChatHistory] = useState([]);
+  const [isTyping, setIsTyping] = useState(true);
+  const [inputValue, setInputValue] = useState('');
+  const [curatedOptions, setCuratedOptions] = useState({
+    visible: false,
+    links: [
+      'Who are you?',
+      'Can I see your work?',
+      'What do you like to code in?',
+      'I\'d like to get in touch with you',
+    ],
+  });
+
+  // This is the final frontier. All message-based functions end with a call to this one
+  // It updates the local array with whatever argument was passed to it
+  const updateHistory = (message, user, bot = false) => {
+    setChatHistory((prevChatHistory) => ([...prevChatHistory, { user, message, bot }]));
+  };
+
+  useEffect(() => {
+    // First message doesn't come from bot so we can introduce the app to the user
     setTimeout(() => {
-      this.triggerFirstMessage()
-    }, 2000)
-  }
+      updateHistory(initialResponse, botName, true);
+      setIsTyping(false);
+      setCuratedOptions({
+        ...curatedOptions,
+        visible: true,
+      });
+    }, 2000);
+  }, []);
 
-  componentDidUpdate({ openApps }) {
+  useEffect(() => {
     // Always keep messenger window scrolled to last message
-    if (openApps.indexOf(apps.messenger.toLowerCase()) !== -1) this.messages.scrollTop = this.messages.scrollHeight
+    if (openApps.indexOf(apps.messenger.toLowerCase()) !== -1) {
+      messages.current.scrollTop = messages.current.scrollHeight;
+    }
+  }, [chatHistory, openApps]);
 
-    this.messages.scrollTop = this.messages.scrollHeight
-  }
-
-  // Called once on componentDidMount to say hi to the user
-  triggerFirstMessage = () => {
-    this.updateHistory(initialResponse, this.state.botName, true)
-    this.setState({
-      isTyping: false,
-      curatedOptions: {
-        ...this.state.curatedOptions,
-        visible: true
-      }
-    })
-  }
-
-  // This function listens to any response from the bot
-  handleResponse = (response) => {
-    const messages = response.data.response;
+  // This method listens to any successful response from the bot
+  const handleResponse = (response) => {
+    const chatbotMessages = response.data.response;
     let delay = 1000;
 
-    for (let i = 0; i < messages.length; i += 1) {
-      delay += i > 0 ? Math.floor(Math.random() * 2000) + 1000 : 0
+    for (let i = 0; i < chatbotMessages.length; i += 1) {
+      delay += i > 0 ? Math.floor(Math.random() * 2000) + 1000 : 0;
 
       setTimeout(() => {
-        this.updateHistory(messages[i], this.state.botName, true)
+        updateHistory(chatbotMessages[i], botName, true);
 
         // If we're on the last response, trigger next step
-        if (i === messages.length - 1) {
-          this.setState({ isTyping: false })
+        if (i === chatbotMessages.length - 1) {
+          setIsTyping(false);
 
           // If user has curated options turned on, check for any new ones from the bot
-          if (this.state.curatedOptions.visible && response.data.followUp) {
-            this.setState({
-              curatedOptions: {
-                visible: true,
-                links: response.data.followUp
-              }
-            })
+          if (curatedOptions.visible && response.data.followUp) {
+            setCuratedOptions({
+              visible: true,
+              links: response.data.followUp,
+            });
           }
         }
       }, delay);
     }
-  }
+  };
 
-  sendMessage = (event, directValue = null) => {
+  // This method listens to any failed response from the bot
+  const handleError = () => {
+    updateHistory('Sorry, you\'ve found a flaw in my code. I\'ll take this opportunity to grow!', botName, true);
+    setIsTyping(false);
+  };
+
+  const sendMessage = (event, directValue = null) => {
     if ((event && (event.keyCode === 13 || event.which === 13)) || directValue) {
-      const message = directValue || this.state.inputValue
+      const message = directValue || inputValue;
 
       // Pass user message into state
-      this.updateHistory(message, this.state.username)
+      updateHistory(message, username);
 
       // Send user message to analytics
-      window.dataLayer.push({ event: 'dialogflow', message })
+      window.dataLayer.push({ event: 'dialogflow', message });
 
       // Send off to bot
-      this.setState({ isTyping: true, inputValue: '' }, () => {
-        Axios.post(API, { message })
-          .then(this.handleResponse)
-          .catch(this.handleError)
-      })
-    }
-  }
+      setIsTyping(true);
+      setInputValue('');
 
-  // Basic input function
-  handleInputChange = (event) => {
-    this.setState({ inputValue: event.target.value })
-  }
+      Axios.post(API, { message })
+        .then(handleResponse)
+        .catch(handleError);
+    }
+  };
 
   // Toggle for user to use preselected messages or type their own to the bot
-  changeInput = (option) => {
-    this.updateHistory(changeInputResponse[option], this.state.botName, true)
+  const changeInput = (option) => {
+    updateHistory(changeInputResponse[option], botName, true);
 
-    this.setState({
-      curatedOptions: {
-        ...this.state.curatedOptions,
-        visible: !this.state.curatedOptions.visible
-      }
-    })
-  }
+    setCuratedOptions({
+      ...curatedOptions,
+      visible: !curatedOptions.visible,
+    });
+  };
 
-  // Basic error handling
-  handleError = () => {
-    this.setState({ isTyping: false })
-  }
-
-  // This is the final frontier. All message-based functions end with a call to this one
-  // It updates the local state with whatever argument was passed to it
-  updateHistory = (message, user, bot = false) => {
-    const { chatHistory } = this.state
-
-    chatHistory.push({
-      user,
-      message,
-      bot
-    })
-
-    this.setState({ chatHistory })
-  }
-
-  render() {
-    const {
-      updateActiveApp,
-      closeApp,
-      updateStartbar,
-      openApps,
-      minimizedApps,
-      currentlyActiveApp,
-      previouslyActiveApp
-    } = this.props
-
-    const {
-      chatHistory,
-      isTyping,
-      inputValue,
-      curatedOptions
-    } = this.state
-
-    const messenger = apps.messenger.toLowerCase()
-    const dataView = (openApps.indexOf(messenger) === -1 || minimizedApps.indexOf(messenger) !== -1) ? 'closed' : ''
-
-    return (
-      <Draggable
-        defaultPosition={{ x: Math.random() * (150 - 50) + 50, y: Math.random() * (150 - 50) + 50 }}
-        handle=".toolbar">
-        <div
-          className={`
+  return (
+    <Draggable
+      defaultPosition={{ x: Math.random() * (150 - 50) + 50, y: Math.random() * (150 - 50) + 50 }}
+      handle=".toolbar"
+      cancel=".button-small"
+    >
+      <div
+        className={`
               messenger
               program
               ${currentlyActiveApp === messenger ? 'active' : ''}
               ${previouslyActiveApp === messenger ? 'previous-active' : ''}
             `}
-          onClick={updateActiveApp.bind(null, messenger)}
-          data-view={dataView}
-        >
-          <Toolbar
-            closeApp={closeApp}
-            updateStartbar={updateStartbar}
-            component={messenger}
-            image={icons[apps.messenger.toLowerCase()].url}
-            title={apps.messenger}
-          />
+        onClick={(e) => updateActiveApp(e, messenger)}
+        data-view={dataView}
+      >
+        <Toolbar
+          closeApp={closeApp}
+          updateStartbar={updateStartbar}
+          component={messenger}
+          image={icons[apps.messenger.toLowerCase()].url}
+          title={apps.messenger}
+        />
 
-          <div className="messages content" ref={(input) => { this.messages = input }} >
-            <TransitionGroup>
-              {
-                chatHistory.map((item, index) => (
-                  <CSSTransition key={index} timeout={500} classNames="message">
+        <div className="messages content" ref={messages}>
+          <TransitionGroup>
+            {
+                chatHistory.map((item) => (
+                  <CSSTransition key={item.message} timeout={500} classNames="message">
                     <Message
-                      key={index}
+                      key={item.message}
                       type={item.bot ? 'sent' : 'received'}
                       user={item.user}
                       content={item.message}
@@ -207,23 +176,25 @@ class Messenger extends Component {
                   </CSSTransition>
                 ))
               }
-            </TransitionGroup>
-          </div>
+          </TransitionGroup>
+        </div>
 
-          <span className={`activeTyping ${isTyping ? 'visible' : ''}`}>Heather is typing...</span>
+        <span className={`activeTyping ${isTyping ? 'visible' : ''}`}>Heather is typing...</span>
 
-          <div className={`userInput ${isTyping ? 'hidden' : ''}`}>
-            <div className="field">
-              {
+        <div className={`userInput ${isTyping ? 'hidden' : ''}`}>
+          <div className="field">
+            {
                 curatedOptions.visible ? (
                   <div className="buttonWrapper">
                     <div>
                       {
-                        curatedOptions.links.map(link => (
+                        curatedOptions.links.map((link) => (
                           <button
                             key={link.replace(/\s+/g, '').toLowerCase()}
+                            type="button"
                             className="button-medium"
-                            onClick={() => this.sendMessage(null, link)}>
+                            onClick={() => sendMessage(null, link)}
+                          >
                             {link}
                           </button>
                         ))
@@ -231,35 +202,45 @@ class Messenger extends Component {
                     </div>
                   </div>
                 ) : (
-                    <input
-                      type="text"
-                      id="messageField"
-                      autoFocus
-                      value={inputValue}
-                      onChange={this.handleInputChange}
-                      onKeyPress={this.sendMessage}
-                    />
-                  )
+                  <input
+                    type="text"
+                    id="messageField"
+                    autoFocus
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyPress={sendMessage}
+                  />
+                )
               }
-            </div>
-            <button
-              onClick={() => this.changeInput(curatedOptions.visible ? 'free' : 'options')}
-              className="button-medium option-toggle"
-            >
-              {
+          </div>
+          <button
+            type="button"
+            onClick={() => changeInput(curatedOptions.visible ? 'free' : 'options')}
+            className="button-medium option-toggle"
+          >
+            {
                 curatedOptions.visible ? (
                   'Free type'
                 ) : (
-                    'Curated'
-                  )
+                  'Curated'
+                )
               }
-            </button>
-          </div>
+          </button>
         </div>
-      </Draggable>
-    )
-  }
-}
+      </div>
+    </Draggable>
+  );
+};
+
+Messenger.defaultProps = {
+  updateActiveApp: () => {},
+  closeApp: () => {},
+  updateStartbar: () => {},
+  openApps: [],
+  minimizedApps: [],
+  currentlyActiveApp: '',
+  previouslyActiveApp: '',
+};
 
 Messenger.propTypes = {
   updateActiveApp: PropTypes.func,
@@ -268,7 +249,7 @@ Messenger.propTypes = {
   openApps: PropTypes.array,
   minimizedApps: PropTypes.array,
   currentlyActiveApp: PropTypes.string,
-  previouslyActiveApp: PropTypes.string
-}
+  previouslyActiveApp: PropTypes.string,
+};
 
-export default Messenger
+export default Messenger;

@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import '../css/toolbar.css'
+import '../css/toolbar.css';
 
 const Toolbar = ({
   image,
@@ -9,19 +9,36 @@ const Toolbar = ({
   closeApp,
   component,
   updateStartbar,
-  notificationStyle
+  notificationStyle,
 }) => (
   <div className="toolbar">
     <div className="title">
-      <img src={image} alt={image}/> <span>{title}</span>
+      <img src={image} alt={image} />
+      {' '}
+      <span>{title}</span>
     </div>
-    <button className={`button-small ${notificationStyle ? 'disabled' : ''}`} onClick={closeApp.bind(null, component)}>×</button>
+    <button
+      type="button"
+      className={`button-small ${notificationStyle ? 'disabled' : ''}`}
+      onClick={(e) => closeApp(e, component)}
+    >
+      ×
+    </button>
     {
-      !notificationStyle &&
-      <button className="button-small minimize" onClick={() => updateStartbar(component, true)}>_</button>
-    }
+        !notificationStyle
+        && <button type="button" className="button-small minimize" onClick={() => updateStartbar(component, true)}>_</button>
+      }
   </div>
-)
+);
+
+Toolbar.defaultProps = {
+  image: '',
+  title: '',
+  closeApp: () => {},
+  component: '',
+  updateStartbar: () => {},
+  notificationStyle: false,
+};
 
 Toolbar.propTypes = {
   image: PropTypes.string,
@@ -29,7 +46,7 @@ Toolbar.propTypes = {
   closeApp: PropTypes.func,
   component: PropTypes.string,
   updateStartbar: PropTypes.func,
-  notificationStyle: PropTypes.bool
-}
+  notificationStyle: PropTypes.bool,
+};
 
-export default Toolbar
+export default Toolbar;

@@ -1,40 +1,59 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* Event handler added to div for delight, not actual functionality */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // Components
-import Draggable from 'react-draggable'
-import Toolbar from './toolbar'
+import Draggable from 'react-draggable';
+import Toolbar from './toolbar';
 
-const Program = (props) => {
-  return (
-    <Draggable
-      defaultPosition={props.notificationStyle
-        ? {}
-        : {x: Math.random() * (150 - 50) + 50, y: Math.random() * (150 - 50) + 50}
-      }
-      handle=".toolbar">
+const Program = ({
+  notificationStyle,
+  programName,
+  openApps,
+  currentlyActiveApp,
+  previouslyActiveApp,
+  minimizedApps,
+  updateActiveApp,
+  updateStartbar,
+  programIcon,
+  programRights,
+  closeApp,
+  contentEditable,
+  systemStyle,
+  children,
+}) => (
+  <Draggable
+    defaultPosition={notificationStyle
+      ? {}
+      : { x: Math.random() * (150 - 50) + 50, y: Math.random() * (150 - 50) + 50 }}
+    handle=".toolbar"
+    cancel=".button-small"
+  >
+    <div
+      className={`${programName.toLowerCase()} program txt-file ${currentlyActiveApp === programName.toLowerCase() ? 'active' : ''} ${previouslyActiveApp === programName.toLowerCase() ? 'previous-active' : ''} ${notificationStyle ? 'notification' : ''} ${systemStyle ? 'system' : ''}`}
+      data-view={openApps.indexOf(programName.toLowerCase()) === -1 || minimizedApps.indexOf(programName.toLowerCase()) !== -1 ? 'closed' : ''}
+      onClick={() => updateActiveApp(null, programName.toLowerCase())}
+    >
+      <Toolbar
+        closeApp={closeApp}
+        updateStartbar={updateStartbar}
+        component={programName.toLowerCase()}
+        image={programIcon}
+        title={`${programName} ${programRights || ''}`}
+        notificationStyle={notificationStyle}
+      />
       <div
-        className={`${props.programName.toLowerCase()} program txt-file ${props.currentlyActiveApp === props.programName.toLowerCase() ? 'active' : ''} ${props.previouslyActiveApp === props.programName.toLowerCase() ? 'previous-active' : ''} ${props.notificationStyle ? 'notification' : ''} ${props.systemStyle ? 'system' : ''}`}
-        data-view={props.openApps.indexOf(props.programName.toLowerCase()) === -1 ? 'closed' : props.minimizedApps.indexOf(props.programName.toLowerCase()) !== -1 ? 'closed' : ''}
-        onClick={props.updateActiveApp.bind(null, props.programName.toLowerCase())}>
-        <Toolbar
-          closeApp={props.closeApp}
-          updateStartbar={props.updateStartbar}
-          component={props.programName.toLowerCase()}
-          image={props.programIcon}
-          title={`${props.programName} ${props.programRights ? props.programRights : ''}`}
-          notificationStyle={props.notificationStyle}
-        />
-        <div
-          className="content"
-          contentEditable={props.contentEditable}
-          suppressContentEditableWarning>
-          {props.children}
-        </div>
+        className="content"
+        contentEditable={contentEditable}
+        suppressContentEditableWarning
+      >
+        {children}
       </div>
-    </Draggable>
-  )
-}
+    </div>
+  </Draggable>
+);
 
 Program.propTypes = {
   programName: PropTypes.string.isRequired,
@@ -50,21 +69,21 @@ Program.propTypes = {
   currentlyActiveApp: PropTypes.string,
   previouslyActiveApp: PropTypes.string,
   notificationStyle: PropTypes.bool,
-  systemStyle: PropTypes.bool
-}
+  systemStyle: PropTypes.bool,
+};
 
 Program.defaultProps = {
   programRights: null,
   contentEditable: false,
-  updateActiveApp: () => {},
-  closeApp: () => {},
-  updateStartbar: () => {},
+  updateActiveApp: () => { },
+  closeApp: () => { },
+  updateStartbar: () => { },
   openApps: [],
   minimizedApps: [],
   currentlyActiveApp: null,
   previouslyActiveApp: null,
   notificationStyle: false,
-  systemStyle: false
-}
+  systemStyle: false,
+};
 
-export default Program
+export default Program;

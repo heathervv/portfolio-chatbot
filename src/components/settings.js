@@ -1,23 +1,23 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { apps, icons, systemSettings } from '../config'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { apps, icons, systemSettings } from '../config';
 
 // Components
-import Program from './program'
+import Program from './program';
 
-import '../css/settings.css'
+import '../css/settings.css';
 
 const Settings = ({
-    updateActiveApp,
-    updateStartbar,
-    closeApp,
-    openApps,
-    minimizedApps,
-    currentlyActiveApp,
-    previouslyActiveApp,
-    activeSystemSettings,
-    changeSystemSettings
-  }) => (
+  updateActiveApp,
+  updateStartbar,
+  closeApp,
+  openApps,
+  minimizedApps,
+  currentlyActiveApp,
+  previouslyActiveApp,
+  activeSystemSettings,
+  changeSystemSettings,
+}) => (
   <Program
     programName={apps.settings}
     programIcon={icons[apps.settings.toLowerCase()].url}
@@ -34,18 +34,23 @@ const Settings = ({
       <p className="sectionTitle">Background</p>
       <ul className="options">
         {
-          systemSettings.background.map((background) => {
-            let className = 'option'
+            systemSettings.background.map((background) => {
+              let className = 'option';
 
-            if (background.name === activeSystemSettings.background.name) {
-              className += ' selected'
-            }
+              if (background.name === activeSystemSettings.background.name) {
+                className += ' selected';
+              }
 
-            return (
-                <li key={background.name} className={className}><button onClick={() => changeSystemSettings(background)}>{background.name}</button></li>
-            )
-          })
-        }
+              return (
+                <li
+                  key={background.name}
+                  className={className}
+                >
+                  <button type="button" onClick={() => changeSystemSettings(background)}>{background.name}</button>
+                </li>
+              );
+            })
+          }
       </ul>
     </div>
 
@@ -53,28 +58,59 @@ const Settings = ({
       <p className="sectionTitle">Appearance</p>
       <ul className="options">
         {
-          systemSettings.theme.map((theme) => {
-            let className = 'option'
+            systemSettings.theme.map((theme) => {
+              let className = 'option';
 
-            if (theme === activeSystemSettings.theme) {
-              className += ' selected'
-            }
+              if (theme === activeSystemSettings.theme) {
+                className += ' selected';
+              }
 
-            return (
-                <li key={theme} className={className}><button onClick={() => changeSystemSettings(null, theme)}>{theme}</button></li>
-            )
-          })
-        }
+              return (
+                <li
+                  key={theme}
+                  className={className}
+                >
+                  <button type="button" onClick={() => changeSystemSettings(null, theme)}>{theme}</button>
+                </li>
+              );
+            })
+          }
       </ul>
     </div>
 
     <div className="section attributions">
       <p className="sectionTitle">Attributions</p>
-      <p>Emoji artwork is provided by <a href="https://emojitwo.github.io/" target="_blank" rel="noopener noreferrer">Emojitwo</a>, originally released as <a href="https://www.emojione.com/" target="_blank" rel="noopener noreferrer">Emojione 2.2</a> by <a href="http://www.ranks.com/" target="_blank" rel="noopener noreferrer">Ranks.com</a> with contributions from the Emojitwo community and is licensed under <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener noreferrer">CC-BY 4.0.</a></p>
+      <p>
+        Emoji artwork is provided by
+        {' '}
+        <a href="https://emojitwo.github.io/" target="_blank" rel="noopener noreferrer">Emojitwo</a>
+        , originally released as
+        {' '}
+        <a href="https://www.emojione.com/" target="_blank" rel="noopener noreferrer">Emojione 2.2</a>
+        {' '}
+        by
+        {' '}
+        <a href="http://www.ranks.com/" target="_blank" rel="noopener noreferrer">Ranks.com</a>
+        {' '}
+        with contributions from the Emojitwo community and is licensed under
+        {' '}
+        <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener noreferrer">CC-BY 4.0.</a>
+      </p>
     </div>
   </Program>
+);
 
-)
+Settings.defaultProps = {
+  updateActiveApp: () => {},
+  updateStartbar: () => {},
+  closeApp: () => {},
+  openApps: [],
+  minimizedApps: [],
+  currentlyActiveApp: '',
+  previouslyActiveApp: '',
+  activeSystemSettings: {},
+  changeSystemSettings: () => {},
+};
 
 Settings.propTypes = {
   updateActiveApp: PropTypes.func,
@@ -85,7 +121,7 @@ Settings.propTypes = {
   currentlyActiveApp: PropTypes.string,
   previouslyActiveApp: PropTypes.string,
   activeSystemSettings: PropTypes.object,
-  changeSystemSettings: PropTypes.func
-}
+  changeSystemSettings: PropTypes.func,
+};
 
-export default Settings
+export default Settings;

@@ -1,48 +1,42 @@
-import React, { PureComponent } from 'react'
+import React, { useState, useEffect } from 'react';
 
-import '../css/clock.css'
+import '../css/clock.css';
 
-class Clock extends PureComponent {
-  state = {
-    time: ''
-  }
+const Clock = () => {
+  const [time, setTime] = useState('');
 
-  componentDidMount() {
-    this.startTime()
-  }
+  const checkTime = (i) => (i < 10 ? `0${i}` : i);
 
-  checkTime(i) {
-    return i < 10 ? i = '0' + i : i
-  }
+  const startTime = () => {
+    const today = new Date();
+    const hh = today.getHours();
 
-  startTime = () => {
-    const today = new Date()
-    const hh = today.getHours()
+    let m = today.getMinutes();
+    m = checkTime(m);
 
-    let m = today.getMinutes()
-    m = this.checkTime(m)
+    let dd = 'AM';
 
-    let dd = 'AM'
-
-    let h = hh
+    let h = hh;
     if (h >= 12) {
-      h = hh - 12
-      dd = 'PM'
+      h = hh - 12;
+      dd = 'PM';
     }
     if (h === 0) {
-      h = 12
+      h = 12;
     }
 
-    setTimeout(this.startTime, 1000)
+    setTimeout(startTime, 1000);
 
-    this.setState({ time: `${h}:${m} ${dd}` })
-  }
+    setTime(`${h}:${m} ${dd}`);
+  };
 
-  render() {
-    return (
-      <div className="clock">{this.state.time}</div>
-    )
-  }
-}
+  useEffect(() => {
+    startTime();
+  }, []);
 
-export default Clock
+  return (
+    <div className="clock">{time}</div>
+  );
+};
+
+export default Clock;

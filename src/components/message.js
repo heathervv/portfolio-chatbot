@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Linkify from 'react-linkify'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Linkify from 'react-linkify';
 
 const Message = ({ type, content, user }) => (
   <div className={`message ${type}`}>
@@ -9,12 +9,18 @@ const Message = ({ type, content, user }) => (
       {content}
     </Linkify>
   </div>
-)
+);
+
+Message.defaultProps = {
+  type: '',
+  content: '',
+  user: '',
+};
 
 Message.propTypes = {
   type: PropTypes.string,
   content: PropTypes.string,
-  user: PropTypes.string
-}
+  user: PropTypes.string,
+};
 
-export default Message
+export default Message;

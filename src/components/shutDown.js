@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { apps, icons } from '../config'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { apps, icons } from '../config';
 
 // Components
-import Program from './program'
+import Program from './program';
 
 const ShutDown = ({ restart }) => (
   <Program
@@ -17,12 +17,12 @@ const ShutDown = ({ restart }) => (
     It is now safe to turn off your computer.
     <br />
     <br />
-    <button className="button-medium" onClick={restart}>Restart</button>
+    <button type="button" className="button-medium" onClick={restart}>Restart</button>
   </Program>
-)
+);
 
 ShutDown.propTypes = {
-  restart: PropTypes.func.isRequired
-}
+  restart: PropTypes.func.isRequired,
+};
 
-export default ShutDown
+export default ShutDown;

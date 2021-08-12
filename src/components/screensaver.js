@@ -1,46 +1,47 @@
-import React, { useState, useEffect } from 'react'
-import graphic from '../images/screensaver.gif'
-import '../css/screensaver.css'
+import React, { useState, useEffect } from 'react';
+import graphic from '../images/screensaver.gif';
+import '../css/screensaver.css';
 
 const Screensaver = () => {
-    const [screensaverIsVisible, changeScreensaverVisibility] = useState(false)
-    const classNames = [
-        'screensaver',
-        screensaverIsVisible ? 'screensaver-visible' : 'screensaver-not-visible'
-    ]
+  const [screensaverIsVisible, changeScreensaverVisibility] = useState(false);
 
-    useEffect(() => {
-        const originalDocTitle = document.title
-        let timeout
+  const classNames = [
+    'screensaver',
+    screensaverIsVisible ? 'screensaver-visible' : 'screensaver-not-visible',
+  ];
 
-        // Set screensaver if user stops moving for X seconds
-        document.onmousemove = () => {
-            clearTimeout(timeout)
-            setScreensaver(originalDocTitle, false)
+  const setScreensaver = (title, visibility) => {
+    document.title = title;
+    changeScreensaverVisibility(visibility);
+  };
 
-            timeout = setTimeout(() => {
-                setScreensaver("Zzz... 🌚", true)
-            }, 30000)
-        }
+  useEffect(() => {
+    const originalDocTitle = document.title;
+    let timeout;
 
-        // Set screensaver if user changes tab
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                setScreensaver("Zzz... 🌚", true)
-            } else {
-                setScreensaver(originalDocTitle, false)
-            }
-        })
-    }, [])
+    // Set screensaver if user stops moving for X seconds
+    document.onmousemove = () => {
+      clearTimeout(timeout);
+      setScreensaver(originalDocTitle, false);
 
-    const setScreensaver = (title, visibility) => {
-        document.title = title
-        changeScreensaverVisibility(visibility)
-    }
+      timeout = setTimeout(() => {
+        setScreensaver('Zzz... 🌚', true);
+      }, 30000);
+    };
 
-    return (
-        <div className={classNames.join(' ')} style={{ backgroundImage: `url(${graphic})` }} />
-    )
-}
+    // Set screensaver if user changes tab
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        setScreensaver('Zzz... 🌚', true);
+      } else {
+        setScreensaver(originalDocTitle, false);
+      }
+    });
+  }, []);
 
-export default Screensaver
+  return (
+    <div className={classNames.join(' ')} style={{ backgroundImage: `url(${graphic})` }} />
+  );
+};
+
+export default Screensaver;

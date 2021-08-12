@@ -1,20 +1,26 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Linkify from 'react-linkify'
-import { apps, icons, work } from '../config'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Linkify from 'react-linkify';
+import { apps, icons, work } from '../config';
 
 // Components
-import Program from './program'
+import Program from './program';
+
+const componentDecorator = (href, text, key) => (
+  <a href={href} key={key} target="_blank" rel="noreferrer">
+    {text}
+  </a>
+);
 
 const Work = ({
-    updateActiveApp,
-    updateStartbar,
-    closeApp,
-    openApps,
-    minimizedApps,
-    currentlyActiveApp,
-    previouslyActiveApp
-  }) => (
+  updateActiveApp,
+  updateStartbar,
+  closeApp,
+  openApps,
+  minimizedApps,
+  currentlyActiveApp,
+  previouslyActiveApp,
+}) => (
   <Program
     programName={apps.work}
     programRights="[Read Only]"
@@ -27,19 +33,28 @@ const Work = ({
     currentlyActiveApp={currentlyActiveApp}
     previouslyActiveApp={previouslyActiveApp}
   >
-    <Linkify>
+    <Linkify componentDecorator={componentDecorator}>
       {
-        work.map((item, i) => (
-          <div key={i}>
-            <h3><a href={item.url}>{item.title}</a></h3>
-            <p>{item.copy}</p>
-          </div>
-        ))
-      }
+          work.map((item) => (
+            <div key={`item-${item.title}`}>
+              <h3>{item.url ? <a href={item.url} target="_blank" rel="noreferrer">{item.title}</a> : item.title}</h3>
+              <p>{item.copy}</p>
+            </div>
+          ))
+        }
     </Linkify>
   </Program>
+);
 
-)
+Work.defaultProps = {
+  updateActiveApp: () => {},
+  updateStartbar: () => {},
+  closeApp: () => {},
+  openApps: [],
+  minimizedApps: [],
+  currentlyActiveApp: '',
+  previouslyActiveApp: '',
+};
 
 Work.propTypes = {
   updateActiveApp: PropTypes.func,
@@ -48,7 +63,7 @@ Work.propTypes = {
   openApps: PropTypes.array,
   minimizedApps: PropTypes.array,
   currentlyActiveApp: PropTypes.string,
-  previouslyActiveApp: PropTypes.string
-}
+  previouslyActiveApp: PropTypes.string,
+};
 
-export default Work
+export default Work;

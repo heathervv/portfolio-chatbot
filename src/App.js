@@ -1,270 +1,240 @@
-import React, { Component } from 'react'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import './App.css';
 
-import { apps, icons, resumeLink, systemSettings } from './config'
-import StartBar from './components/startbar'
-import Messenger from './components/messenger'
-import Work from './components/work'
-import Contact from './components/contact'
-import Settings from './components/settings'
-import ShutDown from './components/shutDown'
-import Screensaver from './components/screensaver'
+import {
+  apps, icons, resumeLink, systemSettings as systemConfig,
+} from './config';
+import StartBar from './components/startbar';
+import Messenger from './components/messenger';
+import Work from './components/work';
+import Contact from './components/contact';
+import Settings from './components/settings';
+import ShutDown from './components/shutDown';
+import Screensaver from './components/screensaver';
 
-import resume from './images/resume.svg'
+import resume from './images/resume.svg';
 
-import './css/theme.css'
+import './css/theme.css';
 
 const programComponents = {
-  'chat': Messenger,
-  'work': Work,
-  'contact': Contact,
-  'settings': Settings
-}
+  chat: Messenger,
+  work: Work,
+  contact: Contact,
+  settings: Settings,
+};
 
-class App extends Component {
-  constructor() {
-    super()
-
-    this.state = {
-      shutDown: false,
-      openApps: [apps.messenger.toLowerCase()],
-      minimizedApps: [],
-      openStart: false,
-      currentlyActiveApp: apps.messenger.toLowerCase(),
-      previouslyActiveApp: '',
-      systemSettings: {
-        background: this.loadSystemBackground(),
-        theme: this.loadSystemTheme()
-      }
-    }
-  }
-
-  componentDidMount() {
-    if (document.addEventListener) {
-      document.addEventListener('click', this.linkClickListener, false)
-    } else {
-      document.attachEvent('onclick', this.linkClickListener)
-    }
-  }
-
-  linkClickListener = (e) => {
-    var event = window.e || e
-
-    if (event.target.tagName === 'A') {
-      this.openInNewTab(event.target.href)
-    }
-  }
-
-  openApp = (e, component) => {
-    e.preventDefault()
-
-    const { openApps, minimizedApps } = this.state
-    openApps.push(component)
-
-    if (minimizedApps.indexOf(component) > -1) {
-      for (let i = minimizedApps.length - 1; i >= 0; i--) {
-        if (minimizedApps[i] === component) {
-            minimizedApps.splice(i, 1);
-        }
-      }
-    }
-
-    this.setState({ openApps, minimizedApps })
-
-    this.updateActiveApp(component)
-
-    this.start('close')
-  }
-
-  closeApp = (component, e) => {
-    e.preventDefault()
-
-    let openApps = this.state.openApps
-    openApps = openApps.filter(e => e !== component)
-
-    this.setState({ openApps })
-  }
-
-  updateStartbar = (component, minimizeWindow) => {
-    const minimizedApps = this.state.minimizedApps
-
-    if (minimizeWindow) {
-      // if we manually ask to minimize
-      minimizedApps.push(component)
-    } else if (this.state.minimizedApps.indexOf(component) > -1) {
-      // if app is currently minimized and needs to be brought back
-      const index = minimizedApps.indexOf(component)
-      minimizedApps.splice(index, 1)
-
-      this.updateActiveApp(component, null)
-    } else {
-      // Otherwise, let's just set to currently active app
-      this.updateActiveApp(component, null)
-    }
-
-    this.setState({ minimizedApps })
-    this.start('close')
-  }
-
-  updateActiveApp = (component, e) => {
-    if (e) e.preventDefault()
-
-    if (component === this.state.updateActiveApp) return
-
-    this.setState({ previouslyActiveApp: this.state.currentlyActiveApp })
-    this.setState({ currentlyActiveApp: component })
-  }
-
-
-  start = (status) => {
-    if (status === 'close')
-      this.setState({ openStart: false })
-    else
-      this.setState({ openStart: true })
-  }
-
-  openInNewTab = (elem) => {
-    const win = window.open(elem, '_blank')
-
-    if(win) win.focus()
-  }
-
-  shutDown = (e, restart = false) => {
-    if (e) e.preventDefault()
-
-    this.setState({
-      shutDown: restart ? false : true,
-      openStart: false,
-      openApps: [],
-      minimizedApps: [],
-      currentlyActiveApp: '',
-      previouslyActiveApp: ''
-    })
-  }
-
-  loadSystemBackground = () => {
-    const existingBackground = localStorage.getItem('background')
+const App = () => {
+  const loadSystemBackground = () => {
+    const existingBackground = localStorage.getItem('background');
 
     if (existingBackground) {
-      return systemSettings.background.find((background) => background.name === existingBackground)
-    } else {
-      localStorage.setItem('background', systemSettings.background[2].name)
-
-      return systemSettings.background[2]
+      return systemConfig.background.find((background) => background.name === existingBackground);
     }
-  }
 
-  loadSystemTheme = () => {
-    const existingTheme = localStorage.getItem('theme')
+    localStorage.setItem('background', systemConfig.background[2].name);
+    return systemConfig.background[2];
+  };
+
+  const loadSystemTheme = () => {
+    const existingTheme = localStorage.getItem('theme');
 
     if (existingTheme) {
-      return systemSettings.theme.find((theme) => theme === existingTheme)
+      return systemConfig.theme.find((theme) => theme === existingTheme);
+    }
+
+    localStorage.setItem('theme', systemConfig.theme[0]);
+    return systemConfig.theme[0];
+  };
+
+  const openInNewTab = (elem) => {
+    const win = window.open(elem, '_blank');
+
+    if (win) win.focus();
+  };
+
+  const linkClickListener = (e) => {
+    const event = window.e || e;
+
+    if (event.target.tagName === 'A') {
+      openInNewTab(event.target.href);
+    }
+  };
+
+  const [shutDown, setShutDown] = useState(false);
+  const [openApps, setOpenApps] = useState([apps.messenger.toLowerCase()]);
+  const [minimizedApps, setMinimizedApps] = useState([]);
+  const [openStart, setOpenStart] = useState(false);
+  const [currentlyActiveApp, setCurrentlyActiveApp] = useState(apps.messenger.toLowerCase());
+  const [previouslyActiveApp, setPreviouslyActiveApp] = useState('');
+  const [systemSettings, setSystemSettings] = useState({
+    background: loadSystemBackground(),
+    theme: loadSystemTheme(),
+  });
+
+  useEffect(() => {
+    if (document.addEventListener) {
+      document.addEventListener('click', linkClickListener, false);
     } else {
-      localStorage.setItem('theme', systemSettings.theme[0])
-
-      return systemSettings.theme[0]
+      document.attachEvent('onclick', linkClickListener);
     }
-  }
+  }, []);
 
-  changeSystemSettings = (background = null, theme = null) => {
-    if (background) {
-      localStorage.setItem('background', background.name)
+  const start = (status) => {
+    setOpenStart(status !== 'close');
+  };
 
-      this.setState({
-        systemSettings: {
-          ...this.state.systemSettings,
-          background
+  const updateActiveApp = (e, component) => {
+    if (e) e.preventDefault();
+
+    if (component === currentlyActiveApp) return;
+
+    setPreviouslyActiveApp(currentlyActiveApp);
+    setCurrentlyActiveApp(component);
+  };
+
+  const openApp = (e, component) => {
+    if (e) e.preventDefault();
+
+    const updatedMinimizedApps = [...minimizedApps];
+    if (updatedMinimizedApps.indexOf(component) > -1) {
+      for (let i = updatedMinimizedApps.length - 1; i >= 0; i -= 1) {
+        if (updatedMinimizedApps[i] === component) {
+          updatedMinimizedApps.splice(i, 1);
         }
-      })
+      }
     }
 
-    if (theme) {
-      localStorage.setItem('theme', theme)
+    setOpenApps([...openApps, component]);
+    setMinimizedApps(updatedMinimizedApps);
 
-      this.setState({
-        systemSettings: {
-          ...this.state.systemSettings,
-          theme
-        }
-      })
+    updateActiveApp(null, component);
+    start('close');
+  };
+
+  const closeApp = (e, component) => {
+    if (e) e.preventDefault();
+
+    setOpenApps(openApps.filter((a) => a !== component));
+  };
+
+  const updateStartbar = (component, minimizeWindow) => {
+    const updatedMinimizedApps = [...minimizedApps];
+    if (minimizeWindow) {
+      // if we manually ask to minimize
+      updatedMinimizedApps.push(component);
+    } else if (updatedMinimizedApps.indexOf(component) > -1) {
+      // if app is currently minimized and needs to be brought back
+      const index = updatedMinimizedApps.indexOf(component);
+      updatedMinimizedApps.splice(index, 1);
+
+      updateActiveApp(null, component);
+    } else {
+      // Otherwise, let's just set to currently active app
+      updateActiveApp(null, component);
     }
-  }
 
-  render() {
-    const {
-      openApps,
-      minimizedApps,
-      currentlyActiveApp,
-      previouslyActiveApp,
-      openStart,
-      shutDown,
-      systemSettings
-    } = this.state
+    setMinimizedApps(updatedMinimizedApps);
+    start('close');
+  };
 
-    return (
-      <section className={`desktop theme-${systemSettings.theme.toLowerCase()}`} style={{ backgroundImage: `url(${systemSettings.background.url})` }}>
-        <div className="icons">
-          <button onClick={e => this.openApp(e, apps.messenger.toLowerCase())}>
-            <img src={icons[apps.messenger.toLowerCase()].url} alt={icons[apps.messenger.toLowerCase()].alt} /> {apps.messenger}
-          </button>
-          <button onClick={e => this.openApp(e, apps.contact.toLowerCase())}>
-            <img src={icons[apps.contact.toLowerCase()].url} alt={icons[apps.contact.toLowerCase()].alt} /> {apps.contact}
-          </button>
-          <button onClick={e => this.openApp(e, apps.work.toLowerCase())}>
-            <img src={icons[apps.work.toLowerCase()].url} alt={icons[apps.work.toLowerCase()].alt} /> {apps.work}
-          </button>
-          <a href={resumeLink} target="_blank" rel="noopener noreferrer">
-            <img src={resume} alt="Icon of resume" /> Resume
-          </a>
-        </div>
+  const triggerShutdown = (e, restart = false) => {
+    if (e) e.preventDefault();
 
-        {
-          Object.keys(programComponents).map((program, i) => {
-            if (
-              openApps.indexOf(program) === -1 &&
-              minimizedApps.indexOf(program) === -1
-            ) return null
+    setShutDown(!restart);
+    setOpenStart(false);
+    setOpenApps([]);
+    setMinimizedApps([]);
+    setCurrentlyActiveApp('');
+    setPreviouslyActiveApp('');
+  };
 
-            const ProgramBlock = programComponents[program]
+  const changeSystemSettings = (background = null, theme = null) => {
+    if (background) localStorage.setItem('background', background.name);
 
-            return (
-              <ProgramBlock
-                key={i}
-                updateActiveApp={this.updateActiveApp}
-                closeApp={this.closeApp}
-                updateStartbar={this.updateStartbar}
-                openApps={openApps}
-                minimizedApps={minimizedApps}
-                currentlyActiveApp={currentlyActiveApp}
-                previouslyActiveApp={previouslyActiveApp}
-                activeSystemSettings={systemSettings}
-                changeSystemSettings={this.changeSystemSettings}
-              />
-            )
-          })
-        }
+    if (theme) localStorage.setItem('theme', theme);
 
-        <StartBar
-          openApp={this.openApp}
-          updateActiveApp={this.updateActiveApp}
-          currentlyActiveApp={currentlyActiveApp}
-          openApps={openApps}
-          minimizedApps={minimizedApps}
-          shutDown={this.shutDown}
-          updateStartbar={this.updateStartbar}
-          start={this.start}
-          openStart={openStart}
-          openSettings={e => this.openApp(e, apps.settings.toLowerCase())}
-        />
+    setSystemSettings({
+      background: background || systemSettings.background,
+      theme: theme || systemSettings.theme,
+    });
+  };
 
-        <div className={`shutDownPage ${shutDown ? 'visible' : ''}`}>
-          <ShutDown restart={() => this.shutDown(null, true)} />
-        </div>
+  return (
+    <section className={`desktop theme-${systemSettings.theme.toLowerCase()}`} style={{ backgroundImage: `url(${systemSettings.background.url})` }}>
+      <div className="icons">
+        <button type="button" onClick={(e) => openApp(e, apps.messenger.toLowerCase())}>
+          <img
+            src={icons[apps.messenger.toLowerCase()].url}
+            alt={icons[apps.messenger.toLowerCase()].alt}
+          />
+          {' '}
+          {apps.messenger}
+        </button>
+        <button type="button" onClick={(e) => openApp(e, apps.contact.toLowerCase())}>
+          <img
+            src={icons[apps.contact.toLowerCase()].url}
+            alt={icons[apps.contact.toLowerCase()].alt}
+          />
+          {' '}
+          {apps.contact}
+        </button>
+        <button type="button" onClick={(e) => openApp(e, apps.work.toLowerCase())}>
+          <img src={icons[apps.work.toLowerCase()].url} alt={icons[apps.work.toLowerCase()].alt} />
+          {' '}
+          {apps.work}
+        </button>
+        <a href={resumeLink} target="_blank" rel="noopener noreferrer">
+          <img src={resume} alt="Icon of resume" />
+          {' '}
+          Resume
+        </a>
+      </div>
 
-        <Screensaver />
-      </section>
-    )
-  }
-}
+      {
+        Object.keys(programComponents).map((program) => {
+          if (
+            openApps.indexOf(program) === -1
+            && minimizedApps.indexOf(program) === -1
+          ) return null;
 
-export default App
+          const ProgramBlock = programComponents[program];
+
+          return (
+            <ProgramBlock
+              key={`program-${program}`}
+              updateActiveApp={updateActiveApp}
+              closeApp={closeApp}
+              updateStartbar={updateStartbar}
+              openApps={openApps}
+              minimizedApps={minimizedApps}
+              currentlyActiveApp={currentlyActiveApp}
+              previouslyActiveApp={previouslyActiveApp}
+              activeSystemSettings={systemSettings}
+              changeSystemSettings={changeSystemSettings}
+            />
+          );
+        })
+      }
+
+      <StartBar
+        updateActiveApp={updateActiveApp}
+        currentlyActiveApp={currentlyActiveApp}
+        openApps={openApps}
+        minimizedApps={minimizedApps}
+        shutDown={triggerShutdown}
+        updateStartbar={updateStartbar}
+        start={start}
+        openStart={openStart}
+        openSettings={(e) => openApp(e, apps.settings.toLowerCase())}
+      />
+
+      <div className={`shutDownPage ${shutDown ? 'visible' : ''}`}>
+        <ShutDown restart={() => triggerShutdown(null, true)} />
+      </div>
+
+      <Screensaver />
+    </section>
+  );
+};
+
+export default App;
