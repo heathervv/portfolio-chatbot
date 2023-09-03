@@ -29,10 +29,10 @@ const Contact = ({
     {contact.content}
     <br />
     <br />
-    <>(Try writing here~)</>
+    (Try writing here~)
     <br />
     <br />
-    <>==========================================</>
+    ==========================================
     <br />
     <br />
     <a href={contact.emailLink}>{contact.emailLink.replace('mailto:', '')}</a>

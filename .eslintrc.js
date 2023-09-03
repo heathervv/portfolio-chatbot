@@ -21,5 +21,6 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/forbid-prop-types': [1, { 'forbid': [] }],
+    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
   },
 };
