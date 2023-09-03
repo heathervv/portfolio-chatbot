@@ -12,14 +12,14 @@
     z-index: 3;
   }
   .startbar a img,
-.startbar button img {
+  .startbar button img {
     max-height: 20px;
     max-width: 25px;
     width: auto;
   }
   .startbar a img, .startbar a span,
-.startbar button img,
-.startbar button span {
+  .startbar button img,
+  .startbar button span {
     display: inline-block;
     vertical-align: middle;
   }
@@ -43,11 +43,11 @@
     width: 1px;
   }
   .startbar .programs a:not(.active),
-.startbar .programs button:not(.active) {
+  .startbar .programs button:not(.active) {
     font-weight: 400;
   }
   .startbar .programs a,
-.startbar .programs button {
+  .startbar .programs button {
     margin-right: 12px;
     min-width: 105px;
     text-align: center;
