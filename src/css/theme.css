@@ -1,6 +1,8 @@
 .button {
   font-family: "Anonymous Pro", monospace;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 16px;
   font-weight: bold;
   padding: 10px 15px 10px 13px;

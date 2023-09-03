@@ -3,12 +3,12 @@ const email = require('./images/email.svg').default;
 const briefcase = require('./images/briefcase.svg').default;
 const settings = require('./images/settings.svg').default;
 const moon = require('./images/moon.svg').default;
-const backgroundClassic = require('./images/backgrounds/classic.jpg').default;
-const backgroundXp = require('./images/backgrounds/xp.jpg').default;
-const backgroundNasa = require('./images/backgrounds/nasa.jpg').default;
-const backgroundClouds = require('./images/backgrounds/clouds.jpg').default;
-const backgroundLogo = require('./images/backgrounds/logo.jpg').default;
-const backgroundVaporwave = require('./images/backgrounds/vaporwave.jpg').default;
+const backgroundClassic = require('./images/backgrounds/classic.jpg');
+const backgroundXp = require('./images/backgrounds/xp.jpg');
+const backgroundNasa = require('./images/backgrounds/nasa.jpg');
+const backgroundClouds = require('./images/backgrounds/clouds.jpg');
+const backgroundLogo = require('./images/backgrounds/logo.jpg');
+const backgroundVaporwave = require('./images/backgrounds/vaporwave.jpg');
 
 const apps = {
   messenger: 'Chat',
