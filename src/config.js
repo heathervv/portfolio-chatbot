@@ -48,7 +48,6 @@ const contact = {
   emailLink: 'mailto:heathervandervecht@gmail.com',
   linkedin: 'https://linkedin.com/in/heathervandervecht',
   github: 'http://github.com/heathervv',
-  twitter: 'http://twitter.com/_heathervv',
   instagram: 'http://instagram.com/heathervv',
 };
 

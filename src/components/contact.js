@@ -44,9 +44,6 @@ const Contact = ({
     <a href={contact.github}>GitHub</a>
     {' '}
     <br />
-    <a href={contact.twitter}>Twitter</a>
-    {' '}
-    <br />
     <a href={contact.instagram}>Instagram</a>
   </Program>
 );
