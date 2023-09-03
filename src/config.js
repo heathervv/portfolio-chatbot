@@ -54,6 +54,11 @@ const contact = {
 
 const work = [
   {
+    title: 'Dialogue',
+    url: '//dialogue.co/en/',
+    copy: 'Currently at Dialogue, working on the client stream. Currently a tech lead. Like most product companies, what I\'m working on can change quickly, so if you\'re curious to hear more about what I do here, shoot me an email!',
+  },
+  {
     title: 'Opencare: Patient Growth',
     url: '//opencare.com',
     copy: 'I spent most of my time with Opencare on the Patient Growth team as a tech lead. The mission for this product line was to connect patients to top-tier dentists in their neighbourhood based on their wants/needs. Operating in both Canada and the United States, we built and maintained a marketing site (opencare.com), a patient app, and a practice app. There was *a lot* we managed to build, but I\'m personally most proud of the completely rebuilt patient funnel (search.opencare.com/recommendation) which I built entirely in React to replace the original in AngularJS, and mentoring the team through improving QA processes, app accessibility, and feature scoping.',
@@ -66,16 +71,6 @@ const work = [
     title: 'Telus Digital Life',
     url: '//telus.com/mobility/accessories',
     copy: 'Nascent worked closely with TELUS to innovate the accessory space, and as a part of Nascent I co-lead the team that worked on this project. The main goal we worked towards with TELUS.com/accessories was how to bring the incredible in-store experience they\'d already developed onto the website. It also presented some fantastic technical opportunities with features like real time inventory and a mobility-wide cart.',
-  },
-  {
-    title: 'Bokeh',
-    url: '//bokeh.agency',
-    copy: 'This project was an incredible experience for quite a few reasons! Not only because David and Doug are some of the nicest, funniest people I\'ve ever met, but also because they really wanted to try and push the envelope with their website. I had the opportunity to implement physics on this project - not many things are cooler than that. I\'m also incredibly proud of the case study template as I think it blends functionality and form together in a really delightful way. While the whole site is built to be editable via a CMS, I focused on really supporting flexibility from the CMS for the case studies - it can be ordered however they need, optimized to load tons of videos, with some great animations automatically scattered throughout each page.',
-  },
-  {
-    title: 'Let\'s Find Momo',
-    url: '//letsfindmomo.com',
-    copy: 'Filament teamed up with Andrew Knapp and Momo (his dog) to create this playful website. As lead dev on this project I helped make sure the project stayed on time, solved any problems the team had, and focused on building out the gameplay functionality. Built with React and WordPress.',
   },
 ];
 
