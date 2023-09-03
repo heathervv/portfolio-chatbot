@@ -3,64 +3,73 @@ $desktop: 1025;
 
 .startbar {
   display: none;
+
   @media (min-width: $tablet + px) {
-    display: block;
+    display: flex;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    padding: 8px 0 0 8px;
+    padding: 8px 0 5px 8px;
     z-index: 3;
+
     a,
     button {
-    img {
-      max-height: 20px;
-      max-width: 25px;
-      width: auto;
-    }
-    img, span {
-      display: inline-block;
-      vertical-align: middle;
-    }
-  }
-  .start {
-    float: left;
-    margin-bottom: 8px;
-  }
-  .programs {
-    float: left;
-    margin-left: 10px;
-    padding-left: 10px;
-    position: relative;
-    &:before {
-      position: absolute;
-      top: 1px;
-      left: 0;
-      display: block;
-      content: '';
-      height: 100%;
-      width: 1px;
-    }
-    a:not(.active),
-    button:not(.active) {
-      font-weight: 400;
-    }
-    a,
-    button {
-      margin-right: 12px;
-      min-width: 105px;
-      text-align: center;
+      img {
+        max-height: 20px;
+        max-width: 25px;
+        width: auto;
+      }
+
+      img,
+      span {
+        display: inline-block;
+        vertical-align: middle;
+      }
     }
 
-    .startbar-settings {
-      width: 128px;
+    .start {
+      float: left;
+    }
+
+    .programs {
+      display: flex;
+      flex: 1;
+      margin-left: 10px;
+      padding-left: 10px;
+      position: relative;
+
+      &:before {
+        position: absolute;
+        top: 1px;
+        left: 0;
+        display: block;
+        content: '';
+        height: 100%;
+        width: 1px;
+      }
+
+      a:not(.active),
+      button:not(.active) {
+        font-weight: 400;
+      }
+
+      a,
+      button {
+        margin-right: 12px;
+        min-width: 105px;
+        text-align: center;
+      }
+
+      .startbar-settings {
+        width: 128px;
+      }
+    }
+
+    .closed-program {
+      display: none;
     }
   }
-
-  .closed-program {
-    display: none;
-  }
-}
 
   a,
   button {
@@ -78,6 +87,7 @@ $desktop: 1025;
   padding: 0 3px 3px 0;
   display: none;
   z-index: 3;
+
   &.visible {
     display: block;
   }
@@ -88,14 +98,17 @@ $desktop: 1025;
     width: 100%;
     padding: 9px 7px 15px 10px;
     text-align: left;
+
     img,
     span {
       display: inline-block;
       vertical-align: middle;
     }
+
     span {
       padding-top: 9px;
     }
+
     img {
       max-width: 30px;
       margin-right: 5px;
