@@ -110,7 +110,7 @@ const systemSettingsBackground = [
 
 const systemSettingsTheme = ['Light', 'Dark'];
 
-const API = 'https://portfolio-chatbot-api.herokuapp.com/api/message';
+const API = 'https://portfolio-chatbot-server.adaptable.app/api/message';
 
 module.exports = {
   apps,
