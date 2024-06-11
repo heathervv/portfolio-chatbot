@@ -21,6 +21,8 @@ import Message from './message';
 
 import '../css/messenger.css';
 
+const username = `Anon${Math.floor(Math.random() * (9999 - 1000) + 1000)}`;
+
 const Messenger = ({
   updateActiveApp,
   closeApp,
@@ -31,7 +33,6 @@ const Messenger = ({
   previouslyActiveApp,
 }) => {
   const botName = 'HeatherBot';
-  const username = `Anon${Math.floor(Math.random() * (9999 - 1000) + 1000)}`;
   const messenger = apps.messenger.toLowerCase();
   const dataView = (openApps.indexOf(messenger) === -1 || minimizedApps.indexOf(messenger) !== -1) ? 'closed' : '';
 
