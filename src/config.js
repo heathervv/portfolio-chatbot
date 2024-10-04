@@ -114,7 +114,7 @@ const systemSettingsBackground = [
 
 const systemSettingsTheme = ['Light', 'Dark'];
 
-const API = 'https://portfolio-chatbot-server.adaptable.app/api/message';
+const API = 'https://portfolio-chatbot-server.vercel.app/api/message';
 
 module.exports = {
   apps,
