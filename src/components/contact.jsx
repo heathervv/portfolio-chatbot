@@ -42,9 +42,6 @@ const Contact = ({
     {' '}
     <br />
     <a href={contact.github}>GitHub</a>
-    {' '}
-    <br />
-    <a href={contact.instagram}>Instagram</a>
   </Program>
 );
 
