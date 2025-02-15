@@ -134,14 +134,14 @@
   box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.6), inset 3px 3px rgba(0, 0, 0, 0.5);
 }
 .theme-light .toolbar button.disabled {
-  color: #979797;
+  color: rgb(150.75, 150.75, 150.75);
   text-shadow: 1px 1px #fff;
 }
 .theme-light .userInput .field {
   box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.6), inset 3px 3px rgba(0, 0, 0, 0.5);
 }
 .theme-light .userInput.hidden .option-toggle {
-  color: #979797;
+  color: rgb(150.75, 150.75, 150.75);
   text-shadow: 1px 1px #fff;
 }
 .theme-light .clock {
@@ -228,14 +228,14 @@
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6), inset 3px 3px rgba(102, 102, 102, 0.5);
 }
 .theme-dark .toolbar button.disabled {
-  color: #1a1a1a;
+  color: rgb(25.5, 25.5, 25.5);
   text-shadow: 1px 1px #666;
 }
 .theme-dark .userInput .field {
   box-shadow: 3px 3px 0 rgba(102, 102, 102, 0.6), inset 3px 3px rgba(0, 0, 0, 0.75);
 }
 .theme-dark .userInput.hidden .option-toggle {
-  color: #0d0d0d;
+  color: rgb(25.5, 25.5, 25.5);
   text-shadow: 1px 1px #ccc;
 }
 .theme-dark .clock {

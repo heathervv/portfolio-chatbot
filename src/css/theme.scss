@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $tablet: 750;
 $desktop: 1025;
 
@@ -164,7 +166,7 @@ $desktop: 1025;
   }
 
   .toolbar button.disabled {
-    color: darken(#BDBDBD, 15%);
+    color: color.adjust(#BDBDBD, $lightness: -15%);
     text-shadow: 1px 1px #fff;
   }
 
@@ -175,7 +177,7 @@ $desktop: 1025;
 
     &.hidden {
       .option-toggle {
-        color: darken(#BDBDBD, 15%);
+        color: color.adjust(#BDBDBD, $lightness: -15%);
         text-shadow: 1px 1px #fff;
       }
     }
@@ -290,7 +292,7 @@ $desktop: 1025;
   }
 
   .toolbar button.disabled {
-    color: darken(#333, 10%);
+    color: color.adjust(#333, $lightness: -10%);
     text-shadow: 1px 1px #666;
   }
 
@@ -301,7 +303,7 @@ $desktop: 1025;
 
     &.hidden {
       .option-toggle {
-        color: darken(#333, 15%);
+        color: color.adjust(#333, $lightness: -10%);
         text-shadow: 1px 1px #ccc;
       }
     }

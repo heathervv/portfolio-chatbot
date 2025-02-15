@@ -59,7 +59,7 @@
 
 .shutdown .toolbar,
 .settings .toolbar {
-  background: linear-gradient(to right, navy 0%, blue 100%);
+  background: linear-gradient(to right, rgb(0, 0, 127.5) 0%, blue 100%);
 }
 
 /*# sourceMappingURL=toolbar.css.map */
