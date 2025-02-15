@@ -3,6 +3,7 @@
   "version": "2.2.0",
   "private": true,
   "dependencies": {
+    "@vitejs/plugin-react-swc": "^3.8.0",
     "axios": "^1.5.0",
     "npm-run-all": "^4.1.5",
     "prop-types": "^15.8.1",
@@ -11,7 +12,9 @@
     "react-draggable": "^4.4.5",
     "react-linkify": "^1.0.0-alpha",
     "react-transition-group": "^4.4.5",
-    "sass": "^1.66.1"
+    "sass": "^1.66.1",
+    "vite": "^6.1.0",
+    "vite-plugin-svgr": "^4.3.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
@@ -21,19 +24,18 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "gh-pages": "^3.2.3",
-    "react-scripts": "^5.0.1"
+    "gh-pages": "^3.2.3"
   },
   "scripts": {
     "build-css": "sass src:src",
     "watch-css": "npm run build-css && sass --watch src:src",
-    "start-js": "react-scripts start",
+    "start-js": "vite",
     "start": "npm-run-all -p watch-css start-js",
-    "build-js": "react-scripts build",
+    "build-js": "vite build",
     "build": "npm-run-all build-css build-js",
-    "eject": "react-scripts eject",
+    "serve": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "homepage": "https://heathervv.github.io",
   "browserslist": [

@@ -50,8 +50,8 @@ const StartBar = ({
                     startbar-button startbar-${className} button
                     ${currentlyActiveApp.indexOf(className) > -1 ? 'active' : ''}
                     ${openApps.indexOf(className) === -1
-                    ? 'closed-program'
-                    : ''
+                      ? 'closed-program'
+                      : ''
                     } ${minimizedApps.indexOf(className) === -1
                       ? 'minimized-program'
                       : ''

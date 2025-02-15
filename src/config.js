@@ -1,16 +1,16 @@
-const bot = require('./images/bot.svg').default;
-const email = require('./images/email.svg').default;
-const briefcase = require('./images/briefcase.svg').default;
-const settings = require('./images/settings.svg').default;
-const moon = require('./images/moon.svg').default;
-const backgroundClassic = require('./images/backgrounds/classic.jpg');
-const backgroundXp = require('./images/backgrounds/xp.jpg');
-const backgroundNasa = require('./images/backgrounds/nasa.jpg');
-const backgroundClouds = require('./images/backgrounds/clouds.jpg');
-const backgroundLogo = require('./images/backgrounds/logo.jpg');
-const backgroundVaporwave = require('./images/backgrounds/vaporwave.jpg');
+import bot from './images/bot.svg';
+import email from './images/email.svg';
+import briefcase from './images/briefcase.svg';
+import settings from './images/settings.svg';
+import moon from './images/moon.svg';
+import backgroundClassic from './images/backgrounds/classic.jpg';
+import backgroundXp from './images/backgrounds/xp.jpg';
+import backgroundNasa from './images/backgrounds/nasa.jpg';
+import backgroundClouds from './images/backgrounds/clouds.jpg';
+import backgroundLogo from './images/backgrounds/logo.jpg';
+import backgroundVaporwave from './images/backgrounds/vaporwave.jpg';
 
-const apps = {
+export const apps = {
   messenger: 'Chat',
   work: 'Work',
   contact: 'Contact',
@@ -18,7 +18,7 @@ const apps = {
   settings: 'Settings',
 };
 
-const icons = {
+export const icons = {
   chat: {
     url: bot,
     alt: 'Icon of bot',
@@ -41,16 +41,16 @@ const icons = {
   },
 };
 
-const resumeLink = 'https://standardresume.co/heathervandervecht';
+export const resumeLink = 'https://standardresume.co/heathervandervecht';
 
-const contact = {
+export const contact = {
   content: "Let's chat! It's a pretty safe bet that you're awesome, and I'm always looking to meet awesome people. I'd love to grab a coffee, or even a beer if that's what you're into - just shoot me a message!",
   emailLink: 'mailto:heathervandervecht@gmail.com',
   linkedin: 'https://linkedin.com/in/heathervandervecht',
   github: 'http://github.com/heathervv',
 };
 
-const work = [
+export const work = [
   {
     title: 'Mentoring',
     url: '//www.get-merit.com/p/heather-vandervecht',
@@ -77,9 +77,9 @@ const work = [
   },
 ];
 
-const initialResponse = "Hi there, I'm HeatherBot - the digital version of Heather! Thanks for stopping by for a chat. You can ask me anything using the \"Free type\" button below, but for now I've gone ahead and given you some quick select options to help get you started. Go ahead and ask me something!";
+export const initialResponse = "Hi there, I'm HeatherBot - the digital version of Heather! Thanks for stopping by for a chat. You can ask me anything using the \"Free type\" button below, but for now I've gone ahead and given you some quick select options to help get you started. Go ahead and ask me something!";
 
-const changeInputResponse = {
+export const changeInputResponse = {
   free: 'Feel free to ask me whatever you want. 🚀',
   options: 'A little guidance never hurt anybody. 🔮',
 };
@@ -114,19 +114,9 @@ const systemSettingsBackground = [
 
 const systemSettingsTheme = ['Light', 'Dark'];
 
-const API = 'https://portfolio-chatbot-server.vercel.app/api/message';
-
-module.exports = {
-  apps,
-  icons,
-  resumeLink,
-  contact,
-  work,
-  initialResponse,
-  changeInputResponse,
-  systemSettings: {
-    background: systemSettingsBackground,
-    theme: systemSettingsTheme,
-  },
-  API,
+export const systemSettings = {
+  background: systemSettingsBackground,
+  theme: systemSettingsTheme,
 };
+
+export const API = 'https://portfolio-chatbot-server.vercel.app/api/message';
