@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import Axios from 'axios';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Draggable from 'react-draggable';
+import { v4 as uuidv4 } from 'uuid';
 import {
   apps,
   icons,
@@ -53,14 +54,14 @@ const Messenger = ({
 
   // This is the final frontier. All message-based functions end with a call to this one
   // It updates the local array with whatever argument was passed to it
-  const updateHistory = (message, user, bot = false) => {
-    setChatHistory((prevChatHistory) => ([...prevChatHistory, { user, message, bot }]));
+  const updateHistory = (message, id, user, bot = false) => {
+    setChatHistory((prevChatHistory) => ([...prevChatHistory, { user, id, message, bot }]));
   };
 
   useEffect(() => {
     // First message doesn't come from bot so we can introduce the app to the user
     setTimeout(() => {
-      updateHistory(initialResponse, botName, true);
+      updateHistory(initialResponse, uuidv4(), botName, true);
       setIsTyping(false);
       setCuratedOptions({
         ...curatedOptions,
@@ -85,7 +86,7 @@ const Messenger = ({
       delay += i > 0 ? Math.floor(Math.random() * 2000) + 1000 : 0;
 
       setTimeout(() => {
-        updateHistory(chatbotMessages[i], botName, true);
+        updateHistory(chatbotMessages[i], uuidv4(), botName, true);
 
         // If we're on the last response, trigger next step
         if (i === chatbotMessages.length - 1) {
@@ -105,7 +106,7 @@ const Messenger = ({
 
   // This method listens to any failed response from the bot
   const handleError = () => {
-    updateHistory('Sorry, you\'ve found a flaw in my code. I\'ll take this opportunity to grow!', botName, true);
+    updateHistory('Sorry, you\'ve found a flaw in my code. I\'ll take this opportunity to grow!', uuidv4(), botName, true);
     setIsTyping(false);
   };
 
@@ -114,7 +115,7 @@ const Messenger = ({
       const message = directValue || inputValue;
 
       // Pass user message into state
-      updateHistory(message, username);
+      updateHistory(message, uuidv4(), username);
 
       // Send user message to analytics
       window.dataLayer.push({ event: 'dialogflow', message });
@@ -131,7 +132,7 @@ const Messenger = ({
 
   // Toggle for user to use preselected messages or type their own to the bot
   const changeInput = (option) => {
-    updateHistory(changeInputResponse[option], botName, true);
+    updateHistory(changeInputResponse[option], uuidv4(), botName, true);
 
     setCuratedOptions({
       ...curatedOptions,
@@ -166,17 +167,17 @@ const Messenger = ({
         <div className="messages content" ref={messages}>
           <TransitionGroup>
             {
-                chatHistory.map((item) => (
-                  <CSSTransition key={item.message} timeout={500} classNames="message">
-                    <Message
-                      key={item.message}
-                      type={item.bot ? 'sent' : 'received'}
-                      user={item.user}
-                      content={item.message}
-                    />
-                  </CSSTransition>
-                ))
-              }
+              chatHistory.map((item) => (
+                <CSSTransition key={item.id} timeout={500} classNames="message">
+                  <Message
+                    key={item.id}
+                    type={item.bot ? 'sent' : 'received'}
+                    user={item.user}
+                    content={item.message}
+                  />
+                </CSSTransition>
+              ))
+            }
           </TransitionGroup>
         </div>
 
@@ -185,34 +186,34 @@ const Messenger = ({
         <div className={`userInput ${isTyping ? 'hidden' : ''}`}>
           <div className="field">
             {
-                curatedOptions.visible ? (
-                  <div className="buttonWrapper">
-                    <div>
-                      {
-                        curatedOptions.links.map((link) => (
-                          <button
-                            key={link.replace(/\s+/g, '').toLowerCase()}
-                            type="button"
-                            className="button-medium"
-                            onClick={() => sendMessage(null, link)}
-                          >
-                            {link}
-                          </button>
-                        ))
-                      }
-                    </div>
+              curatedOptions.visible ? (
+                <div className="buttonWrapper">
+                  <div>
+                    {
+                      curatedOptions.links.map((link) => (
+                        <button
+                          key={link.replace(/\s+/g, '').toLowerCase()}
+                          type="button"
+                          className="button-medium"
+                          onClick={() => sendMessage(null, link)}
+                        >
+                          {link}
+                        </button>
+                      ))
+                    }
                   </div>
-                ) : (
-                  <input
-                    type="text"
-                    id="messageField"
-                    autoFocus
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyPress={sendMessage}
-                  />
-                )
-              }
+                </div>
+              ) : (
+                <input
+                  type="text"
+                  id="messageField"
+                  autoFocus
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={sendMessage}
+                />
+              )
+            }
           </div>
           <button
             type="button"
@@ -220,12 +221,12 @@ const Messenger = ({
             className="button-medium option-toggle"
           >
             {
-                curatedOptions.visible ? (
-                  'Free type'
-                ) : (
-                  'Curated'
-                )
-              }
+              curatedOptions.visible ? (
+                'Free type'
+              ) : (
+                'Curated'
+              )
+            }
           </button>
         </div>
       </div>
@@ -234,9 +235,9 @@ const Messenger = ({
 };
 
 Messenger.defaultProps = {
-  updateActiveApp: () => {},
-  closeApp: () => {},
-  updateStartbar: () => {},
+  updateActiveApp: () => { },
+  closeApp: () => { },
+  updateStartbar: () => { },
   openApps: [],
   minimizedApps: [],
   currentlyActiveApp: '',
