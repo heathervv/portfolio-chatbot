@@ -60,21 +60,21 @@ export interface ChatApiData {
 
 export type UIEventLike = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | null;
 
-export type UpdateActiveApp = (event: UIEventLike, component: string) => void;
-export type CloseApp = (event: UIEventLike, component: string) => void;
-export type UpdateStartbar = (component: string, minimizeWindow?: boolean) => void;
+export type UpdateActiveApp = (event: UIEventLike, component: AppWindowId) => void;
+export type CloseApp = (event: UIEventLike, component: AppWindowId) => void;
+export type UpdateStartbar = (component: AppWindowId, minimizeWindow?: boolean) => void;
 
 export interface WindowControlProps {
   updateActiveApp: UpdateActiveApp;
   closeApp: CloseApp;
   updateStartbar: UpdateStartbar;
-  openApps: string[];
-  minimizedApps: string[];
-  currentlyActiveApp: string;
-  previouslyActiveApp: string;
+  openApps: AppWindowId[];
+  minimizedApps: AppWindowId[];
+  currentlyActiveApp: AppWindowId | '';
+  previouslyActiveApp: AppWindowId | '';
 }
 
-export interface ProgramProps extends WindowControlProps {
+export interface ProgramProps extends Partial<WindowControlProps> {
   programName: string;
   programIcon: string;
   children: ReactNode;

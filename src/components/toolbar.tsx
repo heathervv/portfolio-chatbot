@@ -1,12 +1,13 @@
 import type { MouseEvent } from 'react';
+import type { AppWindowId } from '../types/app';
 import '../css/toolbar.css';
 
 interface ToolbarProps {
   image?: string;
   title?: string;
-  closeApp?: (event: MouseEvent<HTMLButtonElement>, component: string) => void;
-  component?: string;
-  updateStartbar?: (component: string, minimizeWindow?: boolean) => void;
+  closeApp?: (event: MouseEvent<HTMLButtonElement>, component: AppWindowId) => void;
+  component?: AppWindowId;
+  updateStartbar?: (component: AppWindowId, minimizeWindow?: boolean) => void;
   notificationStyle?: boolean;
 }
 
@@ -14,7 +15,7 @@ const Toolbar = ({
   image = '',
   title = '',
   closeApp = () => {},
-  component = '',
+  component = 'chat',
   updateStartbar = () => {},
   notificationStyle = false,
 }: ToolbarProps) => (
