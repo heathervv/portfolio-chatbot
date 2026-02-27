@@ -1,3 +1,11 @@
+import type {
+  AppsByConfigKey,
+  ContactConfig,
+  IconsByWindowId,
+  SystemSettingsConfig,
+  WorkItem,
+} from './types/app';
+
 import bot from './images/bot.svg';
 import email from './images/email.svg';
 import briefcase from './images/briefcase.svg';
@@ -10,7 +18,7 @@ import backgroundClouds from './images/backgrounds/clouds.jpg';
 import backgroundLogo from './images/backgrounds/logo.jpg';
 import backgroundVaporwave from './images/backgrounds/vaporwave.jpg';
 
-export const apps = {
+export const apps: AppsByConfigKey = {
   messenger: 'Chat',
   work: 'Work',
   contact: 'Contact',
@@ -18,7 +26,7 @@ export const apps = {
   settings: 'Settings',
 };
 
-export const icons = {
+export const icons: IconsByWindowId = {
   chat: {
     url: bot,
     alt: 'Icon of bot',
@@ -43,14 +51,14 @@ export const icons = {
 
 export const resumeLink = 'https://standardresume.co/heathervandervecht';
 
-export const contact = {
+export const contact: ContactConfig = {
   content: "Let's chat! It's a pretty safe bet that you're awesome, and I'm always looking to meet awesome people. I'd love to grab a coffee, or even a beer if that's what you're into - just shoot me a message!",
   emailLink: 'mailto:heathervandervecht@gmail.com',
   linkedin: 'https://linkedin.com/in/heathervandervecht',
   github: 'http://github.com/heathervv',
 };
 
-export const work = [
+export const work: WorkItem[] = [
   {
     title: 'Mentoring',
     url: '//www.get-merit.com/p/heather-vandervecht',
@@ -79,13 +87,16 @@ export const work = [
 
 export const initialResponse = "Hi there, I'm HeatherBot - the digital version of Heather! Thanks for stopping by for a chat. You can ask me anything using the \"Free type\" button below, but for now I've gone ahead and given you some quick select options to help get you started. Go ahead and ask me something!";
 
-export const changeInputResponse = {
+export const changeInputResponse: Record<'free' | 'options', string> = {
   free: 'Feel free to ask me whatever you want. 🚀',
   options: 'A little guidance never hurt anybody. 🔮',
 };
 
-// TODO: update URLs to be correct
 const systemSettingsBackground = [
+  {
+    name: 'Nasa',
+    url: backgroundNasa,
+  },
   {
     name: 'Classic',
     url: backgroundClassic,
@@ -93,10 +104,6 @@ const systemSettingsBackground = [
   {
     name: 'XP',
     url: backgroundXp,
-  },
-  {
-    name: 'Nasa',
-    url: backgroundNasa,
   },
   {
     name: 'Clouds',
@@ -112,11 +119,11 @@ const systemSettingsBackground = [
   },
 ];
 
-const systemSettingsTheme = ['Light', 'Dark'];
+const systemSettingsTheme = ['Light', 'Dark'] as const;
 
-export const systemSettings = {
+export const systemSettings: SystemSettingsConfig = {
   background: systemSettingsBackground,
-  theme: systemSettingsTheme,
+  theme: [...systemSettingsTheme],
 };
 
 export const API = 'https://portfolio-chatbot-server.vercel.app/api/message';

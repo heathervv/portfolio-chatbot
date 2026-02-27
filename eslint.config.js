@@ -1,4 +1,5 @@
 const js = require('@eslint/js');
+const tsParser = require('@typescript-eslint/parser');
 const react = require('eslint-plugin-react');
 const reactHooks = require('eslint-plugin-react-hooks');
 const jsxA11y = require('eslint-plugin-jsx-a11y');
@@ -11,6 +12,7 @@ module.exports = [
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
+      parser: tsParser,
       ecmaVersion: 'latest',
       sourceType: 'module',
       parserOptions: {
@@ -42,9 +44,16 @@ module.exports = [
       ...jsxA11y.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
       'react-hooks/purity': 'off',
-      'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+      'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.tsx'] }],
       'react/forbid-prop-types': [1, { forbid: [] }],
       'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
+    },
+  },
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      'no-undef': 'off',
+      'no-unused-vars': 'off',
     },
   },
 ];
