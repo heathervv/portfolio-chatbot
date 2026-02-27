@@ -17,21 +17,25 @@ import ShutDown from './components/shutDown';
 import Screensaver from './components/screensaver';
 
 import type {
-  ActiveSystemSettings,
   AppWindowId,
+  CloseApp,
+  UIEventLike,
+  UpdateActiveApp,
+  UpdateStartbar,
   SystemBackground,
   SystemTheme,
+  WindowControlProps,
+  ActiveSystemSettings,
 } from './types/app';
 
 import resume from './images/resume.svg';
 
 import './css/theme.css';
 
-const programComponents: Record<Exclude<AppWindowId, 'shutdown'>, ComponentType<any>> = {
+const programComponents: Record<Exclude<AppWindowId, 'shutdown' | 'settings'>, ComponentType<WindowControlProps>> = {
   chat: Messenger,
   work: Work,
   contact: Contact,
-  settings: Settings,
 };
 
 const getDefaultBackground = (): SystemBackground => systemConfig.background[0];
@@ -68,22 +72,6 @@ const App = () => {
     return defaultTheme;
   };
 
-  const openInNewTab = (elem: string) => {
-    const win = window.open(elem, '_blank');
-
-    if (win) {
-      win.focus();
-    }
-  };
-
-  const linkClickListener = (event: Event) => {
-    const target = event.target as HTMLElement | null;
-
-    if (target?.tagName === 'A') {
-      openInNewTab((target as HTMLAnchorElement).href);
-    }
-  };
-
   const [shutDown, setShutDown] = useState(false);
   const [openApps, setOpenApps] = useState<AppWindowId[]>(['chat']);
   const [minimizedApps, setMinimizedApps] = useState<AppWindowId[]>([]);
@@ -96,6 +84,22 @@ const App = () => {
   });
 
   useEffect(() => {
+    const openInNewTab = (elem: string) => {
+      const win = window.open(elem, '_blank');
+
+      if (win) {
+        win.focus();
+      }
+    };
+
+    const linkClickListener = (event: Event) => {
+      const target = event.target as HTMLElement | null;
+
+      if (target?.tagName === 'A') {
+        openInNewTab((target as HTMLAnchorElement).href);
+      }
+    };
+
     document.addEventListener('click', linkClickListener, false);
 
     const legacyDocument = document as Document & {
@@ -116,9 +120,9 @@ const App = () => {
   };
 
   const updateActiveApp = (
-    event: ReactMouseEvent<HTMLElement> | null,
+    event: UIEventLike,
     component: AppWindowId,
-  ) => {
+  ): ReturnType<UpdateActiveApp> => {
     if (event) {
       event.preventDefault();
     }
@@ -156,9 +160,9 @@ const App = () => {
   };
 
   const closeApp = (
-    event: ReactMouseEvent<HTMLElement> | null,
+    event: UIEventLike,
     component: AppWindowId,
-  ) => {
+  ): ReturnType<CloseApp> => {
     if (event) {
       event.preventDefault();
     }
@@ -166,7 +170,7 @@ const App = () => {
     setOpenApps((prev) => prev.filter((app) => app !== component));
   };
 
-  const updateStartbar = (component: AppWindowId, minimizeWindow?: boolean) => {
+  const updateStartbar = (component: AppWindowId, minimizeWindow?: boolean): ReturnType<UpdateStartbar> => {
     const updatedMinimizedApps = [...minimizedApps];
 
     if (minimizeWindow) {
@@ -247,7 +251,7 @@ const App = () => {
       </div>
 
       {Object.keys(programComponents).map((program) => {
-        const programId = program as Exclude<AppWindowId, 'shutdown'>;
+        const programId = program as Exclude<AppWindowId, 'shutdown' | 'settings'>;
 
         if (
           openApps.indexOf(programId) === -1
@@ -268,11 +272,22 @@ const App = () => {
             minimizedApps={minimizedApps}
             currentlyActiveApp={currentlyActiveApp}
             previouslyActiveApp={previouslyActiveApp}
-            activeSystemSettings={systemSettings}
-            changeSystemSettings={changeSystemSettings}
           />
         );
       })}
+      {(openApps.indexOf('settings') !== -1 || minimizedApps.indexOf('settings') !== -1) && (
+      <Settings
+        updateActiveApp={updateActiveApp}
+        closeApp={closeApp}
+        updateStartbar={updateStartbar}
+        openApps={openApps}
+        minimizedApps={minimizedApps}
+        currentlyActiveApp={currentlyActiveApp}
+        previouslyActiveApp={previouslyActiveApp}
+        activeSystemSettings={systemSettings}
+        changeSystemSettings={changeSystemSettings}
+      />
+      )}
 
       <StartBar
         currentlyActiveApp={currentlyActiveApp}

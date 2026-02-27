@@ -1,9 +1,5 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-autofocus */
-/* Event handler added to div for delight, not actual functionality */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useEffect, useRef, useState } from 'react';
-import type { ChangeEvent, KeyboardEvent } from 'react';
+import type { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
 import axios from 'axios';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Draggable from 'react-draggable';
@@ -150,6 +146,17 @@ const Messenger = ({
     }
   };
 
+  const activateProgram = (event: MouseEvent<HTMLDivElement> | null = null) => {
+    updateActiveApp(event, messenger);
+  };
+
+  const onProgramKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      activateProgram();
+    }
+  };
+
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -177,8 +184,11 @@ const Messenger = ({
               ${currentlyActiveApp === messenger ? 'active' : ''}
               ${previouslyActiveApp === messenger ? 'previous-active' : ''}
             `}
-        onClick={(event) => updateActiveApp(event, messenger)}
+        onClick={activateProgram}
+        onKeyDown={onProgramKeyDown}
         data-view={dataView}
+        role="button"
+        tabIndex={0}
       >
         <Toolbar
           closeApp={closeApp}

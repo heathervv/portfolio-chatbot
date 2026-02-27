@@ -1,14 +1,9 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* Event handler added to div for delight, not actual functionality */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import Draggable from 'react-draggable';
+import type { KeyboardEvent } from 'react';
 
 import type {
   AppWindowId,
-  CloseApp,
   ProgramProps,
-  UpdateActiveApp,
-  UpdateStartbar,
 } from '../types/app';
 
 import Toolbar from './toolbar';
@@ -30,6 +25,13 @@ const Program = ({
   children,
 }: ProgramProps) => {
   const programId = programName.toLowerCase() as AppWindowId;
+  const activateProgram = () => updateActiveApp(null, programId);
+  const onProgramKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      activateProgram();
+    }
+  };
 
   return (
     <Draggable
@@ -42,7 +44,10 @@ const Program = ({
       <div
         className={`${programId} program txt-file ${currentlyActiveApp === programId ? 'active' : ''} ${previouslyActiveApp === programId ? 'previous-active' : ''} ${notificationStyle ? 'notification' : ''} ${systemStyle ? 'system' : ''}`}
         data-view={openApps.indexOf(programId) === -1 || minimizedApps.indexOf(programId) !== -1 ? 'closed' : ''}
-        onClick={() => updateActiveApp(null, programId)}
+        onClick={activateProgram}
+        onKeyDown={onProgramKeyDown}
+        role="button"
+        tabIndex={0}
       >
         <Toolbar
           closeApp={closeApp}
