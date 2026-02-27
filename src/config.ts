@@ -60,11 +60,6 @@ export const contact: ContactConfig = {
 
 export const work: WorkItem[] = [
   {
-    title: 'Mentoring',
-    url: '//www.get-merit.com/p/heather-vandervecht',
-    copy: 'Realizing that I\'ve been working in tech for over a decade, I wanted to help the next generation of developers and creative thinkers, so I started offering free mentorship sessions. If you\'re interested, feel free to drop some time in my calendar.',
-  },
-  {
     title: 'Dialogue',
     url: '//dialogue.co/en/',
     copy: 'Currently at Dialogue, I\'m the tech lead and staff engineer for a team under the client stream. Like most product companies, what I\'m working on can change quickly, so if you\'re curious to hear more about what I do here, shoot me an email!',
