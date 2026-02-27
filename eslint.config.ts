@@ -1,17 +1,17 @@
-const js = require('@eslint/js');
-const tsParser = require('@typescript-eslint/parser');
-const tsPlugin = require('@typescript-eslint/eslint-plugin');
-const react = require('eslint-plugin-react');
-const reactHooks = require('eslint-plugin-react-hooks');
-const jsxA11y = require('eslint-plugin-jsx-a11y');
+import js from '@eslint/js';
+import tsParser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 
-module.exports = [
+export default [
   {
     ignores: ['build/**', 'dist/**', 'node_modules/**', '**/*.d.ts'],
   },
   js.configs.recommended,
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 'latest',
@@ -47,7 +47,7 @@ module.exports = [
       ...tsPlugin.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
       'react-hooks/purity': 'off',
-      'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.tsx'] }],
+      'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
       'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
     },
   },
@@ -59,4 +59,10 @@ module.exports = [
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
-];
+  {
+    files: ['src/components/messenger.tsx'],
+    rules: {
+      'jsx-a11y/no-autofocus': 'off',
+    },
+  },
+] as const;
