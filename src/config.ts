@@ -14,6 +14,7 @@ import moon from './images/moon.svg';
 import backgroundClassic from './images/backgrounds/classic.jpg';
 import backgroundXp from './images/backgrounds/xp.jpg';
 import backgroundNasa from './images/backgrounds/nasa.jpg';
+import backgroundGoodbyeMoon from './images/backgrounds/goodbye-moon.jpg';
 import backgroundClouds from './images/backgrounds/clouds.jpg';
 import backgroundLogo from './images/backgrounds/logo.jpg';
 import backgroundVaporwave from './images/backgrounds/vaporwave.jpg';
@@ -88,6 +89,10 @@ export const changeInputResponse: Record<'free' | 'options', string> = {
 };
 
 const systemSettingsBackground = [
+  {
+    name: 'Goodbye Moon',
+    url: backgroundGoodbyeMoon,
+  },
   {
     name: 'Nasa',
     url: backgroundNasa,
